@@ -1,0 +1,231 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+@{
+    ViewBag.Title = "RefundRequest";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"></script>
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+</head>
+<h2 style="text-align:center">Refund Requests</h2>
+<main class="col-md-9 ms-sm-auto common col-lg-10 px-md-4">
+    <div>
+        <span>Start Date :</span> <input type="date" id="StartDate" name="start" />
+        <span>End Date :</span> <input type="date" id="EndDate"name="end" />
+    </div>
+    <table id="example" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SellerFullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BuyerFullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RejectionReason)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MobileNo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmailId)
+                </th>
+
+                @*<th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Total)
+                </th>
+
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.admins)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellerFullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BuyerFullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RejectionReason)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MobileNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmailId)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+
+                    <td>
+                        <button class=" response ">
+                            <a class="btn hvr-hover SweetDelete" href="#" data-id="@item.OrderCode">Refund</a>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</main>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/Buyer_js/SweetAlert.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        $(".SweetDelete").click(function () {
+
+            var OrderNo = $(this).attr("data-id");
+
+            swal({
+                title: "Do you want to Pay?",
+                buttons: true,
+                dangerMode: true,
+            })
+
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Admin/RefundToBuyer/",
+                            data: { "orderno": OrderNo },
+                            success: function (Status) {
+                                if (Status.data == "success") {
+                                    window.location.href = "/Admin/RefundRequest/";
+
+                                }
+                            }
+
+
+                        });
+
+                    }
+
+                    else {
+                        window.location.href = "/Admin/RefundRequest/";
+                    }
+                });
+
+        });
+
+
+    });
+
+
+
+</script>
+@section scripts{
+
+    <script src="//code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#example').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'Export'
+                ]
+            });
+        });
+        $(document).ready(function () {
+            $("#EndDate").change(function () {
+             
+                var startdate = $("#StartDate").val();
+                var enddate = $(this).val();
+               
+                $.ajax({
+                    type: 'GET',
+                    datatype: JSON,
+
+                    url: '/Admin/FilterForRefundRequests',
+                    data: { 'enddate': enddate, 'startdate': startdate },
+
+
+                    success: function (data) {
+                        $('#example tbody').empty();
+                        $.each(data, function (i, item) {
+                            var Ord = item.OrderCode;
+                            var rows = "<tr>" +
+                                "<td>" + item.SellerFullName + "</td>" +
+                                "<td>" + item.OrderCode + "</td>" +
+                                "<td>" + item.BuyerFullName + "</td>" +
+                                "<td>" + item.RejectionReason + "</td>" +
+                                "<td>" + item.MobileNo + "</td>" +
+                                "<td>" + item.EmailId + "</td>" +
+                                "<td>" + item.Total + "</td>" +
+                                /*"<td>  <a class='SweetDelete' onclick=sweetalert('" + Ord + "')  data-id'" + Ord + "'>Refund</a> + </td>" */
+                                "<td>  <input type=button value=Refund onclick=sweetalert('" + Ord + "')  data-id='" + Ord + "'class=SweetDelete>  </td>" 
+                                "</tr>";
+
+                            $('#example tbody').append(rows);
+                        });
+                    },
+                    error: function (data) { alert(data.responseText); }
+                }
+
+
+
+                )
+            });
+        });
+        function sweetalert(OrderNo) {
+           // var OrderNo = $(this).attr("data-id");
+
+            swal({
+                title: "Do you want to Pay?",
+                buttons: true,
+                dangerMode: true,
+            })
+
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Admin/RefundToBuyer/",
+                            data: { "orderno": OrderNo },
+                            success: function (Status) {
+                                if (Status.data == "success") {
+                                    window.location.href = "/Admin/RefundRequest/";
+
+                                }
+                            }
+
+
+                        });
+
+                    }
+
+                    else {
+                        window.location.href = "/Admin/RefundRequest/";
+                    }
+                });
+        }
+
+    </script>
+}

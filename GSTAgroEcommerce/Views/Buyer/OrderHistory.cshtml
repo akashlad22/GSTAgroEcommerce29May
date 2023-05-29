@@ -1,0 +1,163 @@
+﻿@model AgroEcommerceLibrary.Buyer.Buyer
+
+@{
+    ViewBag.Title = "OrderHistory";
+    Layout = "~/Views/Shared/Buyer_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("OrderHistory", "Buyer", FormMethod.Get))
+{
+    if (Session["BuyerCode"] != null)
+    {
+       
+        <div class="products-box" style="padding-bottom:0px;margin:-50px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12"> 
+                        <div class="special-menu text-center">
+                            <div class="selectSection button-group filter-button-group">
+                                <button class="js-click">
+                                    @*<a class="js-click" href="@Url.Action("SideBarShop","Buyer", new { id = "" })" style="color:white;">All</a>*@
+                                    <a href="@Url.Action("OrderHistory", new { id="null"})"  style="color:white;">All Orders</a>
+                                </button>
+
+                                @foreach (var item in Model.Statuslst)
+                                {
+
+                                    <button>
+                                        @*<a onclick="" class="js-click" href="@Url.Action("SideBarShop", new { id = item.CategoryId })" data-id="@item.CategoryId" style="color:white;">@item.CategoryName</a>*@
+                                        <a href="@Url.Action("OrderHistory", new { id=@item.StatusId})" data-id="@item.StatusId" style="color:white;">@item.Status</a>
+
+                                    </button>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        if (Model.Users.Count() == 0)
+        {
+            <h1 style="text-align:center;">No Record Found</h1>
+        }
+        else
+        {
+            <table class="table" style="margin-top:20px">
+
+                <tr>
+
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.OrderNo)
+                        </th>*@
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.MainImage)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.ProductQuantity)
+                        </th>*@
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.DeliveryAddress)
+                        </th>*@
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProcessDate)
+                    </th>
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.ExpectedDeliveryDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Total)
+                    </th>
+
+                    <th></th>
+                </tr>
+
+
+                @foreach (var item in Model.Users)
+                {
+                    <tr>
+
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.OrderNo)
+                            </td>*@
+
+                        <td>
+                            @*@Html.DisplayFor(modelItem => @item.ProductImage)*@
+
+
+                            <img src="~/Content/Images/Product/@item.MainImage" style="width:150px;height:150px;" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)<br />
+                            @Html.DisplayNameFor(model => model.ProductQuantity) &nbsp;:&nbsp;
+                            @Html.DisplayFor(modelItem => item.ProductQuantity)<br />
+                            @*@Html.DisplayFor(modelItem => item.ProductWeight)<br />*@
+                            @Html.DisplayFor(modelItem => item.ManufacturerName)
+
+                        </td>
+
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.DeliveryAddress)
+                            </td>*@
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.date)
+                        </td>
+
+                        @if (item.Status == "Cancelled")
+                        {
+                            <td>
+                                <del> @Html.DisplayFor(modelItem => item.DeliveryDate)</del>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DeliveryDate)
+                            </td>
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Total)
+                        </td>
+
+                        <td>
+                            @*@Html.ActionLink("Track", "TrachOrder", new { OrderNo = item.OrderNo })*@
+                            <button type="button" class="btn btn-success response">
+                                @Html.ActionLink("Track", "TrackOrder", new { OrderCode = item.OrderCode })
+
+                            </button>
+
+                        </td>
+                    </tr>
+
+
+                }
+            </table>
+        }
+    }
+    else
+    {
+        Response.Redirect("Account/Login");
+    }
+    @section scripts{
+        @Scripts.Render("~/bundles/jqueryval")
+
+    }
+}

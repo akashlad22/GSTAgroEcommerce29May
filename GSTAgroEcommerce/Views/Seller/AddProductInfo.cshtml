@@ -1,0 +1,428 @@
+﻿@model AgroEcommerceLibrary.Seller.Seller
+
+@{
+    ViewBag.Title = "AddProductInfo";
+    Layout = "~/Views/Shared/Seller_Layout.cshtml";
+}
+<head>
+    @*<link href="~/Content/Seller_css/multistep.css" rel="stylesheet" />
+        <script src="~/Scripts/Seller_js/multistep.js"></script>*@
+
+    <style>
+        .Clsdisable {
+            display: none;
+        }
+    </style>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $("#CategoryName").change(function () {
+                var id = $(this).val();
+
+                $("#subcategory1").empty();
+                $.get("/Seller/BindSubCategory1", { CategoryCode: id }, function (data) {
+                    var v = "<option>--Select--</option>";
+                    $.each(data, function (i, v1) {
+                        v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                    });
+                    $("#subcategory1").html(v);
+                });
+                $("#subcategory1").change(function () {
+                    var id = $(this).val();
+
+                    $("#subcategory2").empty();
+                    $.get("/Seller/BindSubCategory2", { SubCategory1Code: id }, function (data) {
+                        var v = "<option>--Select--</option>";
+                        $.each(data, function (i, v1) {
+                            v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                        });
+                        $("#subcategory2").html(v);
+                    });
+                });
+                $(".ProductCode").click(function () {
+                    var id = $("#subcategory2").val();
+                    var PCode = $(".ProductName").val();
+
+                    $.get("/Seller/ProductCode", { "SubCategory2Code": id, "ProductName": PCode }, function (data) {
+                        alert(data.data);
+                        $(".ProductCode").val(data.data);
+
+                    });
+                })
+                $(".Seasonable").on("change", function () {
+                    var id = $("#IsProductSeasonable").val();
+
+                    if (id == "No") {
+                        $(".Season").addClass("Clsdisable");
+
+                    }
+                    if (id == "Yes") {
+                        $(".Season").removeClass("Clsdisable");
+
+                    }
+
+                })
+                $(".Expirable").on("change", function () {
+                    var id = $("#IsProductExpirable").val();
+
+                    if (id == "No") {
+                        $(".ExpiryDuration").addClass("Clsdisable");
+
+                    }
+                    if (id == "Yes") {
+                        $(".ExpiryDuration").removeClass("Clsdisable");
+
+                    }
+
+
+                })
+            });
+        });
+
+
+    </script>
+
+</head>
+
+
+
+@using (Html.BeginForm("AddProductInfo", "Seller", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="right_col" role="main">
+        <div class="row shadow-lg p-3 mb-5 bg-white rounded">
+            <div>
+                <div class="col-md-6">
+                    <div>
+                        @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "col-form-label label-align" })<span class="required">*</span>
+                        @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="col-md-11">
+                        @Html.DropDownListFor(model => model.CategoryName, new SelectList(ViewBag.Category, "Value", "Text"), "--Select--", new { @class = "form-control " })
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" id="" name="Add Sub Category" style="border-radius:50%" class="btn btn-success AddCatagory"> <strong>&#x2B;</strong></button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        @Html.LabelFor(model => model.SubCategory1Name, htmlAttributes: new { @class = "col-form-label  label-align" })<span class="required">*</span>
+                        @Html.ValidationMessageFor(model => model.SubCategory1Code, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="col-md-11">
+                        <select id="subcategory1" name="SubCategory1Code" class="form-control" required></select>
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" id="add" name="Add Sub Category" style="border-radius:50%" class="btn btn-success response AddSubCatagory1"> <strong>&#x2B;</strong></button>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div>
+                        @Html.LabelFor(model => model.SubCategory2Name, htmlAttributes: new { @class = "col-form-label  label-align" })<span class="required">*</span>
+                        @Html.ValidationMessageFor(model => model.SubCategory2Code, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="col-md-11">
+                        <select id="subcategory2" name="SubCategory2Code" class="form-control" required></select>
+
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" id="add" name="Add Sub Category" style="border-radius:50%" class="btn btn-success response AddSubCatagory2"> <strong>&#x2B;</strong></button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "col-form-label  label-align " })<span class="required">*</span>
+                    @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+
+                    @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control ProductName" } })
+
+                </div>
+
+            </div>
+            <div class="col-md-12" style="height:200px">
+                <br />
+                <div class="col-md-3 ">
+                    @Html.LabelFor(model => model.MainImage, htmlAttributes: new { @class = "col-form-label  label-align" })<span class="required">*</span>
+                    <img id="Img" src="" alt="Photo" width="110" height="120" style="border:1px;margin-top:10px;margin-left:20px;" class="rounded-circle" />
+                    <input type="file" id="MainImage" name="MainImage" onchange="document.getElementById('Img').src = window.URL.createObjectURL(this.files[0])" required />
+                    <span>@ViewBag.Errormsg</span>
+                    @Html.ValidationMessageFor(model => model.MainImage, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Image1, htmlAttributes: new { @class = "col-form-label  label-align" })<span class="required">*</span>
+
+
+                    <img id="Img1" src="" alt="Photo" width="110" height="120" style="border:1px;margin-top:10px;margin-left:20px;" class="rounded-circle" />
+                    <input type="file" id="Image1" name="Image1" onchange="document.getElementById('Img1').src = window.URL.createObjectURL(this.files[0])" required />
+                    @Html.ValidationMessageFor(model => model.Image1, "", new { @class = "text-danger" })
+
+                    <span>@ViewBag.Errormsg</span>
+
+
+
+                </div>
+
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Image2, htmlAttributes: new { @class = "col-form-label  label-align" })<span class="required">*</span>
+
+                    <img id="Img2" src="" alt="Photo" width="110" height="120" style="border:1px;margin-top:10px;margin-left:20px;" class="rounded-circle" />
+                    <input type="file" id="Image2" name="Image2" onchange="document.getElementById('Img2').src = window.URL.createObjectURL(this.files[0])" required />
+                    @Html.ValidationMessageFor(model => model.Image2, "", new { @class = "text-danger" })
+
+                    <span>@ViewBag.Errormsg</span>
+
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Image3, htmlAttributes: new { @class = "col-form-label  label-align" })<span class="required">*</span>
+
+                    <img id="Img3" src="" alt="Photo" width="110" height="120" style="border:1px;margin-top:10px;margin-left:20px;" class="rounded-circle" />
+                    <input type="file" id="Image3" name="Image3" onchange="document.getElementById('Img3').src = window.URL.createObjectURL(this.files[0])" required />
+                    @Html.ValidationMessageFor(model => model.Image3, "", new { @class = "text-danger" })
+
+                    <span>@ViewBag.Errormsg</span>
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.ManufacturerName, htmlAttributes: new { @class = "col-form-label  label-align" })
+                <span class="required">*</span>
+                @Html.ValidationMessageFor(model => model.ManufacturerName, "", new { @class = "text-danger" })
+
+                @Html.EditorFor(model => model.ManufacturerName, new { htmlAttributes = new { @class = "form-control" } })
+
+
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-form-label label-align" })<span class="required">*</span>
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                <div>
+                    <textarea id="Description" name="Description" rows="3" class="form-control" placeholder="Description In Points" required></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.CurrentStock, htmlAttributes: new { @class = "col-form-label  label-align" })
+                <span class="required">*</span>
+                @Html.ValidationMessageFor(model => model.CurrentStock, "", new { @class = "text-danger" })
+
+                @Html.EditorFor(model => model.CurrentStock, new { htmlAttributes = new { @class = "form-control" } })
+
+
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.MinimumStock, htmlAttributes: new { @class = "col-form-label  label-align" })
+                <span class="required">*</span>
+                @Html.ValidationMessageFor(model => model.MinimumStock, "", new { @class = "text-danger" })
+
+                @Html.EditorFor(model => model.MinimumStock, new { htmlAttributes = new { @class = "form-control" } })
+
+                @*<input type="text" id="MinimumStock" name="MinimumStock" class="form-control" required="required">*@
+
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.MaximumStock, htmlAttributes: new { @class = "col-form-label  label-align" })
+                <span class="required">*</span>
+                @Html.ValidationMessageFor(model => model.MaximumStock, "", new { @class = "text-danger" })
+
+                @Html.EditorFor(model => model.MaximumStock, new { htmlAttributes = new { @class = "form-control" } })
+
+
+
+            </div>
+            @*<div class="col-md-6">
+                @Html.LabelFor(model => model.MinRangeDiscount, htmlAttributes: new { @class = "col-form-label  label-align" })
+                <span class="required">*</span>
+                @Html.ValidationMessageFor(model => model.MinRangeDiscount, "", new { @class = "text-danger" })
+
+                @Html.EditorFor(model => model.MinRangeDiscount, new { htmlAttributes = new { @class = "form-control" } })
+
+
+            </div>*@
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.ProductWeight, htmlAttributes: new { @class = "col-form-label  label-align" })
+                <span class="required">*</span>
+                @Html.ValidationMessageFor(model => model.ProductWeight, "", new { @class = "text-danger" })
+
+                @Html.EditorFor(model => model.ProductWeight, new { htmlAttributes = new { @class = "form-control" } })
+
+
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.MRP, htmlAttributes: new { @class = "col-form-label  label-align" })
+                <span class="required">*</span>
+                @Html.ValidationMessageFor(model => model.MRP, "", new { @class = "text-danger" })
+
+                @Html.EditorFor(model => model.MRP, new { htmlAttributes = new { @class = "form-control" } })
+
+
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "col-form-label  label-align" })
+                <span class="required">*</span>
+                @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+
+                @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })
+
+
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.IsProductReturnable, htmlAttributes: new { @class = "col-form-label  label-align" })
+
+                @Html.ValidationMessageFor(model => model.IsProductReturnable, "", new { @class = "text-danger" })
+
+                @Html.DropDownListFor(model => model.IsProductReturnable,
+                            new SelectList(ViewBag.list), new
+                            { @class = "form-control" })
+
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.IsProductSeasonable, htmlAttributes: new { @class = "col-form-label  label-align" })
+                @Html.ValidationMessageFor(model => model.IsProductSeasonable, "", new { @class = "text-danger" })
+
+                @Html.DropDownListFor(model => model.IsProductSeasonable,
+                            new SelectList(ViewBag.list), new { @class = "form-control Seasonable" })
+
+
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.SeasonName, htmlAttributes: new { @class = "col-form-label  label-align Season" })
+                @Html.ValidationMessageFor(model => model.SeasonName, "", new { @class = "text-danger" })
+
+                @Html.DropDownListFor(model => model.SeasonName,
+                            new SelectList(ViewBag.Season), "---Select---", new { @class = "form-control Season" })
+
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.IsproductExpirable, htmlAttributes: new { @class = "col-form-label  label-align" })
+                @Html.ValidationMessageFor(model => model.IsproductExpirable, "", new { @class = "text-danger" })
+
+                @Html.DropDownListFor(model => model.IsproductExpirable,
+                            new SelectList(ViewBag.list), new { @class = " form-control Expirable" })
+
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.PrductExpiryDuration, htmlAttributes: new { @class = "col-form-label  label-align ExpiryDuration" })
+                @Html.EditorFor(model => model.PrductExpiryDuration, new { htmlAttributes = new { @class = "form-control ExpiryDuration" } })
+                @Html.ValidationMessageFor(model => model.PrductExpiryDuration, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="col-md-12" style="text-align:center;margin-top:30px">
+                <button class="btn btn-primary" formaction="@Url.Action("SellerIndex", "Seller")" type="button">Cancel</button>
+                <input type="submit" value="Save" id="Submit" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+    @*</div>*@
+
+
+}
+<div id="partialModal" class="modal" tabindex="-1" role="dialog" style="position:center">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-image: linear-gradient(to right,#003366,white)">
+                <h3 class="modal-title" style="color: white;  font-size:xx-large">Add Category</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+
+        </div>
+    </div>
+</div>
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".AddCatagory").click(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "/Seller/AddCategory",
+
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                async: true,
+                caches:false,
+                success: function (response) {
+                    $("#partialModal").find(".modal-body").html(response);
+                    $("#partialModal").modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+
+    $(function () {
+        $(".AddSubCatagory1").click(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "/Seller/AddSubCategory1",
+
+               contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal").find(".modal-body").html(response);
+                    $("#partialModal").modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+    $(function () {
+        $(".AddSubCatagory2").click(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "/Seller/AddSubCategory2",
+
+               contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal").find(".modal-body").html(response);
+                    $("#partialModal").modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+</script>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

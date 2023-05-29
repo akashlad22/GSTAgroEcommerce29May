@@ -1,0 +1,302 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+@{
+    ViewBag.Title = "ProductGrid";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+
+<head>
+
+
+    <script src="https: //cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"></script>
+    @*<script src="https: //cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"></script>*@
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    @*https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css
+    https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css*@
+
+    @*<script src="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"></script>
+        <script src=" https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css"></script>*@
+
+    <style>
+        .imgid {
+            height: 150px;
+            width: 150px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: flex;
+           
+        }
+    </style>
+
+</head>
+<main class="col-md-9 ms-sm-auto common col-lg-10 px-md-4">
+    <div style="width:100%;height:60px; padding-top:20px;">
+        <div style="width:20%;float:left">
+
+
+
+            @*<p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>*@
+        </div>
+        <div>
+
+
+            <div class="dropdown" style="float:right;width:80%">
+
+                <div>
+                    @Html.DisplayNameFor(model => model.CategoryName)&nbsp;&nbsp;
+                    @*@Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-6" })&nbsp;*@
+                    @Html.DropDownListFor(model => model.CategoryName, new SelectList(ViewBag.Category, "Value", "Text"),"Select")
+
+                    @*<div class="col-md-10">*@
+                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <div class="dropdown">
+                    @Html.DisplayNameFor(model => model.SellerName)&nbsp;&nbsp;
+                    @*@Html.LabelFor(model => model.SellerName, htmlAttributes: new { @class = "control-label col-md-6" })*@
+                    @Html.DropDownListFor(model => model.SellerName, new SelectList(ViewBag.Seller, "Value", "Text"),"Select")
+
+
+
+                    @*<div class="col-md-10">
+                        </div>*@
+                </div>
+            </div>
+        </div>
+
+        @*<select id="SearchDropdownlist" name="SearchDropdownlist"class="form-control select2 select2-hidden-accessible"style="width:100%;"tabindex="-1"aria-hidden="true"onchange="getdata()">*@
+
+        @*</select>*@
+
+    </div>
+
+    <div class="">
+
+
+
+        <table class="table table table-striped table-bordered" id="Mytable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MainImage)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CategoryName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ManufacturerName)
+                    </th>
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.admins)
+                {
+                    <tr>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.MainImage)*@
+                            <img src="~/Content/Images/Product/@item.MainImage" class=imgid>
+                            @*<img src="~/Content/Images/Product/Chana Dal.jpg" />*@
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ManufacturerName)
+                        </td>
+                        <td>
+                           @* @Html.ActionLink("Details", "Details", new { id = item.AdminId, @class="btn btn-info" })*@
+                            <button> Details</button>
+                        </td>
+                        @* @Html.ActionLink("Edit", "Edit", new { id = item.AdminId }) |*@
+
+                        @* @Html.ActionLink("Delete", "Delete", new { id = item.AdminId })*@
+                        <!--</td>-->
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        @*@section Scripts {*@
+        @*<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />*@
+        <!--<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />-->
+        @*<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>*@
+        <!--<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>-->
+        @*<script src=" https://code.jquery.com/jquery-3.5.1.js"></script>*@
+        @*<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+            <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>*@
+        @*https://code.jquery.com/jquery-3.5.1.js*@
+
+
+
+
+
+
+
+        <script src=" https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+        <script>
+            $(document).ready(function () {
+                $('#Mytable').DataTable()
+                //    "columns": [
+                //        { "name": "engine" }
+                //    ]
+                //});
+                //dom: 'Bfrtip',
+                //buttons: [
+                //    'copy', 'csv', 'excel', 'pdf', 'print'
+                //]
+
+            });
+
+            //$(document).ready(function () {
+            //    $("#CategoryName").change(function () {
+            //        var CateId = $(this).val();
+            //        $.get("/Admin/SearchByCategory", { CategoryId })
+            //    });
+            //})
+
+            $(document).ready(function () {
+                $("#SellerName").change(function () {
+                    $.ajax({
+                        type: 'GET',
+                        datatype: JSON,
+                        url: '/Admin/SearchBySeller',
+                        data: { 'SellerId': $(this).val() },
+                        success: function (data) {
+                            $('#Mytable tbody').empty();
+                            $.each(data, function (i, item) {
+                                var Photo = item.MainImage;
+                                var rows = "<tr>" +
+                                    "<td>" + "<img src='" + Photo + "' class=imgid >" + "</td>" +
+                                    "<td>" + item.FullName + "</td>" +
+                                    "<td>" + item.ProductName + "</td>" +
+                                    "<td>" + item.Quantity + "</td>" +
+                                    "<td>" + item.CategoryName + "</td>" +
+                                    "<td>" + item.Status + "</td>" +
+                                    "<td>" + item.ManufacturerName + "</td>" +
+                                    "<td>" + '<input type ="button"   value="Details" />' + "</td>" +
+                                  
+                                    "</tr>";
+                                $('#Mytable tbody').append(rows);
+                            });
+                        },
+                        error: function (data) { alert(data.responseText); }
+                    }
+
+
+
+                    )
+                });
+            });
+
+            $(document).ready(function () {
+                $("#CategoryName").change(function () {
+                    var id = $(this).val();
+                    /*alert(id);*/
+                    $.ajax({
+                        type: 'GET',
+                        datatype: JSON,
+                       
+                        url: '/Admin/SearchByCategory',
+                        data: { 'CategoryId': id },
+                       
+                        
+                        success: function (data) {
+                            $('#Mytable tbody').empty();
+                            $.each(data, function (i, item) {
+                                var Photo = item.MainImage;
+                                var rows = "<tr>" +
+                                    "<td>" + "<img src='" + Photo + "' class=imgid >" + "</td>" +
+                                    "<td>" + item.FullName + "</td>" +
+                                    "<td>" + item.ProductName + "</td>" +
+                                   
+                                    "<td>" + item.Quantity + "</td>" +
+                                    "<td>" + item.CategoryName + "</td>" +
+                                    "<td>" + item.Status + "</td>" +
+                                    "<td>" + item.ManufacturerName + "</td>" +
+                                  "<td>" + '<input type ="button"   value="Details" />' + "</td>" +
+                                    "</tr>";
+                               
+                                $('#Mytable tbody').append(rows);
+                            });
+                        },
+                        error: function (data) { alert(data.responseText); }
+                    }
+
+
+
+                    )
+                });
+            });
+
+                                //$(document).ready(function () {
+                                //    $("#CategoryName").change(function () {
+                                //        URL: '/Admin/ProductGrid',
+                                //            data: { 'CategoryId': $(this).val() },
+                                //    })
+
+
+                                //});
+
+        </script>
+    </div>
+
+ </main>

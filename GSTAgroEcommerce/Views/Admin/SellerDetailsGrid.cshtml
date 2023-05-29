@@ -1,0 +1,527 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+@{
+    ViewBag.Title = "Grid";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "DetailSeller";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+<head>
+    <script src="https: //cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"></script>*
+
+
+    @*<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />*@
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />*
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css" />
+
+    @*<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">*@
+
+    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>*@
+    @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous">
+
+        </script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js">
+        </script>
+
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+              rel="stylesheet" />*@
+<link href="~/Content/Admin_css/Toggle-switch.css" rel="stylesheet" />
+    <style>
+        body {
+            text-align: center;
+        }
+
+        /*.toggle {
+            position: relative;
+            display: block;
+            width: 100px;
+            height: 40px;
+            padding: 3px;
+            margin: auto;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .toggle-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .toggle-label {
+            position: relative;
+            display: block;
+            height: inherit;
+            font-size: 12px;
+            background: red;
+            border-radius: inherit;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 3px rgba(0, 0, 0, 0.15);
+        }
+
+            .toggle-label:before,
+            .toggle-label:after {
+                position: absolute;
+                top: 50%;
+                color: black;
+                margin-top: -.5em;
+                line-height: 1;
+            }
+
+            .toggle-label:before {
+                content: attr(data-off);
+                right: 11px;
+                color: #fff;
+                text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+            }
+
+            .toggle-label:after {
+                content: attr(data-on);
+                left: 11px;
+                color: #fff;
+                text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+                opacity: 0;
+            }
+
+        .toggle-input:checked ~ .toggle-label {
+            background: green;
+        }
+
+            .toggle-input:checked ~ .toggle-label:before {
+                opacity: 0;
+            }
+
+            .toggle-input:checked ~ .toggle-label:after {
+                opacity: 1;
+            }
+
+        .toggle-handle {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+            border-radius: 50%;
+        }
+
+            .toggle-handle:before {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin: -6px 0 0 -6px;
+                width: 16px;
+                height: 16px;
+            }
+
+        .toggle-input:checked ~ .toggle-handle {
+            left: 64px;
+            box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+        }*/
+
+        /* Transition*/
+        /*.toggle-label,
+        .toggle-handle {
+            transition: All 0.3s ease;
+            -webkit-transition: All 0.3s ease;
+            -moz-transition: All 0.3s ease;
+            -o-transition: All 0.3s ease;
+        }*/
+
+
+        .middel {
+            text-align: center;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .active {
+            color: green;
+        }
+    </style>
+
+</head>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var Applylist = new Array();
+        $('#btnDelete').click(function () {
+            var selectedApplylist = new Array();
+            var val = [];
+            $("#multiSelect:checked").each(function () {
+                selectedApplylist.push($(this).val());
+
+            });
+            var Applylist = selectedApplylist.toString();
+            $.get("/Admin/Delete", {
+                Applylist: Applylist
+            })
+                .then(function () {
+                    window.location.href = "/Admin/Grid";
+                })
+        });
+    });
+
+
+
+    //$(document).ready(function () {
+    //    i = 0;
+    //    $(".fa-toggle-on").click(function () {
+    //        if (i == 0) {
+    //            $('.inactive').hide();
+    //            $('.active').show();
+    //            i++;
+    //        }
+    //        else if (i == 1) {
+    //            $('.inactive').show();
+    //            $('.active').hide();
+    //            i = 0;
+    //        }
+    //    });
+    //});
+
+
+
+</script>
+
+
+
+@*<p>
+        @Html.ActionLink("Add New Seller", "Registration", "Seller")
+    </p>*@
+<main class="col-md-9 ms-sm-auto common col-lg-14 px-md-8">
+    <div class="row" style="text-align:center">
+        <div style="height:100px;width:160px;background:#666699;color:white;border-radius:20px;box-shadow:5px 10px #888888; ">
+            <h5 style="color:white;margin-top:15px"> Total Sellers </h5>
+
+            <p style="font-size:20px;">
+                @*@ViewBag.Sellers*@
+                @Session["TotalSeller"]
+
+            </p>
+        </div>
+
+        <div style="height:100px;width:160px;background:#666699;color:white;border-radius:20px;box-shadow:5px 10px #888888;margin-left:15px">
+            <h5 style="color:white;margin-top:15px">
+                Active Seller
+            </h5>
+
+            <p style="font-size:20px;">
+                @*@ViewBag.Sellers*@
+                @Session["ActiveSeller"]
+
+            </p>
+        </div>
+        <div style="height:100px;width:160px;background:#666699;color:white;border-radius:20px;box-shadow:5px 10px #888888;margin-left:15px">
+            <h5 style="color:white;margin-top:15px">
+                InActive Seller
+            </h5>
+
+            <p style="font-size:20px;">
+                @*@ViewBag.Sellers*@
+                @Session["InActiveSeller"]
+
+            </p>
+        </div>
+    </div>
+    <br />
+    <div class="row" style="text-align:right;margin-right:20px;">
+
+        <div style="text-align:left" class="col-lg-2">
+            <button type="submit" id="btnDelete" style="border-radius: 15px;margin-left:10px; height: 35px;text-align:left;" value="Delete">Multiple Delete</button>
+        </div>
+        <div style="text-align:right" class="col-lg-10">
+            <button style="border-radius: 10px; height: 35px">
+                @Html.ActionLink("Add New Seller", "Registration", "Seller")
+
+            </button>
+        </div>
+
+    </div>
+
+
+
+</main>
+<br />
+@*<main class="col-md-9 ms-sm-auto common col-lg-12 px-md-8">*@
+@*<button type="submit" id="btnDelete" style="border-radius:15px;" value="Delete">Delete</button>*@
+
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th style="text-align:center">Select</th>
+            <th>
+                @Html.DisplayNameFor(model => model.SellerCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SellerFullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailId)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.MobileNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BusinessName)
+            </th>
+
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Gender)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.HomeAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OfficeAddress)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.GSTIN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.ListUser)
+        {
+            <tr>
+                <td>
+                    @Html.CheckBox("multiSelect", new { id = "multiSelect", @class = "checkbox", Value = item.SellerCode })
+                </td>
+                <td class="SellerCode">
+                    @Html.DisplayFor(modelItem => item.SellerCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SellerFullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailId)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BusinessName)
+                </td>
+
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Gender)
+                    </td>*@
+
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.HomeAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OfficeAddress)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.GSTIN)
+                </td>
+                <td class="statusid" data-id="@item.Status">
+                    @if (item.Status == "Active")
+                    {
+
+
+                        <div class="Active">
+                            <input type="checkbox" class="my" checked data-toggle="toggle" data-on="Active" data-off="InActive" data-onstyle="success" data-offstyle="danger">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="Active">
+                            <input type="checkbox" data-toggle="toggle" data-on="Active" data-off="InActive" data-onstyle="success" data-offstyle="danger">
+                        </div>
+                    }
+
+
+                </td>
+
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { SellerCode = item.SellerCode }) |*@
+
+                    <a class="details" style="font-size:30px;" href="javascript:;" data-id="@item.SellerCode">&#128065;</a>
+                    @*<a href="javascript:void(0);" class="SeekerDetailsPopup" data-id="@Model.SellerCode">Detail</a>*@
+                    @*@Html.ActionLink("Details", "Details", new { id = item.AdminId }) |*@
+
+                    @Html.ActionLink("Delete", "Delete", new { SellerCode = item.SellerCode },
+          new { onclick = "return confirm('Are you sure want to Delete');" })
+
+
+
+                    <div class="middel">
+
+                        @*<i class="fa fa-toggle-on fa-2x active"id="on"style="display:none;"></i>
+                            <i class="fa fa-toggle-on fa-2x fa-rotate-180 inactive"id="off"></i>*@
+                    </div>
+
+                    @*<label class="toggle">
+                            <input class="toggle-input" type="checkbox" />
+                            <span class="toggle-label" data-off="Inactive" data-on="Active"></span>
+                            <span class="toggle-handle"></span>
+                        </label>*@
+
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>
+
+@*</main>*@
+
+<div id="partialModal" class="modal" tabindex="-1" role="dialog" style="position:center">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-image:linear-gradient(#662D8C,#ED1E79)">
+                <h3 class="modal-title" style="color:lightgreen;margin-left:300px">Seller Details</h3>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".details").click(function () {
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id')
+            /* var id = $(this).closest("tr").find("td").eq(0).html();*/
+            $.ajax({
+                type: "GET",
+                url: "/Admin/Detail",
+                data: { SellerCode: id },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal").find(".modal-body").html(response);
+                    $("#partialModal").modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+
+
+    $(function () {
+        $(".Active").click(function () {
+            var $buttonClicked = $(this);
+            // var id = $buttonClicked.attr('data-id')
+            /* var id = $(this).closest("tr").find("td").eq(0).html();*/
+            var parent = $(this).parent().parent();
+            var id = parent.find(".SellerCode").text().trim();
+            var value = parent.find(".statusid").attr("data-id");
+            if (value == "Active") {
+                value = 2
+            } else {
+                value = 1
+            }
+            $.ajax({
+                type: "GET",
+                url: "/Admin/Updateseller",
+                data: { SellerCode: id, statusid: value },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+
+
+</script>
+
+
+<script>
+
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+
+            dom: 'Bfrtip',
+            pagingType: 'full_numbers',
+            button: [
+                'excelHtml5', 'pdfHtml5', 'printHtml5'
+            ],
+            "fnDrawCallback": function () {
+                $(".my").bootstrapToggle();
+            },
+        });
+    });
+    //$(document).ready(function () {
+    //    $('#myTable').DataTable({
+    //        pagingType: 'full_numbers',
+    //    });
+    //});
+</script>
+@*<div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Hire" style="vertical-align:middle;display:none;" class="button" id="btnDelete" />
+    </div>*@
+
+@*<script src="~/Scripts/jquery-3.4.1.js"></script>*@
+
+
+
+@section scripts{
+
+
+    @*<script src="~/Scripts/jquery-3.4.1.js"></script>*@
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+    <script src="~/Scripts/DataTables/dataTables.bootstrap4.min.js"></script>
+
+    @*<script src=" https://code.jquery.com/jquery-3.5.1.js"></script>*@
+
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    @*<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>*@
+    <script src="~/Scripts/DataTables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+
+
+    @*<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>*@
+
+   
+    <script src="~/Scripts/Admin_js/Toggle_Switch.js"></script>
+
+    @*<link href="~/Content/Admin_css/bootstrap.min.css" rel="stylesheet" />*@
+    https://code.jquery.com/jquery-3.5.1.js
+    https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js
+
+
+
+}

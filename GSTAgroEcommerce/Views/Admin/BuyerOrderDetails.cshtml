@@ -1,0 +1,180 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+@{
+    ViewBag.Title = "BuyerOrderDetails";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2 style="text-align:center;">Buyer Order Details</h2>
+
+
+<span>
+    <b>
+        @Html.DisplayNameFor(model => model.BuyerFullName)  :
+    </b>
+</span>
+<span>
+    @ViewBag.buyerfullname
+</span>
+<br />
+@*<span>
+    <b>
+        @Html.DisplayNameFor(model => model.BuyerCode)  :
+    </b>
+</span>
+<span>
+    @ViewBag.buyercode
+</span>*@
+
+<!--<div class="dropdown" style="float:right;width:80%">
+    <div class="dropdown">
+        @Html.DisplayNameFor(model => model.SellerName)&nbsp;&nbsp;-->
+        @*@Html.LabelFor(model => model.SellerName, htmlAttributes: new { @class = "control-label col-md-6" })*@
+        <!--@Html.DropDownListFor(model => model.SellerName, new SelectList(ViewBag.Seller, "Value", "Text"), "Select")-->
+        @*<div class="col-md-10">
+            </div>*@
+    <!--</div>
+</div>-->
+
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductQuantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SellerFullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentMode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+
+
+
+
+            @*<th></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.BuyerOrders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SellerFullName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentMode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransactionId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+
+
+
+
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.AdminId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.AdminId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.AdminId })
+                    </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ]
+
+            });
+        });
+    </script>
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $("#SellerName").change(function () {
+                $.ajax({
+                    type: 'GET',
+                    datatype: JSON,
+                    url: '/Admin/SearchBySeller',
+                    data: { 'SellerId': $(this).val() },
+                    success: function (data) {
+                        $('#Mytable tbody').empty();
+                        $.each(data, function (i, item) {
+                            var Photo = item.MainImage;
+                            var rows = "<tr>" +
+                                "<td>" + "<img src='" + Photo + "' class=imgid >" + "</td>" +
+                                "<td>" + item.ProductName + "</td>" +
+                                "<td>" + item.SellerFullName + "</td>" +
+
+                                "<td>" + item.Quantity + "</td>" +
+                                "<td>" + item.CategoryName + "</td>" +
+                                "<td>" + item.Status + "</td>" +
+                                "<td>" + item.ManufacturerName + "</td>" +
+                                "<td>" + '<input type ="button"   value="Details" />' + "</td>" +
+
+                                "</tr>";
+                            $('#Mytable tbody').append(rows);
+                        });
+                    },
+                    error: function (data) { alert(data.responseText); }
+                }
+
+
+
+                )
+            });
+        });
+    </script>
+}

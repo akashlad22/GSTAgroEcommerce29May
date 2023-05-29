@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="tblGSTAddresses">
+      <EntityTypeMapping TypeName="Model.tblGSTAddress">
+        <MappingFragment StoreEntitySet="tblGSTAddress">
+          <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+          <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+          <ScalarProperty Name="Home" ColumnName="Home" />
+          <ScalarProperty Name="Office" ColumnName="Office" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTAdmins">
+      <EntityTypeMapping TypeName="Model.tblGSTAdmin">
+        <MappingFragment StoreEntitySet="tblGSTAdmin">
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="AdminFullName" ColumnName="AdminFullName" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="AlternateMobileNo" ColumnName="AlternateMobileNo" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTBankDetails">
+      <EntityTypeMapping TypeName="Model.tblGSTBankDetail">
+        <MappingFragment StoreEntitySet="tblGSTBankDetails">
+          <ScalarProperty Name="BankdetailsId" ColumnName="BankdetailsId" />
+          <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+          <ScalarProperty Name="BankHolderName" ColumnName="BankHolderName" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="IFSCCode" ColumnName="IFSCCode" />
+          <ScalarProperty Name="BrachName" ColumnName="BrachName" />
+          <ScalarProperty Name="AccountType" ColumnName="AccountType" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTBuyers">
+      <EntityTypeMapping TypeName="Model.tblGSTBuyer">
+        <MappingFragment StoreEntitySet="tblGSTBuyer">
+          <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+          <ScalarProperty Name="BuyerCode" ColumnName="BuyerCode" />
+          <ScalarProperty Name="BuyerFullName" ColumnName="BuyerFullName" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="AlternateMobileNo" ColumnName="AlternateMobileNo" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="AadhaarNo" ColumnName="AadhaarNo" />
+          <ScalarProperty Name="PanCardNo" ColumnName="PanCardNo" />
+          <ScalarProperty Name="AdharPhoto" ColumnName="AdharPhoto" />
+          <ScalarProperty Name="PanCardPhoto" ColumnName="PanCardPhoto" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTBuyerPayments">
+      <EntityTypeMapping TypeName="Model.tblGSTBuyerPayment">
+        <MappingFragment StoreEntitySet="tblGSTBuyerPayment">
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+          <ScalarProperty Name="BuyerCode" ColumnName="BuyerCode" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTCategories">
+      <EntityTypeMapping TypeName="Model.tblGSTCategory">
+        <MappingFragment StoreEntitySet="tblGSTCategory">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="CategoryCode" ColumnName="CategoryCode" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="RejectionReason" ColumnName="RejectionReason" />
+          <ScalarProperty Name="Commission" ColumnName="Commission" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTCities">
+      <EntityTypeMapping TypeName="Model.tblGSTCity">
+        <MappingFragment StoreEntitySet="tblGSTCity">
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="CityName" ColumnName="CityName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTCountries">
+      <EntityTypeMapping TypeName="Model.tblGSTCountry">
+        <MappingFragment StoreEntitySet="tblGSTCountry">
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+          <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTCouponSettings">
+      <EntityTypeMapping TypeName="Model.tblGSTCouponSetting">
+        <MappingFragment StoreEntitySet="tblGSTCouponSetting">
+          <ScalarProperty Name="CouponId" ColumnName="CouponId" />
+          <ScalarProperty Name="CouponCode" ColumnName="CouponCode" />
+          <ScalarProperty Name="CouponAmount" ColumnName="CouponAmount" />
+          <ScalarProperty Name="CouponRange" ColumnName="CouponRange" />
+          <ScalarProperty Name="ExpiryDays" ColumnName="ExpiryDays" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTGsts">
+      <EntityTypeMapping TypeName="Model.tblGSTGst">
+        <MappingFragment StoreEntitySet="tblGSTGst">
+          <ScalarProperty Name="GSTId" ColumnName="GSTId" />
+          <ScalarProperty Name="CategoryCode" ColumnName="CategoryCode" />
+          <ScalarProperty Name="CGST" ColumnName="CGST" />
+          <ScalarProperty Name="SGST" ColumnName="SGST" />
+          <ScalarProperty Name="UGST" ColumnName="UGST" />
+          <ScalarProperty Name="IGST" ColumnName="IGST" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTOffers">
+      <EntityTypeMapping TypeName="Model.tblGSTOffer">
+        <MappingFragment StoreEntitySet="tblGSTOffer">
+          <ScalarProperty Name="AdminOfferId" ColumnName="AdminOfferId" />
+          <ScalarProperty Name="OfferName" ColumnName="OfferName" />
+          <ScalarProperty Name="Offer_" ColumnName="Offer%" />
+          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+          <ScalarProperty Name="OfferStatusId" ColumnName="OfferStatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTOrders">
+      <EntityTypeMapping TypeName="Model.tblGSTOrder">
+        <MappingFragment StoreEntitySet="tblGSTOrder">
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
+          <ScalarProperty Name="BuyerCode" ColumnName="BuyerCode" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="ProductQuantity" ColumnName="ProductQuantity" />
+          <ScalarProperty Name="AddressStatus" ColumnName="AddressStatus" />
+          <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
+          <ScalarProperty Name="ProcessDate" ColumnName="ProcessDate" />
+          <ScalarProperty Name="ShippingCharges" ColumnName="ShippingCharges" />
+          <ScalarProperty Name="ShareId" ColumnName="ShareId" />
+          <ScalarProperty Name="IsNotify" ColumnName="IsNotify" />
+          <ScalarProperty Name="ExpectedDeliveryDate" ColumnName="ExpectedDeliveryDate" />
+          <ScalarProperty Name="RejectedByUserCode" ColumnName="RejectedByUserCode" />
+          <ScalarProperty Name="RejectionReason" ColumnName="RejectionReason" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTProducts">
+      <EntityTypeMapping TypeName="Model.tblGSTProduct">
+        <MappingFragment StoreEntitySet="tblGSTProduct">
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="CategoryCode" ColumnName="CategoryCode" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="MinRangeDiscount" ColumnName="MinRangeDiscount" />
+          <ScalarProperty Name="MRP" ColumnName="MRP" />
+          <ScalarProperty Name="SellerCode" ColumnName="SellerCode" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="ProductWeight" ColumnName="ProductWeight" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="IsProductReturnable" ColumnName="IsProductReturnable" />
+          <ScalarProperty Name="IsproductExpirable" ColumnName="IsproductExpirable" />
+          <ScalarProperty Name="ProductExpiryDuration" ColumnName="ProductExpiryDuration" />
+          <ScalarProperty Name="IsProductSeasonable" ColumnName="IsProductSeasonable" />
+          <ScalarProperty Name="SeasonName" ColumnName="SeasonName" />
+          <ScalarProperty Name="ProductWeightRange" ColumnName="ProductWeightRange" />
+          <ScalarProperty Name="ProductRegistrationDate" ColumnName="ProductRegistrationDate" />
+          <ScalarProperty Name="ProductApprovalDate" ColumnName="ProductApprovalDate" />
+          <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+          <ScalarProperty Name="MaximumStock" ColumnName="MaximumStock" />
+          <ScalarProperty Name="MinimumStock" ColumnName="MinimumStock" />
+          <ScalarProperty Name="RejectionReasonfromAdmin" ColumnName="RejectionReasonfromAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTProductOffers">
+      <EntityTypeMapping TypeName="Model.tblGSTProductOffer">
+        <MappingFragment StoreEntitySet="tblGSTProductOffer">
+          <ScalarProperty Name="SellerOfferId" ColumnName="SellerOfferId" />
+          <ScalarProperty Name="OfferId" ColumnName="OfferId" />
+          <ScalarProperty Name="ProductCode_SKU_" ColumnName="ProductCode(SKU)" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTRatingandFeedbacks">
+      <EntityTypeMapping TypeName="Model.tblGSTRatingandFeedback">
+        <MappingFragment StoreEntitySet="tblGSTRatingandFeedback">
+          <ScalarProperty Name="ReviewId" ColumnName="ReviewId" />
+          <ScalarProperty Name="BuyerCode" ColumnName="BuyerCode" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="RatingStarNo" ColumnName="RatingStarNo" />
+          <ScalarProperty Name="FeedbackOnProduct" ColumnName="FeedbackOnProduct" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTRewardSettings">
+      <EntityTypeMapping TypeName="Model.tblGSTRewardSetting">
+        <MappingFragment StoreEntitySet="tblGSTRewardSetting">
+          <ScalarProperty Name="RewardId" ColumnName="RewardId" />
+          <ScalarProperty Name="RewardRange" ColumnName="RewardRange" />
+          <ScalarProperty Name="RewardPoint" ColumnName="RewardPoint" />
+          <ScalarProperty Name="RewardConversionRate" ColumnName="RewardConversionRate" />
+          <ScalarProperty Name="PointLimits" ColumnName="PointLimits" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTSellers">
+      <EntityTypeMapping TypeName="Model.tblGSTSeller">
+        <MappingFragment StoreEntitySet="tblGSTSeller">
+          <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+          <ScalarProperty Name="SellerCode" ColumnName="SellerCode" />
+          <ScalarProperty Name="SellerFullName" ColumnName="SellerFullName" />
+          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+          <ScalarProperty Name="BusinessPinCode" ColumnName="BusinessPinCode" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="AlternateMobileNo" ColumnName="AlternateMobileNo" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+          <ScalarProperty Name="RejectionReason" ColumnName="RejectionReason" />
+          <ScalarProperty Name="SellerApprovalDate" ColumnName="SellerApprovalDate" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTStates">
+      <EntityTypeMapping TypeName="Model.tblGSTState">
+        <MappingFragment StoreEntitySet="tblGSTState">
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTStatus">
+      <EntityTypeMapping TypeName="Model.tblGSTStatu">
+        <MappingFragment StoreEntitySet="tblGSTStatus">
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTSubCategory1">
+      <EntityTypeMapping TypeName="Model.tblGSTSubCategory1">
+        <MappingFragment StoreEntitySet="tblGSTSubCategory1">
+          <ScalarProperty Name="SubCategory1Id" ColumnName="SubCategory1Id" />
+          <ScalarProperty Name="SubCategory1Code" ColumnName="SubCategory1Code" />
+          <ScalarProperty Name="SubCatagory1Name" ColumnName="SubCatagory1Name" />
+          <ScalarProperty Name="CategoryCode" ColumnName="CategoryCode" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTSubCategory2">
+      <EntityTypeMapping TypeName="Model.tblGSTSubCategory2">
+        <MappingFragment StoreEntitySet="tblGSTSubCategory2">
+          <ScalarProperty Name="SubCategory2Id" ColumnName="SubCategory2Id" />
+          <ScalarProperty Name="SubCategory2Code" ColumnName="SubCategory2Code" />
+          <ScalarProperty Name="SubCatagory2Name" ColumnName="SubCatagory2Name" />
+          <ScalarProperty Name="SubCategory1Code" ColumnName="SubCategory1Code" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTSubCategory3">
+      <EntityTypeMapping TypeName="Model.tblGSTSubCategory3">
+        <MappingFragment StoreEntitySet="tblGSTSubCategory3">
+          <ScalarProperty Name="SubCategory3Id" ColumnName="SubCategory3Id" />
+          <ScalarProperty Name="SubCategory3Name" ColumnName="SubCategory3Name" />
+          <ScalarProperty Name="SubCatagory3Code" ColumnName="SubCatagory3Code" />
+          <ScalarProperty Name="SubCategory2Code" ColumnName="SubCategory2Code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTWallets">
+      <EntityTypeMapping TypeName="Model.tblGSTWallet">
+        <MappingFragment StoreEntitySet="tblGSTWallet">
+          <ScalarProperty Name="WalletId" ColumnName="WalletId" />
+          <ScalarProperty Name="RewardId" ColumnName="RewardId" />
+          <ScalarProperty Name="BuyerCode" ColumnName="BuyerCode" />
+          <ScalarProperty Name="TotalRewardPoints" ColumnName="TotalRewardPoints" />
+          <ScalarProperty Name="UsedRewardPoints" ColumnName="UsedRewardPoints" />
+          <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
+          <ScalarProperty Name="CouponCode" ColumnName="CouponCode" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="CouponExpDate" ColumnName="CouponExpDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTPolicies">
+      <EntityTypeMapping TypeName="Model.tblGSTPolicy">
+        <MappingFragment StoreEntitySet="tblGSTPolicy">
+          <ScalarProperty Name="PolicyId" ColumnName="PolicyId" />
+          <ScalarProperty Name="PolicyName" ColumnName="PolicyName" />
+          <ScalarProperty Name="PolicyDescriptionPdf" ColumnName="PolicyDescriptionPdf" />
+          <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTProductImages">
+      <EntityTypeMapping TypeName="Model.tblGSTProductImage">
+        <MappingFragment StoreEntitySet="tblGSTProductImage">
+          <ScalarProperty Name="ProductImageId" ColumnName="ProductImageId" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="MainImage" ColumnName="MainImage" />
+          <ScalarProperty Name="Image1" ColumnName="Image1" />
+          <ScalarProperty Name="Image2" ColumnName="Image2" />
+          <ScalarProperty Name="Image3" ColumnName="Image3" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTSellerDocuments">
+      <EntityTypeMapping TypeName="Model.tblGSTSellerDocument">
+        <MappingFragment StoreEntitySet="tblGSTSellerDocument">
+          <ScalarProperty Name="SellerDocumentId" ColumnName="SellerDocumentId" />
+          <ScalarProperty Name="SellerCode" ColumnName="SellerCode" />
+          <ScalarProperty Name="AadharNo" ColumnName="AadharNo" />
+          <ScalarProperty Name="PanCardNo" ColumnName="PanCardNo" />
+          <ScalarProperty Name="AadharImage" ColumnName="AadharImage" />
+          <ScalarProperty Name="PanImage" ColumnName="PanImage" />
+          <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+          <ScalarProperty Name="GSTIN" ColumnName="GSTIN" />
+          <ScalarProperty Name="BusinessPinCode" ColumnName="BusinessPinCode" />
+          <ScalarProperty Name="BusinessAadharNo" ColumnName="BusinessAadharNo" />
+          <ScalarProperty Name="BusinessPanNo" ColumnName="BusinessPanNo" />
+          <ScalarProperty Name="BusinessAdharImage" ColumnName="BusinessAdharImage" />
+          <ScalarProperty Name="BusinessPanImage" ColumnName="BusinessPanImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTSellerPayments">
+      <EntityTypeMapping TypeName="Model.tblGSTSellerPayment">
+        <MappingFragment StoreEntitySet="tblGSTSellerPayment">
+          <ScalarProperty Name="SellerPaymentId" ColumnName="SellerPaymentId" />
+          <ScalarProperty Name="SellerCode" ColumnName="SellerCode" />
+          <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="PaymentDoneFile" ColumnName="PaymentDoneFile" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblGSTShares">
+      <EntityTypeMapping TypeName="Model.tblGSTShare">
+        <MappingFragment StoreEntitySet="tblGSTShare">
+          <ScalarProperty Name="ShareId" ColumnName="ShareId" />
+          <ScalarProperty Name="ShareName" ColumnName="ShareName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SPAgroAdmin" FunctionName="Model.Store.SPAgroAdmin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Model.SPAgroAdmin_Result">
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="AdminFullName" ColumnName="AdminFullName" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="AlternateMobileNo" ColumnName="AlternateMobileNo" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SPAgroBuyer" FunctionName="Model.Store.SPAgroBuyer">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Model.SPAgroBuyer_Result">
+          <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+          <ScalarProperty Name="BuyerCode" ColumnName="BuyerCode" />
+          <ScalarProperty Name="BuyerFullName" ColumnName="BuyerFullName" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="AlternateMobileNo" ColumnName="AlternateMobileNo" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="AadhaarNo" ColumnName="AadhaarNo" />
+          <ScalarProperty Name="PanCardNo" ColumnName="PanCardNo" />
+          <ScalarProperty Name="AdharPhoto" ColumnName="AdharPhoto" />
+          <ScalarProperty Name="PanCardPhoto" ColumnName="PanCardPhoto" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SPAgroSeller" FunctionName="Model.Store.SPAgroSeller">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Model.SPAgroSeller_Result">
+          <ScalarProperty Name="SellerFullName" ColumnName="SellerFullName" />
+          <ScalarProperty Name="SellerCode" ColumnName="SellerCode" />
+          <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

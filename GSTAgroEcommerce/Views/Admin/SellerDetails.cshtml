@@ -1,0 +1,561 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+
+<h2 style="text-align:center;color:palegoldenrod"> Seller Details </h2>
+<hr />
+<div>
+    @*<h4>Admin</h4>*@
+    <div style="text-align:right;margin-right:40px">
+        <span>
+            <b>
+                @Html.DisplayNameFor(model => model.Status) :
+            </b>
+        </span>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>*@
+
+        <span>
+            @Html.DisplayFor(model => model.Status)
+        </span>
+    </div>
+
+    <main class="col-md-9 ms-sm-auto common col-lg-10 px-md-4">
+        <dl class="dl-horizontal">
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.SellerCode)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FullName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EmailId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EmailId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MobileNo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MobileNo)
+                </dd>*@
+
+            <span>
+                <b>
+                    @Html.DisplayNameFor(model => model.SellerCode) :
+                </b>
+            </span>
+
+            <span>
+                @Html.DisplayFor(model => model.SellerCode)
+            </span>
+            <br />
+            <span>
+                <b>
+                    @Html.DisplayNameFor(model => model.SellerFullName) :
+                </b>
+            </span>
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.SellerFullName)
+                </dt>*@
+
+            <span>
+                @Html.DisplayFor(model => model.SellerFullName)
+            </span>
+            <br />
+            <span>
+                <b>
+                    @Html.DisplayNameFor(model => model.BusinessName) :
+                </b>
+            </span>
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.BusinessName)
+                </dt>*@
+
+            <span>
+                @Html.DisplayFor(model => model.BusinessName)
+            </span>
+            <br />
+            <span>
+                <b>
+                    @Html.DisplayNameFor(model => model.MobileNo) :
+                </b>
+            </span>
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.MobileNo)
+                </dt>*@
+
+            <span>
+                @Html.DisplayFor(model => model.MobileNo)
+            </span>
+            <br />
+            <hr />
+            <div class="row">
+                <span class="form-group col-sm-6">
+                    <b>
+                        @Html.DisplayNameFor(model => model.AadharNo)
+                    </b>
+                </span>
+                <span class="form-group col-sm-6">
+                    <b>
+                        @Html.DisplayNameFor(model => model.PanCardNo)
+                    </b>
+                </span>
+            </div>
+
+            <div class="row">
+                <span class="form-group col-sm-6">
+                    @Html.DisplayFor(model => model.AadharNo)
+                </span>
+
+                <span class="form-group col-sm-6">
+                    @Html.DisplayFor(model => model.PanCardNo)
+                </span>
+            </div>
+            <hr />
+
+            <div class="row">
+                <span class="form-group col-sm-6">
+                    <b>
+                        @Html.DisplayNameFor(model => model.AadharImage)
+                    </b>
+                </span>
+
+                <span class="form-group col-sm-6">
+                    <b>
+                        @Html.DisplayNameFor(model => model.PanImage)
+                    </b>
+                </span>
+            </div>
+
+            <div class="row">
+                <span class="form-group col-sm-6">
+                    <img src="~/Content/SellerDoc/@Model.AadharImage" width="180" height="100" />
+                    @*@Html.DisplayFor(model => model.AadharImage)*@
+                </span>
+
+                <span class="form-group col-sm-6">
+                    <img src="~/Content/SellerDoc/@Model.PanImage" width="180" height="100" />
+                    @*@Html.DisplayFor(model => model.AadharImage)*@
+                </span>
+            </div>
+            <hr />
+
+            <div class="row">
+                <span class="form-group col-sm-6">
+                    <b>
+                        @Html.DisplayNameFor(model => model.BusinessAadharNo)
+                    </b>
+                </span>
+
+                <span class="form-group col-sm-6">
+                    <b>
+                        @Html.DisplayNameFor(model => model.BusinessPanNo)
+                    </b>
+                </span>
+            </div>
+
+            <div class="row">
+                <span class="form-group col-sm-6">
+                    @Html.DisplayFor(model => model.BusinessAadharNo)
+                </span>
+
+                <span class="form-group col-sm-6">
+                    @Html.DisplayFor(model => model.BusinessPanNo)
+                </span>
+            </div>
+            <hr />
+
+            <div class="row">
+                <span class="form-group col-sm-6">
+                    <b>
+                        @Html.DisplayNameFor(model => model.BusinessAdharImage)
+                    </b>
+                </span>
+
+                <span class="form-group col-sm-6">
+                    <b>
+                        @Html.DisplayNameFor(model => model.BusinessPanImage)
+                    </b>
+                </span>
+            </div>
+
+            <div class="row">
+                <span class="form-group col-sm-6">
+                    <img src="~/Content/SellerDoc/@Model.BusinessAdharImage" width="180" height="100" />
+                    @*@Html.DisplayFor(model => model.AadharImage)*@
+                </span>
+
+                <span class="form-group col-sm-6">
+                    <img src="~/Content/SellerDoc/@Model.BusinessPanImage" width="180" height="100" />
+                    @*@Html.DisplayFor(model => model.AadharImage)*@
+                </span>
+            </div>
+            <hr />
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.AadharNo)
+                </dt>*@
+
+            @*<span>
+                    @Html.DisplayFor(model => model.AadharNo)
+                </span>*@
+
+
+            @*<span>
+                    <b>
+                        @Html.DisplayNameFor(model => model.AadharImage)
+                    </b>
+                </span>*@
+
+            <!--<span>
+            <img src="~/Content/Images/DocImages/@Model.AadharImage" width="50" height="50" />-->
+            @*@Html.DisplayFor(model => model.AadharImage)*@
+            <!--</span>-->
+            @*<span>
+                    <b>
+                        @Html.DisplayNameFor(model => model.BusinessAadharNo)
+                    </b>
+                </span>*@
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.BusinessAadharNo)
+                </dt>*@
+
+            @*<span>
+                    @Html.DisplayFor(model => model.BusinessAadharNo)
+                </span>*@
+
+            @*<span>
+                    <b>
+                        @Html.DisplayNameFor(model => model.BusinessAdharImage)
+                    </b>
+                </span>*@
+
+            <!--<span>
+            <img src="~/Content/Images/DocImages/@Model.BusinessAdharImage" width="50" height="50" />-->
+            @*@Html.DisplayFor(model => model.AadharImage)*@
+            <!--</span>-->
+            @*<dd>
+                    @Html.DisplayFor(model => model.BusinessAdharImage)
+                </dd>*@
+
+            @*<span>
+                    <b>
+                        @Html.DisplayNameFor(model => model.PanCardNo)
+                    </b>
+                </span>*@
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.PanCardNo)
+                </dt>*@
+
+            @*<span>
+                    @Html.DisplayFor(model => model.PanCardNo)
+                </span>*@
+
+
+
+
+            @*<span>
+                    <b>
+                        @Html.DisplayNameFor(model => model.PanImage)
+                    </b>
+                </span>*@
+
+            <!--<span>
+            <img src="~/Content/Images/DocImages/@Model.PanImage" width="50" height="50" />-->
+            @*@Html.DisplayFor(model => model.AadharImage)*@
+            <!--</span>-->
+            @*<span>
+                    @Html.DisplayFor(model => model.PanImage)
+                </span>*@
+
+            @*<span>
+                    <b>
+                        @Html.DisplayNameFor(model => model.BusinessPanNo)
+                    </b>
+                </span>*@
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.BusinessPanNo)
+                </dt>*@
+
+            @*<span>
+                    @Html.DisplayFor(model => model.BusinessPanNo)
+                </span>*@
+
+            @*<span>
+                    <b>
+                        @Html.DisplayNameFor(model => model.BusinessPanImage)
+                    </b>
+                </span>*@
+
+            <!--<span>
+            <img src="~/Content/Images/DocImages/@Model.BusinessPanImage" width="50" height="50" />-->
+            @*@Html.DisplayFor(model => model.AadharImage)*@
+            <!--</span>-->
+            @*<dd>
+                    @Html.DisplayFor(model => model.BusinessPanImage)
+                </dd>*@
+
+
+
+
+            <span>
+                <b>
+                    @Html.DisplayNameFor(model => model.GSTIN) :
+                </b>
+            </span>
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.GSTIN)
+                </dt>*@
+
+            <span>
+                @Html.DisplayFor(model => model.GSTIN)
+            </span>
+            <br />
+            <!--<span>
+                <b>
+                    @Html.DisplayNameFor(model => model.Status)
+                </b>
+            </span>-->
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>*@
+
+            <!--<span>
+                @Html.DisplayFor(model => model.Status)
+            </span>-->
+            <br />
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.ProductCode)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ProductCode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ProductName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.OfficeAddress)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OfficeAddress)
+                </dd>*@ 
+
+        </dl>
+    </main>
+</div>
+<br />
+<hr />
+<div style="text-align:right">
+    <button type="button" class="btn response" style="background-color: green">
+        @Html.ActionLink("Close", "PendingSellerList", new { @class = "btn-xs" }, new { @style="color:white;"})
+    </button>
+    @*<input type="submit" formaction="@Url.Action("PendingProductList","Admin")" value="Close" />*@
+</div>
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.AdminId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
+
+
+
+<!--<div>
+    <h4>Admin</h4>
+    <hr />
+    <main class="col-md-9 ms-sm-auto common col-lg-10 px-md-4">
+        <dl class="dl-horizontal">-->
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FullName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EmailId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EmailId)
+                </dd>
+
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.SellerId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SellerId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.SellerCode)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SellerCode)
+                </dd>*@
+
+
+
+            @*<dt>
+                    @Html.DisplayNameFor(model => model.BusinessName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BusinessName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AadharNo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AadharNo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AadharImage)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AadharImage)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BusinessAadharNo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BusinessAadharNo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BusinessAdharImage)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BusinessAdharImage)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BusinessPanNo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BusinessPanNo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.BusinessPanImage)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.BusinessPanImage)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PanCardNo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PanCardNo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PanImage)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PanImage)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GSTIN)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.GSTIN)
+                </dd>*@
+
+
+            <!--<dt>
+                @Html.DisplayNameFor(model => model.ProductCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SellerFullName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SellerFullName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MobileNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MobileNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OfficeAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OfficeAddress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+
+        </dl>
+    </main>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AdminId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>-->

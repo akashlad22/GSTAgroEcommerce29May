@@ -1,0 +1,53 @@
+﻿
+@model AgroEcommerceLibrary.Buyer.Buyer
+@using (Html.BeginForm("Feedback", "Buyer", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @*<div class="form-horizontal">
+        <h4>Seller</h4>
+        <hr />*@
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <head>
+        <style>
+            #span1, #span2, #span3, #span4, #span5 {
+                font-size: 40px;
+                color:gold;
+            }
+        </style>
+    </head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <h3>Please enter your comment</h3>
+    <div>
+        <textarea rows="6" cols="50" name="FeedbackOnProduct" id="ProductFeedback"></textarea>
+    </div>
+    <div onclick="fixrating()">
+        <span onclick="fix(1)" class="glyphicon glyphicon-star-empty" id="span1"></span>
+        <span onclick="fix(2)" class="glyphicon glyphicon-star-empty" id="span2"></span>
+        <span onclick="fix(3)" class="glyphicon glyphicon-star-empty" id="span3"></span>
+        <span onclick="fix(4)" class="glyphicon glyphicon-star-empty" id="span4"></span>
+        <span onclick="fix(5)" class="glyphicon glyphicon-star-empty" id="span5"></span>
+    </div>
+    <input type="hidden" id="ratings" name="ratings" />
+    <input type="submit" value="Submit" />
+}
+<script>function fix(rating) {
+        $("#ratings").val(rating);
+        for (i = 1; i <= rating; i++) {
+            $("#span" + i).attr("class", "glyphicon glyphicon-star")
+        }
+    }
+    function fixrating() {
+        var rating = parseInt($("#ratings").val());
+        for (i = 1; i <= rating; i++) {
+            $("#span" + i).attr("class", "glyphicon glyphicon-star")
+        }
+        if (rating < 5) {
+
+            for (i = rating + 1; i <= 5; i++) {
+                $("#span" + i).attr("class", "glyphicon glyphicon-star-empty")
+            }
+        }
+    }</script>

@@ -1,0 +1,328 @@
+﻿@model AgroEcommerceLibrary.Buyer.Buyer
+
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/Buyer_Layout.cshtml";
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/SweetAlert2Js/sweetalert2@11.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#CountryId").change(function () {
+            var cid = $(this).val();
+            $("#StateId").empty();
+            $.get("GetState/BuyerController", { countryid: cid }, function (data) {
+                var v = "<option>--select--</option>";
+                $.each(data, function (i, v1) {
+
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#StateId").html(v);
+            });
+        });
+        //});
+        //$(document).ready(function () {
+        $("#StateId").change(function () {
+            var sid = $(this).val();
+            $("#CityId").empty();
+            $.get("Get_City/BuyerController", { stateid: sid }, function (data) {
+                var v = "<option></option>";
+                $.each(data, function (i, v1) {
+                    v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                });
+                $("#CityId").html(v);
+            });
+        });
+    });
+    $(document).ready(function () {
+        $("#CityId").change(function () {
+            var ddtext = $("#CityId option:selected").text();
+            $("#hidden1").val(ddtext)
+        });
+    });
+</script>
+<style>
+    .form-group {
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    .alert {
+        font-size: larger;
+        color: red;
+    }
+
+    .form-horizontal {
+        padding: 20px;
+    }
+
+
+    .frmregistartion {
+        background-image: url('../../content/images/product/images 12345.jpg');
+        /* background-image: url('../../content/images/product/e-commerce-cart.jpg');*/
+        background-size: 23000px;
+    }
+
+    /*.mainreg {
+
+        background-size: cover;
+    }*/
+
+    #btnCancel {
+        background-color: mediumseagreen;
+        padding: 5px;
+    }
+
+    .buttonsReg {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        margin-left: 400px;
+        margin-right: 800px;
+    }
+</style>
+
+
+@using (Html.BeginForm("Registration", "Buyer", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @if (TempData["EmailError"] != null)
+        {
+            <div class="alert">
+
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                @TempData["EmailError"]
+            </div>
+        }
+    </div>
+
+    <div class="mainreg">
+        <div class="col-lg-10 frmregistartion" style="margin-left:100px;margin-top:50px;margin-bottom:50px;border:2px groove gray;border-radius:20px;">
+            <div class="form-horizontal">
+                <h4>Registration From</h4>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="col-lg-12 row">
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.BuyerFullName, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-6 col-sm-6 " style="background-color:transparent;">
+                            @Html.EditorFor(model => model.BuyerFullName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your FullName" } })
+                            <h2 id="name"></h2>
+                            @Html.ValidationMessageFor(model => model.BuyerFullName, "", new { @class = "text-danger", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-4 col-sm-4 ">
+                            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your DOB" } })
+                            @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 row">
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6 col-sm-6 ">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Password" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="item form-group col-lg-6">
+                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "col-form-label col-md-3 col-sm-3 label-align required" })
+                        <div id="gender" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <input type="radio" name="gender" value="male" class="join-btn flat"> &nbsp; Male &nbsp;
+                            </label>
+                            <label style="margin-left:10px" class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <input type="radio" name="gender" value="female" class="join-btn flat"> Female
+                            </label>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="col-lg-12 row">
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6 col-sm-6 ">
+                            @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your EmailId" } })
+                            @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.AadhaarNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6 col-sm-6 ">
+                            @Html.EditorFor(model => model.AadhaarNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your AadhaarNo" } })
+                            @Html.ValidationMessageFor(model => model.AadhaarNo, "", new { @class = "text-danger", required = "required" })
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-12 row">
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.MobileNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6 col-sm-6 ">
+                            @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your MobileNo" } })
+                            @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger", required = "required" })
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.PanCardNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6 col-sm-6  ">
+                            @Html.EditorFor(model => model.PanCardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your PanCardNo" } })
+                            @Html.ValidationMessageFor(model => model.PanCardNo, "", new { @class = "text-danger", required = "required" })
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12 row">
+
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.AlternaterMobileNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-6 col-sm-6 ">
+                            @Html.EditorFor(model => model.AlternaterMobileNo, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your AlternaterMobileNo" } })
+                            @Html.ValidationMessageFor(model => model.AlternaterMobileNo, "", new { @class = "text-danger", required = "required" })
+                        </div>
+
+                    </div>
+                    <div class="item form-group col-lg-6 ">
+                        @Html.LabelFor(model => model.AadhaarPhoto, "AadharPhoto", htmlAttributes: new { @class = "col-form-label col-md-3 col-sm-3 label-align required" })
+                        <div class="col-md-6 col-sm-6">
+                            <button class="mybtn" style="positon:center;">
+                                <i class="fa fa-upload"></i>Aadhaar Upload
+                                <input type="file" id="AadhaarP" name="AadhaarP" onchange="document.getElementById('AU').src = window.URL.createObjectURL(this.files[0])" />
+                                @Html.ValidationMessageFor(model => model.AadhaarPhoto, "", new { @class = "text-danger" })
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="col-lg-12 row">
+                   
+
+
+
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.CountryId)
+                        <div>
+                            @Html.DropDownListFor(model => model.CountryId, new SelectList(ViewBag.country, "Value", "Text "), " ", new { @class = "control-label col-md-6" })
+                            @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="item form-group col-lg-6">
+                        @Html.LabelFor(model => model.PanCardPhoto, htmlAttributes: new { @class = "col-form-label col-md-3 col-sm-3 label-align required" })
+                        <div class="col-md-6 col-sm-6">
+                            <button class="mybtn" style="positon:center;">
+                                <i class="fa fa-upload"></i>PanCard Upload
+
+
+                                <input type="file" id="PancardP" name="PancardP" onchange="document.getElementById('PU').src = window.URL.createObjectURL(this.files[0])" />
+                                @Html.ValidationMessageFor(model => model.PanCardPhoto, "", new { @class = "text-danger" })
+                            </button>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-lg-12 row">
+                        <div class="form-group col-lg-6">
+                            @Html.LabelFor(model => model.StateName, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="col-md-6">
+                                <select id="StateId">--Select State--</select>
+                                @Html.ValidationMessageFor(model => model.StateName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        @*<div class="form-group col-6">
+                @Html.LabelFor(model => model.StateId)
+                <div>
+
+                    <select id="StateId" name="StateId" class="form-control"> --select--</select>
+                    @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+
+                </div>
+            </div>*@
+
+                        @*<div class="form-group col-lg-6">
+                @Html.LabelFor(model => model.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-6 col-sm-6 ">
+                    @Html.EditorFor(model => model.Salary, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Salary" } })
+                    @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                </div>
+            </div*@
+                    </div>
+                    <div class="col-lg-12 row">
+
+                        <div class="form-group col-6">
+                            @Html.LabelFor(model => model.CityId, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div  class="col-md-6">
+                                <select id="CityId" name="CityId" class="form-control" required> --select--</select>
+                                @Html.ValidationMessageFor(model => model.CityId, "", new { @class = "text-danger" })
+                                <input type="hidden" name="hidden1" id="hidden1" value="" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <div class="form-group buttonsReg">
+                <div class="col-md-offset-2 col-md-10 " style="text-align:center">
+                    <input type="submit" id="btnSave" value="Save" class="btn btn-success" />
+                </div>
+                <div class="col-md-offset-2 col-md-10 " style="text-align:center">
+                    <a id="btnCancel" href="/Account/Login">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/SweetAlert2Js/sweetalert2@11.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#btnSave").click(function () {
+
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Fill up !!!',
+                        showConfirmButton: false,
+                        timer: 8000
+                    })
+
+
+
+                }
+                            });
+                        });*@
+
+
+
+
+
+}
+    }

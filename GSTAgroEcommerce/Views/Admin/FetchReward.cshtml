@@ -1,0 +1,318 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+@{
+    ViewBag.Title = "FetchReward";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+<head>
+    <style>
+        /*.dataTables_filter {*/
+        /* float: right;*/
+        /*margin-left: 50%;
+                padding: 20px;
+            }*/
+
+        /*label {
+                padding: 10px;
+            }*/
+        .dataTables_length {
+            display: none;
+        }
+    </style>
+</head>
+<link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+
+
+<p style="margin-top:20px;margin-left:100px;">
+    <button class="ManageReward" style="border: 1px solid black; width: 100px; border-radius: 0px; background: #003366 ;color:white; height: 60px">
+        Add Reward
+    </button>
+
+</p>
+<main class="col-md-9 ms-sm-auto common col-lg-10 px-md-4">
+    <table class="table table-bordered table-hover table-responsive" style="text-align:center;" id="example">
+        <thead>
+            <tr>
+
+                <th style="display:none;"></th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.RewardPoints)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RewardConversionRate)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.RewardRange)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.PointLimits)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+
+
+                <th> Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.admins)
+            {
+                <tr>
+                    <td class="CouponCode" style="display:none">
+                        @Html.DisplayFor(modelItem => item.RewardId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RewardPoints)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RewardConversionRate)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RewardRange)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PointLimits)
+                    </td>
+                    <td class="statusid" data-id="@item.Status">
+                        @*  @Html.DisplayFor(model => item.Status)*@
+                        @if (item.Status == "Active")
+                        {
+                            <div class="Active" value="2">
+                                <input class="myInputCheckBoxClass" type="checkbox" checked data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="Active" value="1">
+                                <input class="myInputCheckBoxClass" type="checkbox" data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger">
+                            </div>
+                        }
+                    </td>
+
+                    <td>
+                        @*@Html.ActionLink("Edit", "EditReward", new { rewardRange = item.RewardRange })*@
+                        <a class="Edit" href="javascript:;" style="font-size:30px;color:green" data-id="@item.RewardId">&#128397;</a>
+
+                        @*@Html.ActionLink("Details", "DetailsCoupon", new { CouponCode = item.CouponCode },new{ @class="Details" }) |*@
+                        <a class="Details" href="javascript:;" style="font-size: 30px; color: grey; margin-left: 10px" data-id="@item.RewardId"> &#128065;</a>
+
+                        <a href=" @Url.Action("DeleteReward", "Admin", new { RewardId = item.RewardId })" style="font-size: 30px; color: red; margin-left: 10px">&#128465;</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
+</main>
+
+
+<div id="partialModal" class="modal" tabindex="-1" role="dialog" style="position:center">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-image:linear-gradient(#662D8C,#ED1E79)">
+                <h3 class="modal-title" style="color:lightgreen;margin-left:300px">Reward Details</h3>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="partialModal1" class="modal" tabindex="-1" role="dialog" style="position:center">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-image:linear-gradient(#662D8C,#ED1E79)">
+                <h3 class="modal-title" style="color:lightgreen;margin-left:300px">Edit Reward</h3>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="partialModal2" class="modal" tabindex="-1" role="dialog" style="position:center">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-image:linear-gradient(#662D8C,#ED1E79)">
+                <h3 class="modal-title" style="color:lightgreen;margin-left:300px">Manage Reward</h3>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@*<script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>*@
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+
+
+        $('#example').on('draw.dt', function () {
+
+            $('.myInputCheckBoxClass').each(function () {
+
+                if ($(this).prop('checked') == true) {
+                    $(this).bootstrapToggle('on');
+                } else {
+                    $(this).bootstrapToggle('off');
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $(".ManageReward").click(function () {
+            var $buttonClicked = $(this);
+
+            $.ajax({
+                type: "GET",
+                url: "/Admin/Managereward",
+                // data: { ProductCode: id },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal2").find(".modal-body").html(response);
+                    $("#partialModal2").modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+    });
+</script>
+<script type="text/javascript">
+
+    $(".Details").click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id')
+        // sessionStorage.setItem("ProductGrid", "Pending");
+        /* var id = $(this).closest("tr").find("td").eq(0).html();*/
+        $.ajax({
+            type: "GET",
+            url: "/Admin/DetailsReward",
+            data: { RewardId: id },
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+                $("#partialModal").find(".modal-body").html(response);
+                $("#partialModal").modal('show');
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    });
+
+</script>
+<script type="text/javascript">
+
+    $(".Edit").click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id')
+
+        $.ajax({
+            type: "GET",
+            url: "/Admin/EditReward",
+            data: { RewardId: id },
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+                $("#partialModal1").find(".modal-body").html(response);
+                $("#partialModal1").modal('show');
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    });
+
+</script>
+
+<script>
+    //var table;
+
+    //$(document).ready(function () {
+
+    //    table = $('#example')
+    //        .on('draw.dt', function () {
+    //            yourFunction();
+    //        })
+
+    //        .DataTable();
+    //});
+    //var yourFunction = function () {
+
+    //    $('#example Active').off('change')
+
+        $(".Active").click(function () {
+
+            var parent = $(this).parent().parent();
+            var id = parent.find(".CouponCode").text().trim();
+            var value = parent.find(".statusid").attr("data-id");
+            if (value == "Active") {
+                value = 2
+            }
+            else {
+                value = 1
+            }
+            $.ajax({
+                type: "GET",
+                url: "/Admin/ChangeRewardStatus",
+                data: { Reawardid: id, Statusid: value },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+    
+   // }
+
+
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+
+}
+
+
+

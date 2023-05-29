@@ -1,0 +1,223 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+@{
+    ViewBag.Title = "PaymentHistory";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css"></script>
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+</head>
+<h2 style="text-align:center">Payment History</h2>
+<main class="col-md-9 ms-sm-auto common col-lg-11 px-md-4">
+    <div>
+        <span>Start Date :</span> <input id="StartDate" type="date" name="start" />
+        <span>End Date :</span> <input id="EndDate" type="date" name="end" />
+
+    </div>
+    <table id="example" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SellerCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SellerFullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalOrders)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalAmountReceived)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalShippingCharges)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.CommissiontoAdmin)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.PaidAmt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PreviousBalanceAmt)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="infotbody">
+            @foreach (var item in Model.admins)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellerCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SellerFullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalOrders)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalAmountReceived)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalShippingCharges)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.CommissiontoAdmin)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaidAmt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PreviousBalanceAmt)
+                    </td>
+
+                    <td>
+                        @*@Html.ActionLink("Details", "PaymentDetails", new { sellercode = item.SellerCode })*@
+                        <a class="Popup" href="javascript:;" data-id="@item.SellerCode"> Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</main>
+<div id="partialModal" class="modal" tabindex="-1" role="dialog" style="position:center">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" style="color:lightgreen; font-size:xx-large">Payment Details</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    <script src="//code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#example').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'Export'
+                ]
+            });
+        });
+
+    $(document).ready(function () {
+        $(function () {
+            $(".Popup").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id')
+                /* var id = $(this).closest("tr").find("td").eq(0).html();*/
+                $.ajax({
+                    type: "GET",
+                    url: "/Admin/PaymentDetails",
+                    data: { SellerCode: id },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (response) {
+                        $("#partialModal").find(".modal-body").html(response);
+                        $("#partialModal").modal('show');
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+    });
+        $(document).ready(function () {
+            $("#EndDate").change(function () {
+
+                var startdate = $("#StartDate").val();
+                var enddate = $(this).val();
+
+                $.ajax({
+                    type: 'GET',
+                    datatype: JSON,
+
+                    url: '/Admin/FilterPaymentHistory',
+                    data: { 'enddate': enddate, 'startdate': startdate },
+
+
+                    success: function (data) {
+                        $('#example tbody').empty();
+                        $.each(data, function (i, item) {
+                            var seller = item.SellerCode;
+                            var rows = "<tr>" +
+                                "<td>" + item.SellerCode + "</td>" +
+                                "<td>" + item.SellerFullName + "</td>" +
+                                "<td>" + item.TotalOrders + "</td>" +
+                                "<td>" + item.TotalAmountReceived + "</td>" +
+                                "<td>" + item.TotalShippingCharges + "</td>" +
+                                "<td>" + item.PaidAmt + "</td>" +
+                                "<td>" + item.PreviousBalanceAmt + "</td>" +
+
+                                "<td>  <a class='Details' onclick=Paymentdetails('" + seller + "')  data-id='" + seller + "'>Details</a>  </td>"
+
+                            "</tr>";
+
+                            $('#example tbody').append(rows);
+                        });
+                    },
+                    error: function (data) { alert(data.responseText); }
+                }
+
+
+
+                )
+            });
+        });
+
+        function Paymentdetails(SellerCode) {
+            // var OrderNo = $(this).attr("data-id");
+            var startdate = $("#StartDate").val();
+            var EndDate = $("#EndDate").val();
+            //$(function () {
+            //    $(".Popup").click(function () {
+            //        var $buttonClicked = $(this);
+            //        var id = $buttonClicked.attr('data-id')
+                    /* var id = $(this).closest("tr").find("td").eq(0).html();*/
+                    $.ajax({
+                        type: "GET",
+                        url: "/Admin/FilterPaymentDetails",
+                        data: { SellerCode: SellerCode, startdate: startdate, EndDate: EndDate },
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "html",
+                        success: function (response) {
+                            $("#partialModal").find(".modal-body").html(response);
+                            $("#partialModal").modal('show');
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+               
+
+
+            }
+
+    </script>
+}

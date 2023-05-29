@@ -1,0 +1,302 @@
+﻿@model IEnumerable<GSTAgroEcommerce.Models.SellerViewModel>
+
+@{
+    ViewBag.Title = "SellerAllOrder";
+    Layout = "~/Views/Shared/Seller_Layout.cshtml";
+}
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/DataTables/css/buttons.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/Content/DataTables/css/buttons.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/DataTables/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+
+<body>
+    <div class="right_col">
+        <h2>SellerAllOrder</h2>
+        <div class="main_container">
+
+            <main class="col-md-9 ms-sm-auto common col-lg-10 px-md-4">
+                <div style="margin-top: 10px; text-align: center;width:1000px;">
+                    <div class="">
+                        <div style="justify-content: space-evenly;">
+                            <button style="border: 1px solid black; width: 100px; border-radius: 0px; background: #003366; height: 40px">
+                                <a style="color:white" href="@Url.Action("SellerAllOrder", new { StatusId="null"})">All Orders</a>
+                            </button>
+                            @foreach (var item in ViewBag.OrderStatus)
+                            {
+                                <button style="border: 1px solid black; border-radius:0px; background: #003366;width:100px; height: 40px;margin-left:15px">
+                                    <a style="color:white" href="@Url.Action("SellerAllOrder", new { StatusId=@item.StatusId})"
+                                       ,data-id="@item.StatusId">@item.Status</a>
+                                </button>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <br />
+
+
+            <table class="table table-bordered mt-4" id="example">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrderCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BuyerFullName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductCode)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.ProductQuantity)
+                            </th>*@
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.AddressStatus)
+                            </th>*@
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.OrderStatusId)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.PaymentMode)
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.ShippingCharges)
+                            </th>*@
+
+
+
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.MRP)
+                            </th>*@
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.SellerCode)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProductWeight)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Discount)
+                            </th>*@
+
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.EmailId)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th> Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BuyerFullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductCode)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.ProductQuantity)
+                                </td>*@
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.AddressStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderStatusId)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PaymentMode)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.ShippingCharges)
+                                </td>*@
+
+
+
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.MRP)
+                                </td>*@
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.SellerCode)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductWeight)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Discount)
+                                </td>*@
+
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.EmailId)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td class="OrderDetails" data-id="@item.OrderCode">
+                                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                                @*@Html.ActionLink("Details", "SellersOrderDetails", new { OrderCode = item.OrderCode })*@
+                                <a class="OrderDetails" href="javascript:;" data-id="@item.OrderCode">Details</a>
+                                @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                    </td>*@
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</body>
+
+<div id="partialModal" class="modal" tabindex="-1" role="dialog" style="position:center;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:111%;">
+            <div class="modal-header">
+                <h3 class="modal-title" style="color:lightgreen; font-size:xx-large"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="hide" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @*<script src="~/Scripts/bootstrap.js"></script>*@
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap4.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#example').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                                                                                        /*'copy', 'csv',*/ 'excel', 'pdf', 'print'
+                ],
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#example').DataTable();
+            $('#example tbody').on("click", "tr td.OrderDetails", function () {
+                var id = $(this).attr("data-id");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Seller/SellersOrderDetails",
+                    data: '{OrderCode: "' + id + '" }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (response) {
+
+                        $("#partialModal").find(".modal-body").html(response);
+                        $("#partialModal").modal('show');
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+
+            });
+        });
+    </script>
+
+
+
+
+
+    <script type="text/javascript">
+
+        /////////////////POPUP
+
+        $(function () {
+            $(".OrderDetails").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id')
+                /* var id = $(this).closest("tr").find("td").eq(0).html();*/
+                $.ajax({
+                    type: "POST",
+                    url: "/Seller/SellersOrderDetails",
+                    data: '{OrderCode: "' + id + '" }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (response) {
+                        $("#partialModal").find(".modal-body").html(response);
+                        $("#partialModal").modal('show');
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+
+
+
+    </script>
+
+    @*<script type="text/javascript">
+
+        /////////////////POPUP
+
+        function popup(id) {
+            /*  $(".OrderDetails").click(function () {*/
+            //  var $buttonClicked = $(this);
+            // var id = $buttonClicked.attr('data-id')
+            /* var id = $(this).closest("tr").find("td").eq(0).html();*/
+            $.ajax({
+                type: "POST",
+                url: "/Seller/SellersOrderDetails",
+                data: '{OrderCode: "' + id + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal").find(".modal-body").html(response);
+                    $("#partialModal").modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        };
+                /*});*/
+
+
+
+    </script>*@
+
+}

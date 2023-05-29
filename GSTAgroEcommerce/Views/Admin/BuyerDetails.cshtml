@@ -1,0 +1,89 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+@{
+    ViewBag.Title = "BuyerDetails";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2 style="text-align:center;">Buyer Orders</h2>
+
+
+<main class=" ms-sm-auto col-md-auto common col-lg-auto">
+    <table class="table table-bordered table-striped mt-4 dt-responsive nowrap table-responsive" id="example">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BuyerFullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmailId)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.BuyerCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalOrder)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Buyers)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BuyerFullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmailId)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BuyerCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalOrder)
+                    </td>
+
+                    <td>
+
+                        @Html.ActionLink("Details", "BuyerOrderDetails", new { BuyerCode = item.BuyerCode })
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
+</main>
+@section scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+    <script src="~/Scripts/DataTables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+    <script src="~/Scripts/DataTables/buttons.print.min.js"></script>
+    <script src="~/Scripts/DataTables/pdfmake.min.js"></script>
+    <script src="~/Scripts/DataTables/jszip.min.js"></script>
+    <script src="~/Scripts/DataTables/vfs_fonts.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#example').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                                                    /*'copy', 'csv',*/ 'excel', 'pdf', 'print'
+                ]
+            });
+        });
+    </script>
+}

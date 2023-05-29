@@ -1,0 +1,1017 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblGSTAddress">
+    <Key>
+      <PropertyRef Name="AddressId" />
+    </Key>
+    <Property Name="AddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="Home" Type="nvarchar(max)" />
+    <Property Name="Office" Type="nvarchar(max)" />
+    <Property Name="Other" Type="nvarchar(max)" />
+    <Property Name="StatusId" Type="int" />
+  </EntityType>
+  <EntityType Name="tblGSTAdmin">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdminFullName" Type="nvarchar" MaxLength="100" />
+    <Property Name="EmailId" Type="nvarchar" MaxLength="250" />
+    <Property Name="Password" Type="nvarchar" MaxLength="12" />
+    <Property Name="MobileNo" Type="nvarchar" MaxLength="16" />
+    <Property Name="AlternateMobileNo" Type="nvarchar" MaxLength="16" />
+    <Property Name="Photo" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="CityId" Type="int" />
+    <Property Name="PinCode" Type="int" />
+    <Property Name="StatusId" Type="int" />
+  </EntityType>
+  <EntityType Name="tblGSTBankDetails">
+    <Key>
+      <PropertyRef Name="BankdetailsId" />
+    </Key>
+    <Property Name="BankdetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="BankHolderName" Type="nvarchar" MaxLength="100" />
+    <Property Name="BankName" Type="nvarchar" MaxLength="100" />
+    <Property Name="IFSCCode" Type="nvarchar" MaxLength="20" />
+    <Property Name="BrachName" Type="nvarchar" MaxLength="100" />
+    <Property Name="AccountType" Type="nvarchar" MaxLength="10" />
+    <Property Name="MobileNo" Type="nvarchar" MaxLength="16" />
+    <Property Name="StatusId" Type="int" />
+  </EntityType>
+  <EntityType Name="tblGSTBuyer">
+    <Key>
+      <PropertyRef Name="BuyerCode" />
+    </Key>
+    <Property Name="BuyerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BuyerCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BuyerFullName" Type="nvarchar" MaxLength="100" />
+    <Property Name="EmailId" Type="nvarchar" MaxLength="250" />
+    <Property Name="Password" Type="nvarchar" MaxLength="12" />
+    <Property Name="MobileNo" Type="nvarchar" MaxLength="16" />
+    <Property Name="AlternateMobileNo" Type="nvarchar" MaxLength="16" />
+    <Property Name="CityId" Type="int" />
+    <Property Name="DOB" Type="date" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="20" />
+    <Property Name="AadhaarNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="PanCardNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="AdharPhoto" Type="nvarchar(max)" />
+    <Property Name="PanCardPhoto" Type="nvarchar(max)" />
+    <Property Name="Salary" Type="float" />
+    <Property Name="RegistrationDate" Type="date" />
+  </EntityType>
+  <EntityType Name="tblGSTBuyerPayment">
+    <Key>
+      <PropertyRef Name="PaymentId" />
+    </Key>
+    <Property Name="PaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PaymentMode" Type="nvarchar" MaxLength="50" />
+    <Property Name="BuyerCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="PaymentDate" Type="date" />
+    <Property Name="OrderCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="StatusId" Type="int" />
+    <Property Name="TransactionId" Type="nvarchar" MaxLength="50" />
+    <Property Name="InvoiceNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsDeleted" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblGSTCategory">
+    <Key>
+      <PropertyRef Name="CategoryCode" />
+    </Key>
+    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="250" />
+    <Property Name="RejectionReason" Type="nvarchar(max)" />
+    <Property Name="Commission" Type="float" />
+    <Property Name="StatusId" Type="int" />
+  </EntityType>
+  <EntityType Name="tblGSTCity">
+    <Key>
+      <PropertyRef Name="CityId" />
+    </Key>
+    <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StateId" Type="int" />
+    <Property Name="CityName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblGSTCountry">
+    <Key>
+      <PropertyRef Name="CountryId" />
+    </Key>
+    <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblGSTCouponSetting">
+    <Key>
+      <PropertyRef Name="CouponCode" />
+    </Key>
+    <Property Name="CouponId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CouponCode" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="CouponAmount" Type="int" />
+    <Property Name="CouponRange" Type="nvarchar" MaxLength="50" />
+    <Property Name="ExpiryDays" Type="nvarchar" MaxLength="18" />
+    <Property Name="StatusId" Type="int" />
+  </EntityType>
+  <EntityType Name="tblGSTGst">
+    <Key>
+      <PropertyRef Name="GSTId" />
+    </Key>
+    <Property Name="GSTId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="CGST" Type="float" />
+    <Property Name="SGST" Type="float" />
+    <Property Name="UGST" Type="float" />
+    <Property Name="IGST" Type="float" />
+  </EntityType>
+  <EntityType Name="tblGSTOffer">
+    <Key>
+      <PropertyRef Name="AdminOfferId" />
+    </Key>
+    <Property Name="AdminOfferId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OfferName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Offer%" Type="int" />
+    <Property Name="RegistrationDate" Type="date" />
+    <Property Name="OfferStatusId" Type="int" />
+  </EntityType>
+  <EntityType Name="tblGSTOrder">
+    <Key>
+      <PropertyRef Name="OrderCode" />
+    </Key>
+    <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BuyerCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProductCode" Type="nvarchar(max)" />
+    <Property Name="ProductQuantity" Type="nvarchar" MaxLength="100" />
+    <Property Name="AddressStatus" Type="int" />
+    <Property Name="OrderStatusId" Type="int" />
+    <Property Name="ProcessDate" Type="date" />
+    <Property Name="ShippingCharges" Type="int" />
+    <Property Name="ShareId" Type="int" />
+    <Property Name="IsNotify" Type="bit" />
+    <Property Name="ExpectedDeliveryDate" Type="date" />
+    <Property Name="RejectedByUserCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="RejectionReason" Type="nvarchar(max)" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GSTAgroE-Commerce.dbo.tblGSTPolicy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tblGSTPolicy">
+    <Key>
+      <PropertyRef Name="PolicyId" />
+    </Key>
+    <Property Name="PolicyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PolicyName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PolicyDescriptionPdf" Type="nvarchar(max)" />
+    <Property Name="RegisterDate" Type="date" />
+  </EntityType>
+  <EntityType Name="tblGSTProduct">
+    <Key>
+      <PropertyRef Name="ProductCode" />
+    </Key>
+    <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CategoryCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="200" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Quantity" Type="float" />
+    <Property Name="MinRangeDiscount" Type="float" />
+    <Property Name="MRP" Type="float" />
+    <Property Name="SellerCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="StatusId" Type="int" />
+    <Property Name="ProductWeight" Type="nvarchar" MaxLength="50" />
+    <Property Name="Discount" Type="float" />
+    <Property Name="IsProductReturnable" Type="bit" />
+    <Property Name="IsproductExpirable" Type="bit" />
+    <Property Name="ProductExpiryDuration" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsProductSeasonable" Type="bit" />
+    <Property Name="SeasonName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProductWeightRange" Type="nvarchar" MaxLength="30" />
+    <Property Name="ProductRegistrationDate" Type="date" />
+    <Property Name="ProductApprovalDate" Type="date" />
+    <Property Name="ManufacturerName" Type="nvarchar(max)" />
+    <Property Name="MaximumStock" Type="float" />
+    <Property Name="MinimumStock" Type="float" />
+    <Property Name="RejectionReasonfromAdmin" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GSTAgroE-Commerce.dbo.tblGSTProductImage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tblGSTProductImage">
+    <Key>
+      <PropertyRef Name="ProductImageId" />
+    </Key>
+    <Property Name="ProductImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="MainImage" Type="nvarchar(max)" />
+    <Property Name="Image1" Type="nvarchar(max)" />
+    <Property Name="Image2" Type="nvarchar(max)" />
+    <Property Name="Image3" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tblGSTProductOffer">
+    <Key>
+      <PropertyRef Name="SellerOfferId" />
+    </Key>
+    <Property Name="SellerOfferId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OfferId" Type="int" />
+    <Property Name="ProductCode(SKU)" Type="nvarchar" MaxLength="50" />
+    <Property Name="StartDate" Type="date" />
+    <Property Name="EndDate" Type="date" />
+    <Property Name="StatusId" Type="int" />
+  </EntityType>
+  <EntityType Name="tblGSTRatingandFeedback">
+    <Key>
+      <PropertyRef Name="ReviewId" />
+    </Key>
+    <Property Name="ReviewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BuyerCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProductCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="RatingStarNo" Type="int" />
+    <Property Name="FeedbackOnProduct" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tblGSTRewardSetting">
+    <Key>
+      <PropertyRef Name="RewardId" />
+    </Key>
+    <Property Name="RewardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RewardRange" Type="nvarchar" MaxLength="50" />
+    <Property Name="RewardPoint" Type="int" />
+    <Property Name="RewardConversionRate" Type="float" />
+    <Property Name="PointLimits" Type="int" />
+  </EntityType>
+  <EntityType Name="tblGSTSeller">
+    <Key>
+      <PropertyRef Name="SellerCode" />
+    </Key>
+    <Property Name="SellerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SellerCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SellerFullName" Type="nvarchar" MaxLength="250" />
+    <Property Name="BusinessName" Type="nvarchar" MaxLength="100" />
+    <Property Name="BusinessPinCode" Type="int" />
+    <Property Name="EmailId" Type="nvarchar" MaxLength="250" />
+    <Property Name="Password" Type="nvarchar" MaxLength="15" />
+    <Property Name="MobileNo" Type="nvarchar" MaxLength="16" />
+    <Property Name="AlternateMobileNo" Type="nvarchar" MaxLength="16" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="6" />
+    <Property Name="CityId" Type="int" />
+    <Property Name="PinCode" Type="int" />
+    <Property Name="DOB" Type="date" />
+    <Property Name="RegistrationDate" Type="date" />
+    <Property Name="RejectionReason" Type="nvarchar(max)" />
+    <Property Name="SellerApprovalDate" Type="date" />
+    <Property Name="StatusId" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GSTAgroE-Commerce.dbo.tblGSTSellerDocument' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tblGSTSellerDocument">
+    <Key>
+      <PropertyRef Name="SellerDocumentId" />
+    </Key>
+    <Property Name="SellerDocumentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SellerCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="AadharNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="PanCardNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="AadharImage" Type="nvarchar(max)" />
+    <Property Name="PanImage" Type="nvarchar(max)" />
+    <Property Name="BusinessName" Type="nvarchar(max)" />
+    <Property Name="GSTIN" Type="nvarchar" MaxLength="20" />
+    <Property Name="BusinessPinCode" Type="int" />
+    <Property Name="BusinessAadharNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="BusinessPanNo" Type="nvarchar" MaxLength="20" />
+    <Property Name="BusinessAdharImage" Type="nvarchar(max)" />
+    <Property Name="BusinessPanImage" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GSTAgroE-Commerce.dbo.tblGSTSellerPayment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tblGSTSellerPayment">
+    <Key>
+      <PropertyRef Name="SellerPaymentId" />
+    </Key>
+    <Property Name="SellerPaymentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SellerCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="PaymentMode" Type="nvarchar" MaxLength="20" />
+    <Property Name="PaymentDate" Type="nvarchar(max)" />
+    <Property Name="PaidAmount" Type="float" />
+    <Property Name="TransactionId" Type="nvarchar(max)" />
+    <Property Name="PaymentDoneFile" Type="nvarchar(max)" />
+    <Property Name="StatusId" Type="int" />
+    <Property Name="IsDelete" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'GSTAgroE-Commerce.dbo.tblGSTShare' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="tblGSTShare">
+    <Key>
+      <PropertyRef Name="ShareId" />
+    </Key>
+    <Property Name="ShareId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShareName" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="tblGSTState">
+    <Key>
+      <PropertyRef Name="StateId" />
+    </Key>
+    <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryId" Type="int" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblGSTStatus">
+    <Key>
+      <PropertyRef Name="StatusId" />
+    </Key>
+    <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblGSTSubCategory1">
+    <Key>
+      <PropertyRef Name="SubCategory1Code" />
+    </Key>
+    <Property Name="SubCategory1Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubCategory1Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SubCatagory1Name" Type="nvarchar(max)" />
+    <Property Name="CategoryCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="StatusId" Type="int" />
+  </EntityType>
+  <EntityType Name="tblGSTSubCategory2">
+    <Key>
+      <PropertyRef Name="SubCategory2Code" />
+    </Key>
+    <Property Name="SubCategory2Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubCategory2Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SubCatagory2Name" Type="nvarchar(max)" />
+    <Property Name="SubCategory1Code" Type="nvarchar" MaxLength="50" />
+    <Property Name="StatusId" Type="int" />
+  </EntityType>
+  <EntityType Name="tblGSTSubCategory3">
+    <Key>
+      <PropertyRef Name="SubCatagory3Code" />
+    </Key>
+    <Property Name="SubCategory3Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubCategory3Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="SubCatagory3Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SubCategory2Code" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblGSTWallet">
+    <Key>
+      <PropertyRef Name="WalletId" />
+    </Key>
+    <Property Name="WalletId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RewardId" Type="int" />
+    <Property Name="BuyerCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="TotalRewardPoints" Type="int" />
+    <Property Name="UsedRewardPoints" Type="int" />
+    <Property Name="OrderCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="CouponCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="StatusId" Type="int" />
+    <Property Name="CouponExpDate" Type="date" />
+  </EntityType>
+  <Association Name="FK_tblGSTAddress_tblGSTStatus">
+    <End Role="tblGSTStatus" Type="Self.tblGSTStatus" Multiplicity="0..1" />
+    <End Role="tblGSTAddress" Type="Self.tblGSTAddress" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblGSTAddress">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTAdmin_tblGSTStatus">
+    <End Role="tblGSTStatus" Type="Self.tblGSTStatus" Multiplicity="0..1" />
+    <End Role="tblGSTAdmin" Type="Self.tblGSTAdmin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblGSTAdmin">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTBankDetails_tblGSTStatus">
+    <End Role="tblGSTStatus" Type="Self.tblGSTStatus" Multiplicity="0..1" />
+    <End Role="tblGSTBankDetails" Type="Self.tblGSTBankDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblGSTBankDetails">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTBuyer_tblGSTCity">
+    <End Role="tblGSTCity" Type="Self.tblGSTCity" Multiplicity="0..1" />
+    <End Role="tblGSTBuyer" Type="Self.tblGSTBuyer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTCity">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="tblGSTBuyer">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTBuyerPayment_tblGSTBuyer">
+    <End Role="tblGSTBuyer" Type="Self.tblGSTBuyer" Multiplicity="0..1" />
+    <End Role="tblGSTBuyerPayment" Type="Self.tblGSTBuyerPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTBuyer">
+        <PropertyRef Name="BuyerCode" />
+      </Principal>
+      <Dependent Role="tblGSTBuyerPayment">
+        <PropertyRef Name="BuyerCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTBuyerPayment_tblGSTStatus">
+    <End Role="tblGSTStatus" Type="Self.tblGSTStatus" Multiplicity="0..1" />
+    <End Role="tblGSTBuyerPayment" Type="Self.tblGSTBuyerPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblGSTBuyerPayment">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTCategory_tblGSTStatus">
+    <End Role="tblGSTStatus" Type="Self.tblGSTStatus" Multiplicity="0..1" />
+    <End Role="tblGSTCategory" Type="Self.tblGSTCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblGSTCategory">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTCity_tblGSTState">
+    <End Role="tblGSTState" Type="Self.tblGSTState" Multiplicity="0..1" />
+    <End Role="tblGSTCity" Type="Self.tblGSTCity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTState">
+        <PropertyRef Name="StateId" />
+      </Principal>
+      <Dependent Role="tblGSTCity">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTCouponSetting_tblGSTStatus">
+    <End Role="tblGSTStatus" Type="Self.tblGSTStatus" Multiplicity="0..1" />
+    <End Role="tblGSTCouponSetting" Type="Self.tblGSTCouponSetting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblGSTCouponSetting">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTGst_tblGSTCategory">
+    <End Role="tblGSTCategory" Type="Self.tblGSTCategory" Multiplicity="0..1" />
+    <End Role="tblGSTGst" Type="Self.tblGSTGst" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTCategory">
+        <PropertyRef Name="CategoryCode" />
+      </Principal>
+      <Dependent Role="tblGSTGst">
+        <PropertyRef Name="CategoryCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTOffer_tblGSTStatus">
+    <End Role="tblGSTStatus" Type="Self.tblGSTStatus" Multiplicity="0..1" />
+    <End Role="tblGSTOffer" Type="Self.tblGSTOffer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblGSTOffer">
+        <PropertyRef Name="OfferStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTProduct_tblGSTStatus">
+    <End Role="tblGSTStatus" Type="Self.tblGSTStatus" Multiplicity="0..1" />
+    <End Role="tblGSTProduct" Type="Self.tblGSTProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblGSTProduct">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTProductOffer_tblGSTOffer">
+    <End Role="tblGSTOffer" Type="Self.tblGSTOffer" Multiplicity="0..1" />
+    <End Role="tblGSTProductOffer" Type="Self.tblGSTProductOffer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTOffer">
+        <PropertyRef Name="AdminOfferId" />
+      </Principal>
+      <Dependent Role="tblGSTProductOffer">
+        <PropertyRef Name="OfferId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTProductOffer_tblGSTStatus">
+    <End Role="tblGSTStatus" Type="Self.tblGSTStatus" Multiplicity="0..1" />
+    <End Role="tblGSTProductOffer" Type="Self.tblGSTProductOffer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblGSTProductOffer">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTRatingandFeedback_tblGSTBuyer">
+    <End Role="tblGSTBuyer" Type="Self.tblGSTBuyer" Multiplicity="0..1" />
+    <End Role="tblGSTRatingandFeedback" Type="Self.tblGSTRatingandFeedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTBuyer">
+        <PropertyRef Name="BuyerCode" />
+      </Principal>
+      <Dependent Role="tblGSTRatingandFeedback">
+        <PropertyRef Name="BuyerCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTSeller_tblGSTCity">
+    <End Role="tblGSTCity" Type="Self.tblGSTCity" Multiplicity="0..1" />
+    <End Role="tblGSTSeller" Type="Self.tblGSTSeller" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTCity">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="tblGSTSeller">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTSeller_tblGSTStatus">
+    <End Role="tblGSTStatus" Type="Self.tblGSTStatus" Multiplicity="0..1" />
+    <End Role="tblGSTSeller" Type="Self.tblGSTSeller" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblGSTSeller">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTSellerDocument_tblGSTSeller">
+    <End Role="tblGSTSeller" Type="Self.tblGSTSeller" Multiplicity="0..1" />
+    <End Role="tblGSTSellerDocument" Type="Self.tblGSTSellerDocument" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTSeller">
+        <PropertyRef Name="SellerCode" />
+      </Principal>
+      <Dependent Role="tblGSTSellerDocument">
+        <PropertyRef Name="SellerCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTSellerPayment_tblGSTSeller">
+    <End Role="tblGSTSeller" Type="Self.tblGSTSeller" Multiplicity="0..1" />
+    <End Role="tblGSTSellerPayment" Type="Self.tblGSTSellerPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTSeller">
+        <PropertyRef Name="SellerCode" />
+      </Principal>
+      <Dependent Role="tblGSTSellerPayment">
+        <PropertyRef Name="SellerCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTSellerPayment_tblGSTStatus">
+    <End Role="tblGSTStatus" Type="Self.tblGSTStatus" Multiplicity="0..1" />
+    <End Role="tblGSTSellerPayment" Type="Self.tblGSTSellerPayment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblGSTSellerPayment">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTState_tblGSTCountry">
+    <End Role="tblGSTCountry" Type="Self.tblGSTCountry" Multiplicity="0..1" />
+    <End Role="tblGSTState" Type="Self.tblGSTState" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTCountry">
+        <PropertyRef Name="CountryId" />
+      </Principal>
+      <Dependent Role="tblGSTState">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTWallet_tblGSTBuyer">
+    <End Role="tblGSTBuyer" Type="Self.tblGSTBuyer" Multiplicity="0..1" />
+    <End Role="tblGSTWallet" Type="Self.tblGSTWallet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTBuyer">
+        <PropertyRef Name="BuyerCode" />
+      </Principal>
+      <Dependent Role="tblGSTWallet">
+        <PropertyRef Name="BuyerCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblGSTWallet_tblGSTStatus">
+    <End Role="tblGSTStatus" Type="Self.tblGSTStatus" Multiplicity="0..1" />
+    <End Role="tblGSTWallet" Type="Self.tblGSTWallet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGSTStatus">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="tblGSTWallet">
+        <PropertyRef Name="StatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="SPAgroAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="AdminId" Type="nvarchar" Mode="In" />
+    <Parameter Name="AdminFullName" Type="nvarchar" Mode="In" />
+    <Parameter Name="EmailId" Type="nvarchar" Mode="In" />
+    <Parameter Name="Password" Type="nvarchar" Mode="In" />
+    <Parameter Name="SellerId" Type="int" Mode="In" />
+    <Parameter Name="CategoryName" Type="nvarchar" Mode="In" />
+    <Parameter Name="CategoryId" Type="int" Mode="In" />
+    <Parameter Name="CategoryCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="RejectionReason" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="SubCategory1Id" Type="int" Mode="In" />
+    <Parameter Name="SubCategory1Name" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="SubCategory1Code" Type="nvarchar" Mode="In" />
+    <Parameter Name="SubCategory2Id" Type="int" Mode="In" />
+    <Parameter Name="SubCategory2Name" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="SubCategory2Code" Type="nvarchar" Mode="In" />
+    <Parameter Name="SubCategory3Id" Type="int" Mode="In" />
+    <Parameter Name="SubCategory3Name" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="SubCategory3Code" Type="nvarchar" Mode="In" />
+    <Parameter Name="StatusId" Type="int" Mode="In" />
+    <Parameter Name="Status" Type="nvarchar" Mode="In" />
+    <Parameter Name="SellerCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProductCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="SellerFullName" Type="nvarchar" Mode="In" />
+    <Parameter Name="BusinessName" Type="nvarchar" Mode="In" />
+    <Parameter Name="MobileNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProductName" Type="nvarchar" Mode="In" />
+    <Parameter Name="OfficeAddress" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Date" Type="date" Mode="In" />
+    <Parameter Name="MRP" Type="float" Mode="In" />
+    <Parameter Name="MaxStock" Type="float" Mode="In" />
+    <Parameter Name="MinStock" Type="float" Mode="In" />
+    <Parameter Name="BuyerCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="OrderCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="Flag" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="SPAgroBuyer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BuyerCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="BuyerFullName" Type="nvarchar" Mode="In" />
+    <Parameter Name="EmailId" Type="nvarchar" Mode="In" />
+    <Parameter Name="Password" Type="nvarchar" Mode="In" />
+    <Parameter Name="MobileNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="AlternatemobileNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="DOB" Type="date" Mode="In" />
+    <Parameter Name="Gender" Type="nvarchar" Mode="In" />
+    <Parameter Name="AdhaarNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="PancardNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="adharphoto" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="pancardphoto" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="salary" Type="float" Mode="In" />
+    <Parameter Name="registrationdate" Type="date" Mode="In" />
+    <Parameter Name="productid" Type="int" Mode="In" />
+    <Parameter Name="ProductCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="productname" Type="nvarchar" Mode="In" />
+    <Parameter Name="mrp" Type="float" Mode="In" />
+    <Parameter Name="MainImage" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="categoryid" Type="int" Mode="In" />
+    <Parameter Name="categorycode" Type="nvarchar" Mode="In" />
+    <Parameter Name="categoryname" Type="nvarchar" Mode="In" />
+    <Parameter Name="statusid" Type="int" Mode="In" />
+    <Parameter Name="subcategory1id" Type="int" Mode="In" />
+    <Parameter Name="subcategory1code" Type="nvarchar" Mode="In" />
+    <Parameter Name="subcategory1name" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="subcategory2id" Type="int" Mode="In" />
+    <Parameter Name="subcategory2code" Type="nvarchar" Mode="In" />
+    <Parameter Name="subcategory2name" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="subcategory3id" Type="int" Mode="In" />
+    <Parameter Name="subcategory3code" Type="nvarchar" Mode="In" />
+    <Parameter Name="subcategory3name" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="usercode" Type="nvarchar" Mode="In" />
+    <Parameter Name="countryid" Type="int" Mode="In" />
+    <Parameter Name="cityid" Type="int" Mode="In" />
+    <Parameter Name="stateid" Type="int" Mode="In" />
+    <Parameter Name="OrderCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProductQuantity" Type="nvarchar" Mode="In" />
+    <Parameter Name="AddressId" Type="int" Mode="In" />
+    <Parameter Name="OrderStatusId" Type="int" Mode="In" />
+    <Parameter Name="ProcessDate" Type="date" Mode="In" />
+    <Parameter Name="ShippingCharges" Type="int" Mode="In" />
+    <Parameter Name="ShareId" Type="int" Mode="In" />
+    <Parameter Name="IsNotify" Type="bit" Mode="In" />
+    <Parameter Name="ExpectedDeliveryDate" Type="date" Mode="In" />
+    <Parameter Name="RejectedByUserCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="RejectionReason" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IsDelete" Type="bit" Mode="In" />
+    <Parameter Name="Home" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Office" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Other" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="quantity" Type="int" Mode="In" />
+    <Parameter Name="Couponcode" Type="nvarchar" Mode="In" />
+    <Parameter Name="RewardId" Type="int" Mode="In" />
+    <Parameter Name="TotalReward" Type="int" Mode="In" />
+    <Parameter Name="UsedReward" Type="int" Mode="In" />
+    <Parameter Name="CoupanexpDate" Type="date" Mode="In" />
+    <Parameter Name="PaymentMode" Type="nvarchar" Mode="In" />
+    <Parameter Name="PaymentDate" Type="date" Mode="In" />
+    <Parameter Name="Transactionid" Type="nvarchar" Mode="In" />
+    <Parameter Name="InvoiceNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="flag" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="SPAgroSeller" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="SellerCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="SellerFullName" Type="nvarchar" Mode="In" />
+    <Parameter Name="EmailId" Type="nvarchar" Mode="In" />
+    <Parameter Name="Password" Type="nvarchar" Mode="In" />
+    <Parameter Name="SellerId" Type="int" Mode="In" />
+    <Parameter Name="BusinessName" Type="nvarchar" Mode="In" />
+    <Parameter Name="BusinessPinCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="MobileNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="AlternateMobileNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="Gender" Type="nvarchar" Mode="In" />
+    <Parameter Name="CityId" Type="int" Mode="In" />
+    <Parameter Name="Pincode" Type="int" Mode="In" />
+    <Parameter Name="DOB" Type="date" Mode="In" />
+    <Parameter Name="RegistrationDate" Type="date" Mode="In" />
+    <Parameter Name="RejectionReason" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="SellerApprovalDate" Type="date" Mode="In" />
+    <Parameter Name="StatusId" Type="int" Mode="In" />
+    <Parameter Name="AddressId" Type="int" Mode="In" />
+    <Parameter Name="Home" Type="nvarchar" Mode="In" />
+    <Parameter Name="Office" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Other" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="SellerDocumentId" Type="int" Mode="In" />
+    <Parameter Name="AadharNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="PanCardNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="AadharImage" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="PanImage" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="GSTIN" Type="nvarchar" Mode="In" />
+    <Parameter Name="BusinessAadharNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="BusinessPanNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="BusinessAdharImage" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="BusinessPanImage" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="CityName" Type="nvarchar" Mode="In" />
+    <Parameter Name="StateId" Type="int" Mode="In" />
+    <Parameter Name="StateName" Type="nvarchar" Mode="In" />
+    <Parameter Name="CountryId" Type="int" Mode="In" />
+    <Parameter Name="CountryName" Type="nvarchar" Mode="In" />
+    <Parameter Name="UserCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="SellerPaymentId" Type="int" Mode="In" />
+    <Parameter Name="PaymentMode" Type="nvarchar" Mode="In" />
+    <Parameter Name="PaymentDate" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="PaidAmount" Type="float" Mode="In" />
+    <Parameter Name="TransactionId" Type="nvarchar" Mode="In" />
+    <Parameter Name="PaymentDoneFile" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="IsDelete" Type="bit" Mode="In" />
+    <Parameter Name="ProductId" Type="int" Mode="In" />
+    <Parameter Name="ProductCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="CategoryCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProductName" Type="nvarchar" Mode="In" />
+    <Parameter Name="CurrentStock" Type="float" Mode="In" />
+    <Parameter Name="MinRangeDiscount" Type="float" Mode="In" />
+    <Parameter Name="MRP" Type="float" Mode="In" />
+    <Parameter Name="ProductWeight" Type="float" Mode="In" />
+    <Parameter Name="Description" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Discount" Type="float" Mode="In" />
+    <Parameter Name="IsProductReturnable" Type="bit" Mode="In" />
+    <Parameter Name="IsproductExpirable" Type="bit" Mode="In" />
+    <Parameter Name="ProductExpiryDuration" Type="nvarchar" Mode="In" />
+    <Parameter Name="IsProductSeasonable" Type="bit" Mode="In" />
+    <Parameter Name="SeasonName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProductWeightRange" Type="nvarchar" Mode="In" />
+    <Parameter Name="ProductRegistrationDate" Type="date" Mode="In" />
+    <Parameter Name="ProductApprovalDate" Type="date" Mode="In" />
+    <Parameter Name="ManufacturerName" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="MaximumStock" Type="float" Mode="In" />
+    <Parameter Name="MinimumStock" Type="float" Mode="In" />
+    <Parameter Name="RejectionReasonfromAdmin" Type="nvarchar" Mode="In" />
+    <Parameter Name="SellerTransactionId" Type="int" Mode="In" />
+    <Parameter Name="TotalAmount" Type="float" Mode="In" />
+    <Parameter Name="TotalOrder" Type="int" Mode="In" />
+    <Parameter Name="BuyerId" Type="int" Mode="In" />
+    <Parameter Name="BuyerCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="BuyerFullName" Type="nvarchar" Mode="In" />
+    <Parameter Name="AdharNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="PanNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="AdharPhoto" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="PanCardPhoto" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Salary" Type="float" Mode="In" />
+    <Parameter Name="PaymentId" Type="int" Mode="In" />
+    <Parameter Name="OrderCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="invoiceNo" Type="nvarchar" Mode="In" />
+    <Parameter Name="BankDetailsId" Type="int" Mode="In" />
+    <Parameter Name="BankName" Type="nvarchar" Mode="In" />
+    <Parameter Name="IFSCCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="BranchName" Type="nvarchar" Mode="In" />
+    <Parameter Name="AccountType" Type="nvarchar" Mode="In" />
+    <Parameter Name="StartDate" Type="date" Mode="In" />
+    <Parameter Name="EndDate" Type="date" Mode="In" />
+    <Parameter Name="OfferId" Type="int" Mode="In" />
+    <Parameter Name="SellerOfferId" Type="int" Mode="In" />
+    <Parameter Name="AdminOfferId" Type="int" Mode="In" />
+    <Parameter Name="CategoryName" Type="nvarchar" Mode="In" />
+    <Parameter Name="SubCategory1Code" Type="nvarchar" Mode="In" />
+    <Parameter Name="SubCategory1Name" Type="nvarchar" Mode="In" />
+    <Parameter Name="SubCategory2Code" Type="nvarchar" Mode="In" />
+    <Parameter Name="SubCategory2Name" Type="nvarchar" Mode="In" />
+    <Parameter Name="Commission" Type="float" Mode="In" />
+    <Parameter Name="Quantity" Type="float" Mode="In" />
+    <Parameter Name="MainImage" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Image1" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Image2" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Image3" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Flag" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="tblGSTAddress" EntityType="Self.tblGSTAddress" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTAdmin" EntityType="Self.tblGSTAdmin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTBankDetails" EntityType="Self.tblGSTBankDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTBuyer" EntityType="Self.tblGSTBuyer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTBuyerPayment" EntityType="Self.tblGSTBuyerPayment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTCategory" EntityType="Self.tblGSTCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTCity" EntityType="Self.tblGSTCity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTCountry" EntityType="Self.tblGSTCountry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTCouponSetting" EntityType="Self.tblGSTCouponSetting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTGst" EntityType="Self.tblGSTGst" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTOffer" EntityType="Self.tblGSTOffer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTOrder" EntityType="Self.tblGSTOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTProduct" EntityType="Self.tblGSTProduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTProductOffer" EntityType="Self.tblGSTProductOffer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTRatingandFeedback" EntityType="Self.tblGSTRatingandFeedback" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTRewardSetting" EntityType="Self.tblGSTRewardSetting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTSeller" EntityType="Self.tblGSTSeller" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTState" EntityType="Self.tblGSTState" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTStatus" EntityType="Self.tblGSTStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTSubCategory1" EntityType="Self.tblGSTSubCategory1" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTSubCategory2" EntityType="Self.tblGSTSubCategory2" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTSubCategory3" EntityType="Self.tblGSTSubCategory3" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTWallet" EntityType="Self.tblGSTWallet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGSTPolicy" EntityType="Self.tblGSTPolicy" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tblGSTPolicy].[PolicyId] AS [PolicyId], 
+    [tblGSTPolicy].[PolicyName] AS [PolicyName], 
+    [tblGSTPolicy].[PolicyDescriptionPdf] AS [PolicyDescriptionPdf], 
+    [tblGSTPolicy].[RegisterDate] AS [RegisterDate]
+    FROM [dbo].[tblGSTPolicy] AS [tblGSTPolicy]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tblGSTProductImage" EntityType="Self.tblGSTProductImage" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tblGSTProductImage].[ProductImageId] AS [ProductImageId], 
+    [tblGSTProductImage].[ProductCode] AS [ProductCode], 
+    [tblGSTProductImage].[MainImage] AS [MainImage], 
+    [tblGSTProductImage].[Image1] AS [Image1], 
+    [tblGSTProductImage].[Image2] AS [Image2], 
+    [tblGSTProductImage].[Image3] AS [Image3]
+    FROM [dbo].[tblGSTProductImage] AS [tblGSTProductImage]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tblGSTSellerDocument" EntityType="Self.tblGSTSellerDocument" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tblGSTSellerDocument].[SellerDocumentId] AS [SellerDocumentId], 
+    [tblGSTSellerDocument].[SellerCode] AS [SellerCode], 
+    [tblGSTSellerDocument].[AadharNo] AS [AadharNo], 
+    [tblGSTSellerDocument].[PanCardNo] AS [PanCardNo], 
+    [tblGSTSellerDocument].[AadharImage] AS [AadharImage], 
+    [tblGSTSellerDocument].[PanImage] AS [PanImage], 
+    [tblGSTSellerDocument].[BusinessName] AS [BusinessName], 
+    [tblGSTSellerDocument].[GSTIN] AS [GSTIN], 
+    [tblGSTSellerDocument].[BusinessPinCode] AS [BusinessPinCode], 
+    [tblGSTSellerDocument].[BusinessAadharNo] AS [BusinessAadharNo], 
+    [tblGSTSellerDocument].[BusinessPanNo] AS [BusinessPanNo], 
+    [tblGSTSellerDocument].[BusinessAdharImage] AS [BusinessAdharImage], 
+    [tblGSTSellerDocument].[BusinessPanImage] AS [BusinessPanImage]
+    FROM [dbo].[tblGSTSellerDocument] AS [tblGSTSellerDocument]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tblGSTSellerPayment" EntityType="Self.tblGSTSellerPayment" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tblGSTSellerPayment].[SellerPaymentId] AS [SellerPaymentId], 
+    [tblGSTSellerPayment].[SellerCode] AS [SellerCode], 
+    [tblGSTSellerPayment].[PaymentMode] AS [PaymentMode], 
+    [tblGSTSellerPayment].[PaymentDate] AS [PaymentDate], 
+    [tblGSTSellerPayment].[PaidAmount] AS [PaidAmount], 
+    [tblGSTSellerPayment].[TransactionId] AS [TransactionId], 
+    [tblGSTSellerPayment].[PaymentDoneFile] AS [PaymentDoneFile], 
+    [tblGSTSellerPayment].[StatusId] AS [StatusId], 
+    [tblGSTSellerPayment].[IsDelete] AS [IsDelete]
+    FROM [dbo].[tblGSTSellerPayment] AS [tblGSTSellerPayment]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="tblGSTShare" EntityType="Self.tblGSTShare" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [tblGSTShare].[ShareId] AS [ShareId], 
+    [tblGSTShare].[ShareName] AS [ShareName]
+    FROM [dbo].[tblGSTShare] AS [tblGSTShare]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_tblGSTAddress_tblGSTStatus" Association="Self.FK_tblGSTAddress_tblGSTStatus">
+      <End Role="tblGSTStatus" EntitySet="tblGSTStatus" />
+      <End Role="tblGSTAddress" EntitySet="tblGSTAddress" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTAdmin_tblGSTStatus" Association="Self.FK_tblGSTAdmin_tblGSTStatus">
+      <End Role="tblGSTStatus" EntitySet="tblGSTStatus" />
+      <End Role="tblGSTAdmin" EntitySet="tblGSTAdmin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTBankDetails_tblGSTStatus" Association="Self.FK_tblGSTBankDetails_tblGSTStatus">
+      <End Role="tblGSTStatus" EntitySet="tblGSTStatus" />
+      <End Role="tblGSTBankDetails" EntitySet="tblGSTBankDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTBuyer_tblGSTCity" Association="Self.FK_tblGSTBuyer_tblGSTCity">
+      <End Role="tblGSTCity" EntitySet="tblGSTCity" />
+      <End Role="tblGSTBuyer" EntitySet="tblGSTBuyer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTBuyerPayment_tblGSTBuyer" Association="Self.FK_tblGSTBuyerPayment_tblGSTBuyer">
+      <End Role="tblGSTBuyer" EntitySet="tblGSTBuyer" />
+      <End Role="tblGSTBuyerPayment" EntitySet="tblGSTBuyerPayment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTBuyerPayment_tblGSTStatus" Association="Self.FK_tblGSTBuyerPayment_tblGSTStatus">
+      <End Role="tblGSTStatus" EntitySet="tblGSTStatus" />
+      <End Role="tblGSTBuyerPayment" EntitySet="tblGSTBuyerPayment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTCategory_tblGSTStatus" Association="Self.FK_tblGSTCategory_tblGSTStatus">
+      <End Role="tblGSTStatus" EntitySet="tblGSTStatus" />
+      <End Role="tblGSTCategory" EntitySet="tblGSTCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTCity_tblGSTState" Association="Self.FK_tblGSTCity_tblGSTState">
+      <End Role="tblGSTState" EntitySet="tblGSTState" />
+      <End Role="tblGSTCity" EntitySet="tblGSTCity" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTCouponSetting_tblGSTStatus" Association="Self.FK_tblGSTCouponSetting_tblGSTStatus">
+      <End Role="tblGSTStatus" EntitySet="tblGSTStatus" />
+      <End Role="tblGSTCouponSetting" EntitySet="tblGSTCouponSetting" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTGst_tblGSTCategory" Association="Self.FK_tblGSTGst_tblGSTCategory">
+      <End Role="tblGSTCategory" EntitySet="tblGSTCategory" />
+      <End Role="tblGSTGst" EntitySet="tblGSTGst" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTOffer_tblGSTStatus" Association="Self.FK_tblGSTOffer_tblGSTStatus">
+      <End Role="tblGSTStatus" EntitySet="tblGSTStatus" />
+      <End Role="tblGSTOffer" EntitySet="tblGSTOffer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTProduct_tblGSTStatus" Association="Self.FK_tblGSTProduct_tblGSTStatus">
+      <End Role="tblGSTStatus" EntitySet="tblGSTStatus" />
+      <End Role="tblGSTProduct" EntitySet="tblGSTProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTProductOffer_tblGSTOffer" Association="Self.FK_tblGSTProductOffer_tblGSTOffer">
+      <End Role="tblGSTOffer" EntitySet="tblGSTOffer" />
+      <End Role="tblGSTProductOffer" EntitySet="tblGSTProductOffer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTProductOffer_tblGSTStatus" Association="Self.FK_tblGSTProductOffer_tblGSTStatus">
+      <End Role="tblGSTStatus" EntitySet="tblGSTStatus" />
+      <End Role="tblGSTProductOffer" EntitySet="tblGSTProductOffer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTRatingandFeedback_tblGSTBuyer" Association="Self.FK_tblGSTRatingandFeedback_tblGSTBuyer">
+      <End Role="tblGSTBuyer" EntitySet="tblGSTBuyer" />
+      <End Role="tblGSTRatingandFeedback" EntitySet="tblGSTRatingandFeedback" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTSeller_tblGSTCity" Association="Self.FK_tblGSTSeller_tblGSTCity">
+      <End Role="tblGSTCity" EntitySet="tblGSTCity" />
+      <End Role="tblGSTSeller" EntitySet="tblGSTSeller" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTSeller_tblGSTStatus" Association="Self.FK_tblGSTSeller_tblGSTStatus">
+      <End Role="tblGSTStatus" EntitySet="tblGSTStatus" />
+      <End Role="tblGSTSeller" EntitySet="tblGSTSeller" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTSellerDocument_tblGSTSeller" Association="Self.FK_tblGSTSellerDocument_tblGSTSeller">
+      <End Role="tblGSTSeller" EntitySet="tblGSTSeller" />
+      <End Role="tblGSTSellerDocument" EntitySet="tblGSTSellerDocument" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTSellerPayment_tblGSTSeller" Association="Self.FK_tblGSTSellerPayment_tblGSTSeller">
+      <End Role="tblGSTSeller" EntitySet="tblGSTSeller" />
+      <End Role="tblGSTSellerPayment" EntitySet="tblGSTSellerPayment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTSellerPayment_tblGSTStatus" Association="Self.FK_tblGSTSellerPayment_tblGSTStatus">
+      <End Role="tblGSTStatus" EntitySet="tblGSTStatus" />
+      <End Role="tblGSTSellerPayment" EntitySet="tblGSTSellerPayment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTState_tblGSTCountry" Association="Self.FK_tblGSTState_tblGSTCountry">
+      <End Role="tblGSTCountry" EntitySet="tblGSTCountry" />
+      <End Role="tblGSTState" EntitySet="tblGSTState" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTWallet_tblGSTBuyer" Association="Self.FK_tblGSTWallet_tblGSTBuyer">
+      <End Role="tblGSTBuyer" EntitySet="tblGSTBuyer" />
+      <End Role="tblGSTWallet" EntitySet="tblGSTWallet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblGSTWallet_tblGSTStatus" Association="Self.FK_tblGSTWallet_tblGSTStatus">
+      <End Role="tblGSTStatus" EntitySet="tblGSTStatus" />
+      <End Role="tblGSTWallet" EntitySet="tblGSTWallet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

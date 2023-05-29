@@ -1,0 +1,452 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+@{
+    ViewBag.Title = "SubCategory2Details";
+    //Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<hr />
+<br />
+<div>
+
+    <dl class="dl-horizontal">
+        @*<dt>
+                @Html.DisplayNameFor(model => model.EmailId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EmailId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AlternateMobileNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AlternateMobileNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Photo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Photo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CityId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CityId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PinCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PinCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StatusId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.StatusId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SellerName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SellerName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CategoryId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CategoryCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CategoryCode)
+            </dd>*@
+
+
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.SubCategory1Code)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SubCategory1Code)
+            </dd>*@
+
+
+        <div class="row" style="margin-left:80px">
+            <dt class="col-lg-6">
+                @Html.DisplayNameFor(model => model.SubCategory2Code) :
+            </dt>
+
+            <dd class="col-lg-6">
+                @Html.DisplayFor(model => model.SubCategory2Code)
+            </dd>
+        </div>
+        <br />
+        <div class="row" style="margin-left:80px">
+            <dt class="col-lg-6">
+                @Html.DisplayNameFor(model => model.SubCategory2Name) :
+            </dt>
+
+            <dd class="col-lg-6">
+                @Html.DisplayFor(model => model.SubCategory2Name)
+            </dd>
+        </div>
+        <br />
+        <div class="row" style="margin-left:80px">
+            <dt class="col-lg-6">
+                @Html.DisplayNameFor(model => model.SubCategory1Name) :
+            </dt>
+
+            <dd class="col-lg-6">
+                @Html.DisplayFor(model => model.SubCategory1Name)
+            </dd>
+        </div>
+        <br />
+        <div class="row" style="margin-left:80px">
+            <dt class="col-lg-6">
+                @Html.DisplayNameFor(model => model.CategoryName) :
+            </dt>
+
+            <dd class="col-lg-6">
+                @Html.DisplayFor(model => model.CategoryName)
+            </dd>
+        </div>
+        <br />
+        @*<dt>
+                @Html.DisplayNameFor(model => model.SubCategory1Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SubCategory1Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CategoryName)
+            </dd>*@
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Commision)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Commision)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FullName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FullName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MobileNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MobileNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SellerId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SellerId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SellerCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SellerCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SellerFullName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SellerFullName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BusinessName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BusinessName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AadharNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AadharNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AadharImage)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.AadharImage)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BusinessAadharNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BusinessAadharNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BusinessAdharImage)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BusinessAdharImage)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BusinessPanNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BusinessPanNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BusinessPanImage)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BusinessPanImage)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PanCardNo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PanCardNo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PanImage)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PanImage)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.GSTIN)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.GSTIN)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OfficeAddress)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OfficeAddress)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.RejectionReason)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RejectionReason)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MRP)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MRP)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MaximumStock)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MaximumStock)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MinimumStock)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MinimumStock)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MainImage)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MainImage)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsProductReturnable)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsProductReturnable)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsProductExpirable)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsProductExpirable)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductExpiryDuration)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductExpiryDuration)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductRegistrationDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductRegistrationDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ManufacturerName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ManufacturerName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductApprovalDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProductApprovalDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SellerApprovalDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SellerApprovalDate)
+            </dd>*@
+
+    </dl>
+    <hr />
+    <div style="text-align:right">
+        <button type="button" class="btn response" style="background-color:green">
+            @Html.ActionLink("Close", "SubCategory2Approval", new { @class = "btn-xs" }, new { @style = "color:white;" })
+        </button>
+        @*<input type="submit" formaction="@Url.Action("PendingProductList","Admin")" value="Close" />*@
+    </div>
+</div>
+@*<hr />
+<p style="text-align:right">
+    @Html.ActionLink("Back to List", "SubCategory2Approval")
+</p>*@

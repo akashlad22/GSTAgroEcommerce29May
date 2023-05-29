@@ -1,0 +1,81 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+<div>
+   
+    <table class="table" style="border:2px dashed black">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.TotalOrders)
+            </th>
+            <td>
+                @ViewBag.TotalOrders
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAmountReceived)
+            </th>
+            <td>
+                @ViewBag.TotalAmountReceived
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalShippingCharges)
+            </th>
+            <td>
+                @ViewBag.TotalShippingCharges
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CommissiontoAdmin)
+            </th>
+            <td>
+                @ViewBag.TotalCommission
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerRefundedAmount)
+            </th>
+            <td>
+                @ViewBag.RefundedAmount
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PreviousBalanceAmt)
+            </th>
+            <td>
+                @ViewBag.PreviousBalanceAmt
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAmountToPaySeller)
+            </th>
+            <td>
+                @ViewBag.TotalPayToSeller
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PaidAmt)
+            </th>
+            <td>
+                @ViewBag.PaidAmt
+            </td>
+        </tr>
+
+
+
+
+    </table>
+</div>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AdminId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

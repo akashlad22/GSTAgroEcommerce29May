@@ -1,0 +1,62 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <div style="margin-left:250px">
+            <div class="row">
+                <span class="col-lg-5">
+                    <b>@Html.DisplayNameFor(model => model.CouponCode) : </b>
+                </span>
+
+                <span class="col-lg-5">
+                    @Html.DisplayFor(model => model.CouponCode)
+                </span>
+            </div>
+            <div class="row">
+                <span class="col-lg-5">
+                    <b> @Html.DisplayNameFor(model => model.CouponAmount) : </b>
+                </span>
+
+                <span class="col-lg-5">
+                    @Html.DisplayFor(model => model.CouponAmount)
+                </span>
+            </div>
+            <div class="row">
+                <span class="col-lg-5">
+                    <b>@Html.DisplayNameFor(model => model.CouponMinimumAmount) : </b>
+                </span>
+
+                <span class="col-lg-5">
+                    @Html.DisplayFor(model => model.CouponMinimumAmount)
+                </span>
+            </div>
+            <div class="row">
+                <span class="col-lg-5">
+                    <b>@Html.DisplayNameFor(model => model.CouponMaximumAmount) : </b>
+                </span>
+
+                <span class="col-lg-5">
+                    @Html.DisplayFor(model => model.CouponMaximumAmount)
+                </span>
+            </div>
+            <div class="row">
+                <span class="col-lg-5">
+                    <b>@Html.DisplayNameFor(model => model.Expirydays) : </b>
+                </span>
+
+                <span class="col-lg-5">
+                    @Html.DisplayFor(model => model.Expirydays)
+                </span>
+            </div>
+            
+            
+        </div>
+
+    </dl>
+</div>
+<p>
+    
+    @Html.ActionLink("Close", "FetchCoupon")
+</p>

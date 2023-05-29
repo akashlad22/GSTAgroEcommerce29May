@@ -1,0 +1,95 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+@{
+    ViewBag.Title = "EditReward";
+    // Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+@using (Html.BeginForm("EditReward", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.RewardId)
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.RewardId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RewardId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RewardId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row" style="margin-left:150px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.RewardPoints, htmlAttributes: new { @class = "control-label" })
+
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.RewardPoints, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RewardPoints, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin-left:150px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.RewardConversionRate, htmlAttributes: new { @class = "control-label" })
+
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.RewardConversionRate, new { htmlAttributes = new { @class = "form-control", @readonly = "Readonly" } })
+                @Html.ValidationMessageFor(model => model.RewardConversionRate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin-left:150px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.RewardMinimumAmount, htmlAttributes: new { @class = "control-label" })
+
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.RewardMinimumAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RewardMinimumAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin-left:150px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.RewardMaximumAmount, htmlAttributes: new { @class = "control-label" })
+
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.RewardMaximumAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RewardMaximumAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin-left:150px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.PointLimits, htmlAttributes: new { @class = "control-label" })
+
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.PointLimits, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PointLimits, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="form-group" style="margin-left:300px">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Close", "FetchReward")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    }

@@ -1,0 +1,551 @@
+﻿@model AgroEcommerceLibrary.Buyer.Buyer
+@{
+    ViewBag.Title = "ViewCart";
+    Layout = "~/Views/Shared/Buyer_Layout.cshtml";
+}
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        //-----to check reward point----------//
+        $.get("BalancePoint/BuyerController", function (RESULT) {
+
+            $('.Reward').text(RESULT.data);
+
+            $(".maxlimit").text(RESULT.data2);
+            $(".conversionrate").text(RESULT.data1);
+            if (RESULT.data > RESULT.data2) {
+                document.getElementById('rewardpoint').max = (RESULT.data2);
+            }
+            else { document.getElementById('rewardpoint').max = (RESULT.data); }
+
+        });
+        $("#rewardpoint").change(function () {
+            //-------------to update  reward point price in summery------------//
+            rewardprice();
+        });
+
+        $("#reward").click(function () {
+            //-------------to update  reward point price in summery------------//
+            rewardprice();
+        });
+        function rewardprice() {
+            var conversionrate = parseFloat($(".conversionrate").text());
+            var point = parseInt($("#rewardpoint").val());
+            var maxpoint = parseInt($(".Reward").text());
+            var maxlimit = parseInt($(".maxlimit").text());
+            if (point > maxpoint && point < maxlimit) {
+                $('#rewardpoint').val(maxpoint);
+            } else if (point < maxpoint && point > maxlimit) {
+                $('#rewardpoint').val(maxlimit);
+            } else if (point > maxpoint && point > maxlimit) {
+                if (maxpoint > maxlimit) { $('#rewardpoint').val(maxlimit); }
+                else if (maxpoint <= maxlimit) { $('#rewardpoint').val(maxpoint); }
+            };
+            var point = parseInt($("#rewardpoint").val());
+            if (maxpoint >= point && point <= maxlimit) {
+
+                var carttotal = parseFloat($(".Ctotal").text());
+                var discount = parseFloat($(".CartDiscount").text());
+                var rewardprice = point * conversionrate;
+                var coupandiscount = parseFloat($('#discount').text());
+                if (coupandiscount > 0) {
+                    var Totaldiscount = (discount + coupandiscount + rewardprice);
+                } else { Totaldiscount = discount + rewardprice };
+                var finalprice = carttotal - Totaldiscount;
+                var FINAL = finalprice
+                $('.rewarprice').text(rewardprice.toFixed(2));
+                $('.Total').text(FINAL.toFixed(2));
+
+            } else { };
+        }
+
+        ////////-------------to check Coupan apply---------------//
+
+        $("#coupan").click(function () {
+            var coupancode = $("#CoupanText").val();
+
+            $.get("CheckCupan/BuyerController", { Coupan: coupancode }, function (RESULT) {
+                $('#discount').text(RESULT.data.toFixed(2));
+
+                Calculate();
+
+
+            });
+        });
+        /////////---------To update cart summery when coupan is applied--------/////
+        function Calculate() {
+            var carttotal = parseFloat($(".Ctotal").text());
+            var discount = parseFloat($(".CartDiscount").text());
+            var coupandiscount = parseFloat($('#discount').text());
+            var rewardprice = parseFloat($('.rewarprice').text());
+            if (rewardprice > 0) {
+                rewardprice = rewardprice
+            }
+            else { rewardprice = 0 };
+            if (coupandiscount > 0) {
+                var Totaldiscount = (discount + coupandiscount + rewardprice);
+            } else { Totaldiscount = discount + rewardprice };
+            var finalprice = carttotal - Totaldiscount;
+            var FINAL = finalprice;
+            $('.Total').text(FINAL.toFixed(2));
+        };
+        ////------------to get value of summery ------------//
+        $(".checkout").click(function () {
+            var coupandiscount1 = parseFloat($('#discount').text());
+            var cartdiscount = parseFloat($(".CartDiscount").text());
+            var rewardprice = parseFloat($('.rewarprice').text());
+            var coupandiscount = cartdiscount + coupandiscount1 + rewardprice;
+            sessionStorage.setItem("coupandiscount", coupandiscount);
+            var carttotal = parseFloat($('.Ctotal').text());
+            var total = parseFloat($(".Total").text());
+            sessionStorage.setItem("carttotal", carttotal);
+            sessionStorage.setItem("total", total);
+            var rewardpoint = parseFloat($("#rewardpoint").val());
+            sessionStorage.setItem("applypoint", rewardpoint);
+        });
+
+        ///-----------Countinue Shopping-------
+        $(".update-box").click(function () {
+            window.location.href = ("/Buyer/Index");
+        });
+
+        ////-------------to update cart when quantity is change and update summery of cart----------///
+        $(".cart-item-qty").change(function () {
+            var $this = $(this);
+            var parent = $this.parent().parent();
+            var ordercode = parent.find(".productcode").text();
+            var productprice = parent.find(".cart-item-total").text();
+            var carttotal = parseFloat($(".Ctotal").text());
+            var cartdiscount = parseFloat($(".CartDiscount").text());
+            var percentoff = parent.find(".productpercent").text();
+            var rewardprice = parseFloat($('.rewarprice').text());
+            if (rewardprice > 0) { rewardprice = rewardprice } else { rewardprice = 0 };
+
+            var productpercprice = 0;
+            var pdiscount = 0;
+            if (percentoff == 0) { productpercprice = 0; pdiscount = 0; }
+            else {
+                productpercprice = (parent.find(".productdiscount").text());
+                pdiscount = productprice - productpercprice;
+            };
+
+            var coupandiscount = parseFloat($('#discount').text());
+            var totalpercprice = 0;
+            var Totaldiscount = 0;
+            var total = 0;
+            var price = parseFloat($this.attr("data-id"));
+            var quantity = $this.val();
+            total = price * quantity;
+
+            if (total > productprice) {
+
+                var incrdescount = (percentoff * total / 100) - pdiscount;
+                var cartdiscount1 = cartdiscount + incrdescount;
+                var newdiscountprice1 = total - (total * percentoff / 100);
+                if (coupandiscount > 0) {
+                    Totaldiscount = (cartdiscount + coupandiscount + incrdescount + rewardprice);
+                } else {
+                    Totaldiscount = cartdiscount + incrdescount + rewardprice;
+                }
+                var newproductprice = total - productprice;
+                var cartnewprice = carttotal + newproductprice;
+                var finalprice = cartnewprice - Totaldiscount;
+                $('.Ctotal').html(cartnewprice.toFixed(2));
+                $('.Total').html(finalprice.toFixed(2));
+                $(".CartDiscount").text(cartdiscount1);
+                if (percentoff > 0) {
+                    parent.find(".newdiscount").html(total.toFixed(2));
+                    parent.find(".productdiscount").html(newdiscountprice1.toFixed(2));
+                } else {
+                    parent.find(".cart-item-total").html(total.toFixed(2));
+                }
+
+            } else {
+
+                var descdiscount = pdiscount - (percentoff * total / 100);
+                var cartdiscount1 = cartdiscount - descdiscount;
+                var newdiscountprice1 = total - (total * percentoff / 100);
+                if (coupandiscount > 0) {
+                    Totaldiscount = (cartdiscount + coupandiscount + rewardprice - descdiscount);
+                } else {
+                    Totaldiscount = cartdiscount + rewardprice - descdiscount;
+                }
+                var newproductprice = productprice - total;
+                var cartnewprice = carttotal - newproductprice;
+                var finalprice = cartnewprice - Totaldiscount;
+                $('.Ctotal').text(cartnewprice);
+                $('.Total').html(finalprice.toFixed(2));
+            };
+            $(".CartDiscount").html(cartdiscount1.toFixed(2))
+            if (percentoff > 0) {
+                parent.find(".newdiscount").html(total.toFixed(2));
+                parent.find(".productdiscount").html(newdiscountprice1.toFixed(2));
+            } else {
+                parent.find(".cart-item-total").html(total.toFixed(2));
+            }
+            $.post("UpdateQuantity/BuyerController", { orderno: ordercode, quantity: quantity });
+        });
+
+        //////////--------to remove product from cart---------////
+        $(".remove-pr").click(function () {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will add product in cart!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    swal(" Your product has been removed!", {
+                        icon: "success",
+
+                    });
+                    var $this = $(this);
+                    var parent = $this.parent().parent();
+                    var ordercode = parent.find(".productcode").text();
+                    $.post("DeleteProduct/BuyerController", { orderno: ordercode }, function (data) {
+                        window.location.reload();
+                    });
+                    var productprice = parent.find(".cart-item-total").text();
+                    var carttotal = parseFloat($(".Ctotal").text());
+                    var cartdiscount = parseFloat($(".CartDiscount").text());
+                    var percentoff = parent.find(".productpercent").text();
+                    var coupandiscount = parseFloat($('#discount').text());
+                    var rewardprice = parseFloat($('.rewarprice').text());
+                    var totalpercprice = 0;
+                    var Totaldiscount = 0;
+                    var total = 0;
+                    var newcarttotal = carttotal - productprice
+                    $('.Ctotal').text(newcarttotal.toFixed(2));
+                    var price = parseFloat(parent.find(".mrp").text());
+                    var quantity = parent.find(".cart-item-qty").val();
+                    total = price * quantity;
+                    var descdiscount = cartdiscount - (percentoff * total / 100);
+                    $(".CartDiscount").html(descdiscount.toFixed(2))
+                    if (coupandiscount > 0) {
+                        Totaldiscount = (descdiscount + coupandiscount + rewardprice);
+                    } else {
+                        Totaldiscount = descdiscount + rewardprice;
+                    }
+                    var finalprice = newcarttotal - Totaldiscount;
+                    $('.Total').html(finalprice.toFixed(2));
+                    $(this).parent().parent().remove();
+                    var para = document.getElementsByClassName('remove-pr');
+
+                    if (para.length == 0) {
+                        $(".cart-box-main").css("display", "none");
+                        $(".NoProduct").show();
+                    };
+
+                } else {
+                    swal("Your Product is safe!");
+                }
+            });
+
+
+        });
+    });
+
+</script>
+
+<!-- Start All Title Box -->
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Cart</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                    <li class="breadcrumb-item active">Cart</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Title Box -->
+<!-- Start Cart  -->
+@if (Model.Buyers.Count > 0)
+{
+
+    <div class="cart-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-main table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Images</th>
+                                    <th style="display:none">orderno</th>
+                                    <th>Product Name</th>
+                                    <th>Product Weight</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th style="text-align:center">Total</th>
+                                    <th style="text-align:center">Remove</th>
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model.Buyers)
+                            {
+                                <tbody>
+                                    <tr class="cart-item">
+
+                                        <td class="-img" style="width:350px">
+
+                                            <span>
+                                                <a href="#">
+                                                    <img class="img-fluid" src="~/Content/Images/Product/@item.MainImage" style="width:200px;height:200px" alt="" />
+                                                </a>
+                                            </span>
+                                            <b><span class="productpercent"> @item.Discount </span><span>%off</span></b>
+                                        </td>
+                                        <td style="display:none" class="productcode">@item.OrderCode</td>
+                                        <td class="name-pr" style="width:200px">
+                                            <a href="#">
+                                                @item.ProductName &nbsp;
+                                                @*@item.ProductWeight <br />
+                                                    @item.ManufacturerName*@
+                                            </a>
+
+                                        </td>
+                                        <td>
+                                                @item.ProductWeight <br />
+                                        </td>
+                                        <td class="price-pr">
+                                            <p class="mrp"><b>@item.MRP</b> </p>
+                                        </td>
+
+                                        <td class="quantity-box" style="width:150px">
+                                            <input type="number" data-id="@item.MRP" size="4" value="@item.ProductQuantity" min="1" step="1" pattern="[0-9]" oninput="this.value=(parseInt(this.value)||0)" autofocus="" class="c-input-text qty text cart-item-qty ">
+
+                                        </td>
+                                        @if (item.Discount > 0)
+                                        {
+                                            <td class="total-pr" style="text-align:center">
+                                                <b>
+                                                    <span class="cart-item-total"> <del class="newdiscount"> @item.producttotalprice</del></span>&nbsp;<span><i class="fas fa-rupee-sign"></i></span>
+                                                </b><p><span class="productdiscount"> <b>@item.discountprice </b></span>&nbsp;<span><i class="fas fa-rupee-sign"></i></span></p>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="total-pr" style="text-align:center">
+                                                <b><span class="cart-item-total">@item.producttotalprice </span>&nbsp;<span><i class="fas fa-rupee-sign"></i></span></b>
+                                            </td>
+                                        }
+                                        <td class="remove-pr">
+                                            <a href="#">
+                                                <p style="font-size:30px">
+                                                    <i class="fas fa-times"></i>
+                                                </p>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+
+
+                                </tbody>
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row my-5">
+                <div class="col-lg-6 col-sm-6">
+                    <div>
+                        <div class="coupon-box">
+                            @*@using (Html.BeginForm("ViewCart", "Buyer", FormMethod.Get))
+                                {*@ <div class="input-group input-group-sm">
+                                <input class="form-control" name="coupan" placeholder="Enter your coupon code" aria-label="Coupon code" type="text" id="CoupanText">
+                                <div class="input-group-append">
+                                    <button class="btn btn-theme" value="" id="coupan" type="button" @*href="@Url.Action("ViewCart")"*@>Apply Coupon</button>
+                                </div>
+                                <p class="conversionrate " style="display:none"></p>
+
+                            </div>
+
+                            @*}*@
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-6">
+                    <div class="update-box">
+                        <input value="Continue Shopping" type="submit">
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class="row my-5">
+                @*<div class="col-lg-8 col-sm-12">*@
+                <div class="col-lg-6 col-sm-6">
+                    <div class="coupon-box">
+                        <div class="input-group input-group-sm">
+                            <input class="form-control" type="number" pattern="[0-9]" oninput="this.value=(parseInt(this.value)||0)" autofocus="" value="0" min="0" max="100" id="rewardpoint" step="1" />
+                            <div class="input-group-append">
+                                <button class="btn btn-theme" value="" id="reward" type="button" @*href="@Url.Action("ViewCart")"*@>Apply Point</button>
+                            </div>
+                        </div>
+                        <p>You Have <span class="Reward"></span> reward to Apply </p>
+                        <p class=" maxlimit" style="display:none"></p>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="order-box">
+                        <h3>Order summary</h3>
+                        <div class="d-flex">
+                            <h4>Sub Total</h4>
+                            <div class="ml-auto font-weight-bold Ctotal"> @ViewBag.carttotal </div>
+                        </div>
+
+                        <div class="d-flex">
+                            <h4>Discount</h4>
+                            <div class="ml-auto font-weight-bold CartDiscount">@ViewBag.totaldiscount</div>
+                        </div>
+
+                        <hr class="my-1">
+                        <div class="d-flex">
+                            <h4>Coupon Discount</h4>
+                            <div class="ml-auto font-weight-bold" id="discount">0 </div>
+                        </div>
+
+                        <div class="d-flex">
+                            <h4>Reward Price</h4>
+                            <div class="ml-auto font-weight-bold rewarprice"> 0 </div>
+                        </div>
+                        <hr>
+
+                        <div class="d-flex gr-total">
+                            <h5>Grand Total</h5>
+                            <div class="ml-auto h5 Total">@ViewBag.grandtotal </div>
+                        </div>
+
+                        <hr>
+                    </div>
+
+                </div>
+                <div class="col-12 d-flex shopping-box">
+                    <a class="ml-auto btn hvr-hover checkout" href="@Url.Action("Checkout", "Buyer")"> Checkout</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+else
+{
+    <div style=" text-align:center" class="NoProduct">
+        No Product In Your Cart
+
+        <div>
+            <a style="color:blue" href="@Url.Action("SideBarShop","Buyer")" class="btn btn-info"> Shop Now</a>
+        </div>
+    </div>
+}
+<div style=" text-align:center;display:none" class="NoProduct">
+    No Product In Your Cart
+
+    <div>
+        <a style="color:blue" href="@Url.Action("SideBarShop","Buyer")" class="btn btn-info"> Shop Now</a>
+    </div>
+</div>
+@* /////////////
+    $(".cart-item-qty").change(function () {
+            var $this = $(this);
+            var parent = $this.parent().parent();
+            var productprice = parent.find(".cart-item-total").text();
+            var carttotal = parseInt($(".Ctotal").text());
+            var cartdiscount = parseInt($(".CartDiscount").text());
+
+            var coupandiscount = parseInt($('#discount').text());
+
+            var Totaldiscount = 0;
+            var price = $this.attr("data-id");
+            var quantity = $this.val();
+            var total = price * quantity;
+            parent.find(".cart-item-total").html(total.toFixed(2));
+            if (total > productprice) {
+
+                if (coupandiscount > 0) {
+                     Totaldiscount = (cartdiscount + coupandiscount);
+                } else {
+                    Totaldiscount = cartdiscount;
+                }
+                var newproductprice = total - productprice;
+                var cartnewprice = carttotal + newproductprice;
+                var finalprice = cartnewprice - Totaldiscount;
+
+                $('.Ctotal').text(cartnewprice);
+                //document.getElementById('Total').innerHTML = finalprice;
+                $('.Total').text(finalprice);
+            } else {
+
+
+                if (coupandiscount > 0) {
+                     Totaldiscount = (cartdiscount + coupandiscount);
+                } else {
+                    Totaldiscount = cartdiscount;
+                }
+                var newproductprice = productprice - total;
+                var cartnewprice = carttotal - newproductprice;
+                var finalprice = cartnewprice - Totaldiscount;
+
+                $('.Ctotal').text(cartnewprice);
+                //document.getElementById('Total').innerHTML = finalprice;
+                $('.Total').text(finalprice);
+            };
+        });*@
+
+@*[HttpGet]
+        public JsonResult GetPrice(Buyer objbuyer)
+        {
+            string buyercode = "B004";
+            BALBuyer objbal = new BALBuyer();
+            objbal.Savequantity(objbuyer.ProductCode, objbuyer.ProductQuantity, objbuyer.BuyerCode);
+            BALBuyer objbal1 = new BALBuyer();
+            DataSet ds1 = new DataSet();
+            ds1 = objbal1.checkout(buyercode);
+            Buyer objb = new Buyer();
+            List<Buyer>
+    chrckoutlist = new List<Buyer>
+        ();
+        foreach (DataRow dr in ds1.Tables[0].Rows)
+        {
+        Buyer obja = new Buyer();
+        obja.ProductName = dr["ProductName"].ToString();
+        //ProductCode = dr["ProductCode"].ToString(),
+        obja.MRP = Convert.ToInt32(dr["MRP"].ToString());
+        obja.MainImage = dr["MainImage"].ToString();
+        obja.EmailId = dr["EmailId"].ToString();
+        obja.BuyerFullName = dr["BuyerFullName"].ToString();
+        obja.Home = dr["Home"].ToString();
+        obja.Office = dr["Office/Business"].ToString();
+        obja.Other = dr["Other"].ToString();
+        obja.ProductQuantity = Convert.ToInt32(dr["ProductQuantity"].ToString());
+        obja.SubTotal = Convert.ToInt32(dr["SubTotal"].ToString());
+        obja.Doscount = Convert.ToInt32(dr["Discount"].ToString());
+        obja.discountprice = Convert.ToInt32(dr["DiscountPrice"].ToString());
+        totaldiscount += Convert.ToInt32(dr["TotalDiscount"].ToString());
+        totalprice += Convert.ToInt32(dr["totalprice"].ToString());
+
+        chrckoutlist.Add(obja);
+        }
+
+        return Json(chrckoutlist, JsonRequestBehavior.AllowGet);
+        }*@
+
+

@@ -1,0 +1,76 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <div style="margin-left:230px">
+
+            @*<span >
+            @Html.DisplayNameFor(model => model.RewardId)
+        </span>
+
+        <span>
+            @Html.DisplayFor(model => model.RewardId)
+        </span>*@
+
+            <div class="row">
+                <span class="col-lg-5">
+                    <b>@Html.DisplayNameFor(model => model.RewardPoints) : </b>
+                </span>
+
+                <span class="col-lg-5">
+                    @Html.DisplayFor(model => model.RewardPoints)
+                </span>
+            </div>
+            <br />
+            <div class="row">
+                <span class="col-lg-5">
+                    <b>@Html.DisplayNameFor(model => model.RewardConversionRate) : </b>
+                </span>
+
+                <span class="col-lg-5">
+                    @Html.DisplayFor(model => model.RewardConversionRate)
+                </span>
+            </div>
+            <br />
+            <div class="row">
+                <span class="col-lg-5">
+                    <b>@Html.DisplayNameFor(model => model.RewardMinimumAmount) : </b>
+                </span>
+
+                <span class="col-lg-5">
+                    @Html.DisplayFor(model => model.RewardMinimumAmount)
+                </span>
+            </div>
+            <br />
+            <div class="row">
+                <span class="col-lg-5">
+                    <b>@Html.DisplayNameFor(model => model.RewardMaximumAmount) : </b>
+                </span>
+
+                <span class="col-lg-5">
+                    @Html.DisplayFor(model => model.RewardMaximumAmount)
+                </span>
+            </div>
+            <br />
+            <div class="row">
+                <span class="col-lg-5">
+                    <b>@Html.DisplayNameFor(model => model.PointLimits) : </b>
+                </span>
+
+                <span class="col-lg-5">
+                    @Html.DisplayFor(model => model.PointLimits)
+                </span>
+            </div>
+
+
+
+        </div>
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.RewardId }) |*@
+    @Html.ActionLink("Close", "FetchReward")
+</p>

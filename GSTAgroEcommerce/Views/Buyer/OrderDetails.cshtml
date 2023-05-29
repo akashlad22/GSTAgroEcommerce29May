@@ -1,0 +1,147 @@
+﻿@model AgroEcommerceLibrary.Buyer.Buyer
+
+@using (Html.BeginForm("Cancelorder", "Buyer", FormMethod.Post))
+{
+
+
+    <h3><b>Note: You can cancel order only before Dispatched.</b></h3>
+
+    <div>
+        <dl class="dl-horizontal">
+            <div class="row">
+                <div class="col-lg-5">
+                    <dt class="form-group">
+                        @Html.DisplayNameFor(model => model.OrderCode)
+                        @Html.DisplayFor(model => model.OrderCode)
+                    </dt>
+
+
+                    <dt class="form-group">
+                        <img src="~/Content/Images/Product/@Model.MainImage" style="width:150px;height:150px;" /><br />
+
+                    </dt>
+                </div>
+                <div class="col-lg-5" style="margin-top:50px">
+                    <b>@Html.DisplayFor(model => model.ProductName)</b>
+                    <dd>
+
+                        <b>   @Html.DisplayNameFor(model => model.ProductQuantity)</b>&nbsp; : &nbsp;
+                        @Html.DisplayFor(model => model.ProductQuantity)kg/ltr
+                    </dd>
+
+                    <dd>
+                        <b>@Html.DisplayNameFor(model => model.Total) </b>&nbsp; : &nbsp;
+
+                        @Html.DisplayFor(model => model.Total)<br />
+                        <b> @Html.DisplayFor(model => model.ManufacturerName)</b>
+                    </dd>
+                </div>
+            </div>
+
+
+            ,
+
+        </dl>
+    </div>
+
+    <div class="form-group ">
+        <b> @Html.LabelFor(model => model.RejectionReason, htmlAttributes: new { @class = "control-label  " })</b>&nbsp; :    &nbsp;
+
+        @Html.DropDownListFor(model => model.RejectionReason,
+             new SelectList(ViewBag.list), "Select", "null")<br />
+        <div id="errormsg" style="margin-left:70px;font-size:18px; color:red"></div>
+
+        @*<select id="ReasonId" name="@ViewBag.ReasonCollection" class="form-control" required>
+            <option value="@ViewBag.ReasonId">@ViewBag.ReasonCollection</option>
+        </select>*@
+        @Html.ValidationMessageFor(model => model.RejectionReason, "", new { @class = "text-danger" })
+        @*<input type="hidden" id="hidden" />*@
+
+    </div>
+    <div>
+        <button type="" class=" response ">
+            <a class="btn hvr-hover SweetDelete" href="#" data-id="@Model.OrderCode" id="Delete">Cancel Order</a>
+        </button>&nbsp;
+        <button type="button" class=" response ">
+            @Html.ActionLink("Don't Cancel ", "TrackOrder", new { OrderCode = Model.OrderCode }, new { @class = "btn hvr-hover" })
+        </button>
+        <!--<input type="submit" formaction="@Url.Action("Cancelorder", "Buyer", new { OrderCode = Model.OrderCode })" onclick="confirmDelete()" data-id="@Model.OrderCode" value="Cancel Order"--> @*class="btnCancel" formmethod="post"*@
+        <!--style="background-color:darkgoldenrod" /> &nbsp;
+    <input type="submit" formaction="@Url.Action("RemainingOrders", "Buyer")" value="Don't Cancel " formmethod="post" style="background-color:darkgoldenrod" />-->
+
+    </div>
+}
+
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+
+<script src="~/Scripts/SweetAlert.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        $(".SweetDelete").click(function () {
+            var RejectionReason = $("#RejectionReason").val();
+
+            var OrderNo = $(this).attr("data-id");
+            //$(this).parent().parent().remove();
+            $.ajax({
+                url: "/Buyer/Cancel/",
+                data: { "orderno": OrderNo, "Reason": RejectionReason },
+                success: function (Status) {
+                    if (Status.data == "Success") {
+                        swal({
+                            title: "Do you want to cancel this order?",
+                            text: "If you cancel now,you may not be able to avail this deal again.do yo want still want to cancel?",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+
+                        })
+
+                            .then((willDelete) => {
+                                if (willDelete) {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/Buyer/CancelOrder/",
+                                        data: { "orderno": OrderNo, "Reason": RejectionReason },
+                                        success: function () {
+                                            swal({title:"Poof! Your Order has been Cancelled!", 
+                                                type: "success",
+                                                button:"ok",
+                                            })
+
+                                                .then(function () {
+                                                    window.location.href="/Buyer/OrderHistory/";
+                                                })
+                                        }
+                                    
+                                    });
+                                }
+                                else {
+                                    swal("Your order will be delivered soon..");
+                                }
+                            });
+                    }
+                    else if (Status.data == "Failure") {
+                        //swal({
+                        //    title: "Please select rejection reason",
+                        //    dangerMode: true,
+                        //})
+                        //    .then((willDelete) => {
+
+                        // });
+                        $("#errormsg").text("Please select rejection reason")
+
+                    }
+
+
+                }
+            });
+            //.error(function (data) {
+            //    swal("Oops", "We couldn't connect to the server!", "error");
+            //});
+        });
+
+    });
+
+</script>

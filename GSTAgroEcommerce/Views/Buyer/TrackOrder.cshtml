@@ -1,0 +1,567 @@
+﻿@model AgroEcommerceLibrary.Buyer.Buyer
+
+@{
+    ViewBag.Title = "TrackOrder";
+    Layout = "~/Views/Shared/Buyer_Layout.cshtml";
+}
+<head>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+
+    <script src="~/Scripts/SweetAlert.js"></script>
+    <style>
+        .form_wizard .stepContainer {
+            display: block;
+            position: relative;
+            margin: 0;
+            padding: 0;
+            border: 0 solid #CCC;
+            overflow-x: hidden;
+        }
+
+        .wizard_horizontal ul.wizard_steps {
+            display: table;
+            list-style: none;
+            position: relative;
+            width: 100%;
+            margin: 0 0 20px;
+            padding: 50px 10px 10px 10px;
+            */
+            /*float:right;*/
+        }
+
+            .wizard_horizontal ul.wizard_steps li {
+                display: table-cell;
+                text-align: center;
+            }
+
+                .wizard_horizontal ul.wizard_steps li a, .wizard_horizontal ul.wizard_steps li:hover {
+                    display: block;
+                    position: relative;
+                    -moz-opacity: 1;
+                    filter: alpha(opacity=100);
+                    opacity: 1;
+                    color: #666;
+                }
+
+                    .wizard_horizontal ul.wizard_steps li a:before {
+                        content: "";
+                        position: absolute;
+                        height: 4px;
+                        background: #ccc;
+                        top: 20px;
+                        width: 100%;
+                        z-index: 4;
+                        left: 0;
+                    }
+                .wizard_horizontal ul.wizard_steps li a:after {
+                    background:green;
+                }
+
+                        .wizard_horizontal ul.wizard_steps li a.disabled .step_no {
+                        background: #ccc;
+                    }
+
+        *
+
+        .wizard_horizontal ul.wizard_steps li a .step_no {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 100px;
+            display: block;
+            margin: 0 auto 5px;
+            font-size: 16px;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        .wizard_horizontal ul.wizard_steps li a.selected:before, .step_no {
+            background-color:lightgreen;
+            color: #fff;
+        }
+        .wizard_horizontal ul.wizard_steps li a.selected, .step_no {
+            background-color: #fff;
+            color: #fff;
+        }
+
+        .wizard_horizontal ul.wizard_steps li a.done:before, .wizard_horizontal ul.wizard_steps li a.done .step_no {
+            background-color: aqua;
+            color: #fff;
+        }
+
+        .wizard_horizontal ul.wizard_steps li:first-child a:before {
+            left: 50%;
+        }
+
+        .wizard_horizontal ul.wizard_steps li:last-child a:before {
+            right: 50%;
+            width: 50%;
+            left: auto;
+        }
+
+        .container {
+            width: 100%;
+        }
+    </style>
+        @*//$(document).ready(function () {
+        //    $(".Refund").click(function () {
+        //        var OrderNo = $(this).attr("data-id");
+        //        $.ajax({
+        //            url: "/Buyer/RefundRequest/",
+        //            data: { "orderno": OrderNo },
+        //            success: function (Status) {
+        //                if (Status.data == "Success") {
+        //                    swal({
+        //                        title: "Your payment will be refunded soon..",
+        //                        button: "ok",
+        //                        // dangerMode: true,
+        //                    });
+
+        //                }
+        //            }
+        //        });
+        //    });
+        //});*@
+</head>
+<body>
+    <div class="container">
+        <div style="padding:10px 10px 10px 20px ;background-color:white">
+            <dl class="dl-horizontal">
+
+                <h2><b>Delivered To</b></h2>
+                <dd class="form-group">
+                    <b>@Html.DisplayFor(model => model.BuyerFullName)</b>
+                </dd>
+                <dd class="form-group">
+                    <b> @Html.DisplayNameFor(model => model.MobileNo) </b>&nbsp;: &nbsp;
+                    @Html.DisplayFor(model => model.MobileNo)
+                </dd>
+                <dd class="form-group">
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
+                <dd class="form-group">
+                    <b> @Html.DisplayNameFor(model => model.PaymentMode) </b>&nbsp;: &nbsp;
+                    @Html.DisplayFor(model => model.PaymentMode)
+                </dd>
+            </dl>
+
+        </div>
+        <div style="background-color:gainsboro;height:15px"></div>
+        <div style="background-color:white; padding:10px 10px 10px 20px ;height:300px">
+            <div style="width: 30%; float: left; background-color: white">
+                <h2><b>Order Details</b></h2>
+
+                <dl>
+
+
+                    <dd class="form-group">
+                        <b> @Html.DisplayNameFor(model => model.OrderCode) &nbsp;: &nbsp;</b>
+                        @Html.DisplayFor(model => model.OrderCode)
+                    </dd>
+
+
+
+                    <dd class="form-group">
+                       
+                        <ul>
+                            <li><b> @Html.DisplayFor(model => model.ProductName)</b></li>
+
+                            <li>
+                                <b> @Html.DisplayNameFor(model => model.ProductQuantity)</b> &nbsp;: &nbsp;
+                                @Html.DisplayFor(model => model.ProductQuantity) kg/lit
+                            </li>
+                            <li>
+                                <b> @Html.DisplayNameFor(model => model.Total)</b> &nbsp;: &nbsp;
+
+                                <b> @Html.DisplayFor(model => model.Total)</b>
+                            </li>
+                        </ul>
+                    </dd>
+
+                   
+
+
+                </dl>
+
+            </div>
+
+            <div id="wizard" class="form_wizard wizard_horizontal" style="background-color:white;width:40%;float:left">
+
+                @*<h3><b>Note: You can cancel order only before Dispatched.</b></h3>*@
+                <ul class="wizard_steps">
+                    @if (ViewBag.statusId == 6)
+                    {
+                        <li>
+
+                            <a href="#step-1" class="disabled">
+                                <span class="step_no" style="background-color:forestgreen">1</span>
+                                <span class="step_descr">
+                                    Step 1<br />
+                                    <h5>Ordered</h5>
+                                </span>
+                            </a>
+
+
+                        </li>
+
+                        <li>
+                            <a href="#step-2" class="disabled" >
+                                <span class="step_no">2</span>
+                                <span class="step_descr">
+                                    Step 2<br />
+                                    <h5>Picked-up</h5>
+                                </span>
+                            </a>
+                        </li>
+
+                        
+                        <li>
+                            <a href="#step-3" class="disabled">
+                                <span class="step_no">3</span>
+                                <span class="step_descr">
+                                    Step 3<br />
+                                    <h5>Out for Delivery</h5>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#step-4" class="disabled">
+                                <span class="step_no">4</span>
+                                <span class="step_descr">
+                                    Step 4<br />
+                                    <h5>Delivered</h5>
+                                </span>
+                            </a>
+                        </li>
+                    }
+                    @if (ViewBag.statusId == 8)
+                    {
+                        <li>
+                            <a href="#step-1" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">1</span>
+                                <span class="step_descr">
+                                    Step 1<br />
+                                    <h5>Ordered</h5>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#step-2" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">2</span>
+                                <span class="step_descr">
+                                    Step 2<br />
+                                    <h5>Picked-up</h5>
+                                </span>
+                            </a>
+                        </li>
+
+                        
+                        <li>
+                            <a href="#step-3" class="disabled">
+                                <span class="step_no">3</span>
+                                <span class="step_descr">
+                                    Step 3<br />
+                                    <h5>Out for Delivery</h5>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#step-4"  class="disabled">
+                                <span class="step_no">4</span>
+                                <span class="step_descr">
+                                    Step 4<br />
+                                    <h5>Delivered</h5>
+                                </span>
+                            </a>
+                        </li>
+                    }
+                    @if (ViewBag.statusId == 9)
+                    {
+                        <li>
+                            <a href="#step-1" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">1</span>
+                                <span class="step_descr">
+                                    Step 1<br />
+                                    <h5>Ordered</h5>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#step-2" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">2</span>
+                                <span class="step_descr">
+                                    Step 2<br />
+                                    <h5>Picked-up</h5>
+                                </span>
+                            </a>
+                        </li>
+
+                        
+                        <li>
+                            <a href="#step-3" class="disabled">
+                                <span class="step_no">3</span>
+                                <span class="step_descr">
+                                    Step 3<br />
+                                    <h5>Out for Delivery</h5>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#step-4" class="disabled">
+                                <span class="step_no">4</span>
+                                <span class="step_descr">
+                                    Step 4<br />
+                                    <h5>Delivered</h5>
+                                </span>
+                            </a>
+                        </li>
+                    }
+                    @if (ViewBag.statusId == 10)
+                    {
+                        <li>
+                            <a href="#step-1" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">1</span>
+                                <span class="step_descr">
+                                    Step 1<br />
+                                    <h5>Ordered</h5>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#step-2" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">2</span>
+                                <span class="step_descr">
+                                    Step 2<br />
+                                    <h5>Picked-up</h5>
+                                </span>
+                            </a>
+                        </li>
+
+                       
+                            <a href="#step-3" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">3</span>
+                                <span class="step_descr">
+                                    Step 3<br />
+                                    <h5>Out for Delivery</h5>
+                                </span>
+                            </a>
+                        
+                        <li>
+                            <a href="#step-4" class="disabled">
+                                <span class="step_no">4</span>
+                                <span class="step_descr">
+                                    Step 4<br />
+                                    <h5>Delivered</h5>
+                                </span>
+                            </a>
+                        </li>
+                    }
+                    @if (ViewBag.statusId == 11)
+                    {
+                        <li>
+                            <a href="#step-1" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">1</span>
+                                <span class="step_descr">
+                                    Step 1<br />
+                                    <h5>Ordered</h5>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#step-2" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">2</span>
+                                <span class="step_descr">
+                                    Step 2<br />
+                                    <h5>Picked-up</h5>
+                                </span>
+                            </a>
+                        </li>
+
+                       
+                        <li>
+                            <a href="#step-3" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">3</span>
+                                <span class="step_descr">
+                                    Step 3<br />
+                                    <h5>Out for Delivery</h5>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#step-4" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">4</span>
+                                <span class="step_descr">
+                                    Step 4<br />
+                                    <h5>Delivered</h5>
+                                </span>
+                            </a>
+                        </li>
+                    }
+                    @if (ViewBag.statusId == 14 || ViewBag.statusId == 24)
+                    {
+                        <li>
+                            <a href="#step-1" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">1</span>
+                                <span class="step_descr">
+                                    Step 1<br />
+                                    <h5>Ordered</h5>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#step-2" class="selected">
+                                <span class="step_no" style="background-color:forestgreen">2</span>
+                                <span class="step_descr">
+                                    Step 2<br />
+                                    <h5>Cancelled</h5>
+                                </span>
+                            </a>
+                        </li>
+                       
+
+
+
+                    }
+                  
+                </ul>
+
+                @if (ViewBag.statusId == 14 || ViewBag.statusId == 24)
+                {
+                    <span style="text-align:center">
+                        <b> @Html.DisplayNameFor(model => model.RejectionReason) </b>
+                       &nbsp;&nbsp;
+                        @ViewBag.RejectionReason
+                    </span>
+                }
+            </div>
+        
+        @*<div style="background-color:gainsboro;height:15px"></div>*@
+
+        <div style="background-color: white;  width: 20%; float: right ">
+
+            <h3><b>Note: You can cancel order only before Dispatched.</b></h3>
+            @if (ViewBag.statusId < 8)
+            {
+                <button type="button" class="btn btn-success response">
+                    <a class="Popup" href="javascript:;" data-id="@Model.OrderCode"> Cancel</a>
+                    @*@Html.ActionLink("Cancel", "Cancelorder", new { OrderCode = Model.OrderCode })*@
+                </button>}<br /><br />
+            @if (ViewBag.PayMode == 15 && ViewBag.statusId == 14)
+            {
+                <button type="button" class="btn btn-success response ">
+                    <a class="Refund" href="#" data-id="@Model.OrderCode" id="Delete">Refund</a>
+
+                    @*@Html.ActionLink("Refund", "RefundRequest", new { OrderCode = Model.OrderCode })*@
+                </button>}<br /><br />
+            @if (ViewBag.statusId == 11)
+            {
+                <button type="button" class="btn btn-success response">
+                    <a class="Feedback" href="javascript:;" data-id="@Model.ProductCode"> Feedback</a>
+                </button>
+            }<br />
+            @*<button type="button" class="btn btn-success response">
+            <a class="Popup" href="javascript:;" data-id="@Model.OrderCode"> Replace</a>
+        </button><br />
+        <button type="button" class="btn btn-success response">
+            <a class="Popup" href="javascript:;" data-id="@Model.OrderNo"> Reorder</a>
+        </button>*@
+
+
+
+        </div>
+            </div>
+    </div>
+    <div id="partialModal" class="modal" tabindex="-1" role="dialog" style="position:center">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" style="color:lightgreen; font-size:xx-large">Confirm Cancellation</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                
+            </div>
+        </div>
+    </div>
+  
+    <script type="text/javascript">
+    $(function () {
+        $(".Popup").click(function () {
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id')
+            /* var id = $(this).closest("tr").find("td").eq(0).html();*/
+            $.ajax({
+                type: "GET",
+                url: "/Buyer/OrderDetails",
+                data: { OrderCode: id },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal").find(".modal-body").html(response);
+                    $("#partialModal").modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+        $(".Refund").click(function () {
+            var OrderNo = $(this).attr("data-id");
+            $.ajax({
+                url: "/Buyer/RefundRequest/",
+                data: { "orderno": OrderNo },
+                success: function (Status) {
+                    if (Status.data == "success") {
+                        swal({
+                            title: "Your payment will be refunded soon..",
+                            button: "ok",
+                            // dangerMode: true,
+                        });
+
+                    }
+                }
+            });
+        });
+        $(function () {
+            $(".Feedback").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id')
+                /* var id = $(this).closest("tr").find("td").eq(0).html();*/
+                $.ajax({
+                    type: "GET",
+                    url: "/Buyer/Feedback",
+                    data: { ProductCode: id },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (response) {
+                        $("#partialModal").find(".modal-body").html(response);
+                        $("#partialModal").modal('show');
+                        $("#partialModal").find(".modal-title").text('Feed Back')
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+
+    </script>
+</body>

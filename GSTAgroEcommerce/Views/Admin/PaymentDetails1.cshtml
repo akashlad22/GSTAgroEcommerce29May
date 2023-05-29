@@ -1,0 +1,90 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+@{
+    ViewBag.Title = "PaymentHistory";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2>PaymentHistory</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SellerCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SellerFullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAmountReceived)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalShippingCharges)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.CommissiontoAdmin)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.PaidAmt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PreviousBalanceAmt)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.admins)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellerCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellerFullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalAmountReceived)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalShippingCharges)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.CommissiontoAdmin)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.PaidAmt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PreviousBalanceAmt)
+            </td>
+
+            <td>
+                <button type="button" class="btn btn-success response ">
+                    <a class="Refund" href="@Url.Action("PaymentDetails","Admin")" data-id="@Model.SellerCode" id="Delete">View all Orders</a>
+                </button>
+                @Html.ActionLink("View all Orders", "PaymentDetails", new { sellercode = Model.SellerCode }) |
+                @Html.ActionLink("Details", "Details", new { id = item.AdminId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AdminId })
+            </td>
+        </tr>
+    }
+
+</table>
+@*@Html.ActionLink("Details", "Details", new { id = item.AdminId }) |
+@Html.ActionLink("Delete", "Delete", new { id = item.AdminId })
+        </td>
+    </tr>
+}
+@Html.ActionLink("Edit", "Edit", new { id = item.AdminId }) |
+
+</table>*@

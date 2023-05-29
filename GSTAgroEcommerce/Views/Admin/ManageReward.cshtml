@@ -1,0 +1,144 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+@using (Html.BeginForm("ManageReward", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div>
+            <!--<div style="margin-left:10%;">
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        @Html.LabelFor(model => model.RewardPoints)
+
+                    </div>
+                    <div class="form-group col-lg-6">
+                        @Html.EditorFor(model => model.RewardPoints, new { htmlAttributes = new { @class = "form-control" } })-->
+            @*<input type="text" name="HouseNo" class="form-control" required/>*@
+
+            <!--@Html.ValidationMessageFor(model => model.RewardPoints, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    @Html.LabelFor(model => model.RewardConversionRate)
+
+                </div>
+                <div class="form-group col-lg-6">
+                    @Html.EditorFor(model => model.RewardConversionRate, new { htmlAttributes = new { @class = "form-control" } })-->
+            @*<input type="text" name="Landmark" class="form-control" required  />*@
+            <!--@Html.ValidationMessageFor(model => model.RewardConversionRate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    @Html.LabelFor(model => model.RewardMinimumAmount)
+                </div>
+                <div class="form-group col-lg-6">
+                    @Html.EditorFor(model => model.RewardMinimumAmount, new { htmlAttributes = new { @class = "form-control" } })-->
+            @*<input type="text" name="Landmark" class="form-control" required  />*@
+            <!--@Html.ValidationMessageFor(model => model.RewardMinimumAmount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    @Html.LabelFor(model => model.CouponMaximumAmount)
+                </div>
+                <div class="form-group col-lg-6">
+                    @Html.EditorFor(model => model.CouponMaximumAmount, new { htmlAttributes = new { @class = "form-control" } })-->
+            @*<input type="text" name="Landmark" class="form-control" required  />*@
+            <!--@Html.ValidationMessageFor(model => model.CouponMaximumAmount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    @Html.LabelFor(model => model.PointLimits)
+                </div>
+                <div class="form-group col-lg-6">
+                    @Html.EditorFor(model => model.PointLimits, new { htmlAttributes = new { @class = "form-control" } })-->
+            @*<input type="text" name="Landmark" class="form-control" required  />*@
+            <!--@Html.ValidationMessageFor(model => model.PointLimits, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            <input type="submit" value="Save" class="btn btn-info" />
+                        </div>
+                    </div>
+                </div>-->
+            <div class="row" style="margin-left:100px">
+                <div class="form-group col-lg-4" >
+                    @Html.LabelFor(model => model.RewardPoints, htmlAttributes: new { @class = "control-label" })
+
+                </div>
+                <div class="col-lg-6">
+                    @Html.EditorFor(model => model.RewardPoints, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RewardPoints, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <div class="row"style="margin-left:100px">
+                <div class="form-group col-lg-4" >
+                    @Html.LabelFor(model => model.RewardConversionRate, htmlAttributes: new { @class = "control-label" })
+
+                </div>
+                <div class="col-lg-6">
+                    @Html.EditorFor(model => model.RewardConversionRate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RewardConversionRate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <div class="row" style="margin-left:100px">
+                <div class="form-group col-lg-4" >
+                    @Html.LabelFor(model => model.RewardMinimumAmount, htmlAttributes: new { @class = "control-label" })
+
+                </div>
+                <div class="col-lg-6">
+                    @Html.EditorFor(model => model.RewardMinimumAmount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RewardMinimumAmount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <div class="row" style="margin-left:100px">
+                <div class="form-group col-lg-4" >
+                    @Html.LabelFor(model => model.RewardMaximumAmount, htmlAttributes: new { @class = "control-label" })
+
+                </div>
+                <div class="col-lg-6">
+                    @Html.EditorFor(model => model.RewardMaximumAmount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RewardMaximumAmount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <div class="row" style="margin-left:100px">
+                <div class="form-group col-lg-4">
+                    @Html.LabelFor(model => model.PointLimits, htmlAttributes: new { @class = "control-label" })
+
+                </div>
+                <div class="col-lg-6">
+                    @Html.EditorFor(model => model.PointLimits, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PointLimits, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <hr />
+            <div class="form-group" style="margin-left:300px">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@Html.ActionLink("Close", "FetchReward")
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

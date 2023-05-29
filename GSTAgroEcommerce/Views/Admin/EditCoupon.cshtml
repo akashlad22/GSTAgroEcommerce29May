@@ -1,0 +1,97 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+@{
+    ViewBag.Title = "EditCoupon";
+    // Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+@*//<h2>EditCoupon</h2>*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.CouponId)
+
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => model.CouponId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CouponId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CouponId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row" style="margin-left:150px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.CouponCode, htmlAttributes: new { @class = "control-label" })
+
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.CouponCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.CouponCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin-left:150px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.CouponAmount, htmlAttributes: new { @class = "control-label" })
+
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.CouponAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.CouponAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin-left:150px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.CouponMinimumAmount, htmlAttributes: new { @class = "control-label" })
+
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.CouponMinimumAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CouponMinimumAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin-left:150px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.CouponMaximumAmount, htmlAttributes: new { @class = "control-label" })
+
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.CouponMaximumAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CouponMaximumAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin-left:150px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.Expirydays, htmlAttributes: new { @class = "control-label" })
+
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.Expirydays, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Expirydays, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="form-group" style="margin-left:250px">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </div>
+
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Close", "FetchCoupon")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

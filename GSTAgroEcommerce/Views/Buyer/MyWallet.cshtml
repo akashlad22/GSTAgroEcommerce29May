@@ -1,0 +1,92 @@
+﻿@model AgroEcommerceLibrary.Buyer.Buyer
+
+@{
+    ViewBag.Title = "MyWallet";
+    Layout = "~/Views/Shared/Buyer_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+      integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+<div class="container" style="margin-left:80px;margin-bottom:50px">
+    <div class="col-lg-12">
+        @if (Session["BuyerCode"] != null)
+        {
+            @*<link href="~/Content/Buyer_css/bootstrap.min.css" rel="stylesheet" />*@
+
+
+            @*<div class="col-lg-8>*@
+            <p>
+                <h2 style="font-size:35px"><b> My Wallet</b></h2>
+                <h5 style="text-align:right;font-size:25px">
+                    Total Reward Points :@ViewBag.RewardPoints
+                </h5>
+            </p>
+            <h5 class="card-header" style="font-size:25px;background-color:goldenrod ">Available Coupons</h5>
+
+            foreach (var item in Model.Users)
+            {
+
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <span class="card-title  " style="font-size:25px">Coupon Code </span>:<span class=@item.CouponCode style="font-size:25px">@item.CouponCode</span>
+                        <button onclick="copyToClipboard('.@item.CouponCode')" class="tooltips" title="Copy Coupon code"><i class="far fa-copy copyIcon fa-lg"></i></button>
+                        <span class="col-lg-5" style="text-align:right;font-size:20px;margin-left:500px">
+                            Valid till @item.date
+                        </span>
+                        <br />
+                        <span class="col-lg-5" style="font-size:20px">Get extra <b> ₹@item.CouponAmount</b> (price inclusive of cashback / coupon)</span>
+
+
+                        <span class="col-lg-5" style="margin-left:550px;font-size:25px;text-align:right">@Html.ActionLink("Continue Shopping", "Index")</span>
+                    </div>
+                </div>
+
+            }
+
+            <a href="@ViewBag.PolicyDescriptionPdf" target="_blank">Offer Terms & Conditions</a>
+            @*<p style="text-align:right;font-size:15px">
+                <label id="lblTooltip" title="@ViewBag.PolicyDescriptionPdf">View Terms & Conditions</label>
+                <input type="text" id="txtName" title="Your Full Name Please." />*@
+                @*<object height="100%" width="100%" type="application/pdf" data="yii.pdf#toolbar=1&amp;navpanes=0&amp;scrollbar=1&amp;page=1&amp;view=FitH">
+
+                     <a href="~/Content/T&C pdf/@ViewBag.">Offer Terms & Conditions</a></p>
+
+                </object>*@
+
+                }
+
+                else
+                {
+                Response.Redirect("Login");
+                }
+
+        </div>
+</div>
+
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+@*<script type="text/javascript">
+        //$(function () {
+        //    $(".popup").click(function () {
+        //        /* var fileId = $(this).attr("rel");*/
+        //        window.location.href='Buyer/ViewTandC';
+        //        });
+        //    });
+        //});
+    </script>*@
+<script>
+    $(document).ready(function () {
+        $('.tooltips').tooltip();
+    });
+    function copyToClipboard(element) {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
+    }
+</script>

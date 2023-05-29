@@ -1,0 +1,144 @@
+﻿@model AgroEcommerceLibrary.Seller.Seller
+@using (Html.BeginForm("AddOffer", "Seller"))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div>
+        @*<h2 style="font-size:200%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add Offer</h2>*@
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.HiddenFor(model => model.SellerCode)
+            </dt>
+
+            <dd>
+                @Html.HiddenFor(model => model.SellerCode)
+            </dd>
+
+
+
+            @*<dt>
+                    @Html.LabelFor(model => model.OfferName, htmlAttributes: new { @class = "control-label col-md-2" })
+                </dt>
+
+                <dd>
+                    @Html.DropDownListFor(model => model.AdminOfferId, new SelectList(ViewBag.Offer, "Value", "Text"), "Select", new { @class = "form-control" })
+                </dd>*@
+            <div>
+                @Html.LabelFor(model => model.OfferName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.AdminOfferId, new SelectList(ViewBag.Offer, "Value", "Text"), "Select", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OfferName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="row">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <dt>
+                    @Html.DisplayNameFor(model => model.MRP)
+                </dt>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <dd class="col-md-8">
+                    @Html.EditorFor(model => model.MRP, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </dd>
+
+
+            </div>
+            <br />
+
+            <div class=" form-group row">
+                <dt class="control-label">
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </dt>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <dd class="col-md-8">
+                    @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </dd>
+            </div>
+            <br />
+            <div style="display:none" class="row">
+                <div class="form-group row">
+                    @Html.DisplayNameFor(model => model.ProductCode)
+                </div>
+
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.ProductCode, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+
+
+        </dl>
+        <!--<button>
+                   <a href="@Url.Action("AddOffer", "Seller")"> SAVE</a>
+               </button>-->
+        <hr />
+        <div class="row">
+            <div>
+
+                <input type="submit" value="SAVE" class="btn btn-primary" />
+
+            </div>
+            @*<div style="margin-left:10px">
+                    <button class="btn btn-primary">@Html.ActionLink("Close", "GetAllProduct", new { @style = "color:white"})</button>
+                </div>*@
+            <button type="button" class="btn btn-primary">
+                @Html.ActionLink("Close", "GetAllProduct", new { @class = "btn-xs" }, new { @style = "color:white;" })
+            </button>
+        </div>
+    </div>
+
+
+
+
+    @*<p>
+            <div class="form-group">
+
+                <button>
+                    <a href="@Url.Action("AddOffer","Seller")"> SAVE</a>
+                </button>
+
+            </div>
+
+            @Html.ActionLink("Edit", "Edit", new { id = Model.SellerId }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>*@
+
+}
+@*<script>
+        $(document).ready(function () {
+            $("#AdminOfferId").change(function () {
+                var id = $(this).val();
+                $("#OfferName").empty();
+                $.get("/Seller/GetOfferDrop", { AdminOfferId: id }, function (data) {
+                    var v = "<option>---Select---</option>";
+                    $.each(data, function (i, v1) {
+                        v += "<option value=" + v1.Value + ">" + v1.Text + "</option>";
+                    });
+                    $("#OfferName").html(v);
+                });
+            });
+        });
+    </script>*@

@@ -1,0 +1,382 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+
+@{
+    ViewBag.Title = "AllOrder";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<h2  style="text-align:center;">Order Information</h2>
+
+<p>
+    @Html.ActionLink("Back To Home", "AdminIndex")
+</p>
+<main class="col-md-9 ms-sm-auto common col-lg-10 px-md-4">
+    <div style="margin-top:10px;text-align:center">
+        <div class="col-lg-12">
+            <div style="justify-content: space-evenly">
+                <button style="border: 1px solid black; width: 100px; border-radius: 0px; background: #003366; height: 40px">
+                    <a style="color:white" href="@Url.Action("AllOrder", new { id="null"})">All Orders</a>
+                </button>
+                @foreach (var item in Model.Statuslst)
+                {
+                    <button style="border: 1px solid black; border-radius:0px; background: #003366;width:100px; height: 40px;margin-left:15px">
+                        <a style="color:white" href="@Url.Action("AllOrder", new { id=@item.StatusId})"
+                           ,data-id="@item.StatusId">@item.Status</a>
+                    </button>
+
+                }
+            </div>
+        </div>
+    </div>
+</main>
+<br />
+<main class=" ms-sm-auto col-md-auto common col-lg-auto">
+    <table class="table table-bordered table-striped mt-4 dt-responsive nowrap table-responsive" style="text-align:center" id="example">
+        <thead>
+            <tr>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.CategoryId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CategoryCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CategoryName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Commision)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmailId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MobileNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SellerId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SellerCode)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.SellerFullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.ProductCode)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.ProductQuantity)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalAmount)
+                </th>
+                <th> Details </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.BusinessName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AadharNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AadharImage)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BusinessAadharNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BusinessAdharImage)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BusinessPanNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BusinessPanImage)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PanCardNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PanImage)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GSTIN)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.OfficeAddress)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RejectionReason)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StatusId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MRP)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MaximumStock)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MinimumStock)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MainImage)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsProductReturnable)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsProductExpirable)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductExpiryDuration)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductRegistrationDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ManufacturerName)
+                    </th>*@
+
+            </tr>
+        </thead>
+        <tbody class="infotbody">
+            @if (Model.LstOrder.Count == 0)
+            {
+                <h2 style="text-align:center;color:red;">No Record Found</h2>
+
+            }
+            else
+            {
+                foreach (var item in Model.LstOrder)
+                {
+                    <tr>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.CategoryId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CategoryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Commision)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmailId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MobileNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SellerId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SellerCode)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SellerFullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.ProductCode)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductName)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.ProductQuantity)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalAmount)
+                        </td>
+                        <td>
+                            <a class="AllOrderDetails" href="javascript:;" data-id="@item.OrderCode">Details</a>
+
+                            @*@Html.ActionLink("Edit", "Edit", new { id = item.AdminId }) |*@
+                            @*@Html.ActionLink("Details", "Details", new { id = item.AdminId })*@
+                            @*@Html.ActionLink("Delete", "Delete", new { id = item.AdminId })*@
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.BusinessName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AadharNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AadharImage)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BusinessAadharNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BusinessAdharImage)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BusinessPanNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BusinessPanImage)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PanCardNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PanImage)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GSTIN)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OfficeAddress)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RejectionReason)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StatusId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MRP)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaximumStock)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MinimumStock)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MainImage)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsProductReturnable)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsProductExpirable)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductExpiryDuration)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductRegistrationDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ManufacturerName)
+                            </td>*@
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</main>
+
+
+<div id="partialModal" class="modal" tabindex="-1" role="dialog" style="position:center">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-image:linear-gradient(#662D8C,#ED1E79);height:70px;text-align:center">
+                <h3 class="modal-title" style="color:lightgreen;margin-left:120px; font-size:xx-large">Order Details</h3>
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>*@
+            </div>
+            <div class="modal-body">
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+@section scripts{
+
+
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+
+    <script src="~/Scripts/DataTables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/DataTables/buttons.html5.min.js"></script>
+    <script src="~/Scripts/DataTables/buttons.print.min.js"></script>
+    <script src="~/Scripts/DataTables/pdfmake.min.js"></script>
+    <script src="~/Scripts/DataTables/jszip.min.js"></script>
+    <script src="~/Scripts/DataTables/vfs_fonts.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".AllOrderDetails").click(function () {
+                debugger
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id')
+                /* var id = $(this).closest("tr").find("td").eq(0).html();*/
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/AllOrderDetails",
+                    data: '{OrderCode: "' + id + '" }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "html",
+                    success: function (response) {
+                        $("#partialModal").find(".modal-body").html(response);
+                        $("#partialModal").modal('show');
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#example').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                                                /*'copy', 'csv',*/ 'excel', 'pdf', 'print'
+                ]
+            });
+        });
+    </script>
+}

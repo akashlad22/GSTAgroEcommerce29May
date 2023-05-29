@@ -1,0 +1,245 @@
+﻿@model AgroEcommerceLibrary.Seller.Seller
+
+@{
+    ViewBag.Title = "DetailProduct";
+    Layout = "~/Views/Shared/Seller_Layout.cshtml";
+}
+<style>
+    dl {
+        width: 100%
+    }
+
+    dt {
+        width: 30%;
+        float: left;
+    }
+
+    dd {
+        float: left;
+        width: 70%;
+    }
+</style>
+
+    <div class="right_col">
+        <div class="main_container">
+            <div class="row">
+                <dl class="dl-horizontal">
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MainImage)
+                            </dt>
+
+                            <dd>
+
+                                <img src="~/Content/Images/Product/@ViewBag.MainImage" style="width:150px;height:150px;" />
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ProductCode)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ProductCode)
+                            </dd>
+
+                            @*<dt>
+            @Html.DisplayNameFor(model => model.CategoryCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryCode)
+        </dd>*@
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ProductName)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ProductName)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Description)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.CurrentStock)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.CurrentStock)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MinRangeDiscount)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.MinRangeDiscount)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MRP)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.MRP)
+                            </dd>
+                 
+
+                  
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ProductWeight)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ProductWeight)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Discount)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Discount)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ProductReturnable)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ProductReturnable)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.productExpirable)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.productExpirable)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ProductSeasonable)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ProductSeasonable)
+                            </dd>
+
+
+                            @if (Model.productExpirable == "Yes")
+                            {
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.PrductExpiryDuration)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.PrductExpiryDuration)
+                                </dd>
+                            }
+                            @if (Model.ProductSeasonable == "Yes")
+                            {
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.SeasonName)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.SeasonName)
+                                </dd>
+                            }
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ProductRegiDate)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ProductRegiDate)
+                            </dd>
+
+
+                            @if (Model.ProductApprovalDate > DateTime.Now.AddYears(-2) && Model.ProductApprovalDate.ToString() != null)
+                            {
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.ProductApprovalDate)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.ProductApprovalDate)
+                                </dd>
+                            }
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ManufacturerName)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ManufacturerName)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MaximumStock)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.MaximumStock)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.MinimumStock)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.MinimumStock)
+                            </dd>
+
+
+
+
+
+
+                            @if (Model.RejectionReason != "" && Model.RejectionReason != null)
+                            {
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.RejectionReason)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.RejectionReason)
+                                </dd>
+                            }
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ProductWeightRange)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ProductWeightRange)
+                            </dd>
+                            @if (Model.RejectionReasonfromAdmin != "" && Model.RejectionReasonfromAdmin != null)
+                            {
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.RejectionReasonfromAdmin)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.RejectionReasonfromAdmin)
+                                </dd>
+                            }
+                          
+                </dl>
+            </div>
+        </div>
+    </div>
+ 
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.SellerCode }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

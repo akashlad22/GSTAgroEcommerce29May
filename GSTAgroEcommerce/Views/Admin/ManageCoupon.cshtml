@@ -1,0 +1,83 @@
+﻿@model AgroEcommerceLibrary.Admin.Admin
+@using (Html.BeginForm("ManageCoupon", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row" style="margin-left:50px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.CouponAmount)
+
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.CouponAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @*<input type="text" name="HouseNo" class="form-control" required/>*@
+
+                @Html.ValidationMessageFor(model => model.CouponAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin-left:50px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.CouponCode)
+
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.CouponCode, new { htmlAttributes = new { @class = "form-control" } })
+                @*<input type="text" name="Landmark" class="form-control" required  />*@
+                @Html.ValidationMessageFor(model => model.CouponCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin-left:50px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.CouponMinimumAmount)
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.CouponMinimumAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @*<input type="text" name="Landmark" class="form-control" required  />*@
+                @Html.ValidationMessageFor(model => model.CouponMinimumAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin-left:50px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.CouponMaximumAmount)
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.CouponMaximumAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @*<input type="text" name="Landmark" class="form-control" required  />*@
+                @Html.ValidationMessageFor(model => model.CouponMaximumAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="row" style="margin-left:50px">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.Expirydays)
+            </div>
+            <div class="col-lg-5">
+                @Html.EditorFor(model => model.Expirydays, new { htmlAttributes = new { @class = "form-control" } })
+                @*<input type="text" name="Landmark" class="form-control" required  />*@
+                @Html.ValidationMessageFor(model => model.Expirydays, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group" style="margin-left:250px">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+
+    </div>
+}
+
+@Html.ActionLink("Close", "FetchCoupon")
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

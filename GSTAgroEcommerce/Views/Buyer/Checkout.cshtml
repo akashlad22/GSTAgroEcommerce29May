@@ -1,0 +1,610 @@
+﻿@model AgroEcommerceLibrary.Buyer.Buyer
+@{
+    ViewBag.Title = "Checkout";
+
+    Layout = "~/Views/Shared/Buyer_Layout.cshtml";
+    ViewBag.Title = "EditAddrestype";
+}
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    //$(document).ready(function () {
+    //    $('#quantity').keypress(function () {
+    //        var cid = $('#ProductQuantity').val();
+    //        var product = $('#productname').data;
+    //        $.get("GetPrice/BuyerController"), { countryid: cid }, { countryid: product1 }
+    //    });
+    //})
+    //$("#Coupan").click(function () {
+    //    var coupancode = $("#CoupanText").text();
+    //    $.get("CheckCoupan/BuyerController", { Coupan: coupancode }, function (data) {
+
+    //    });
+    //});
+    //-----------To set the summery of view cart on checkout page------------//
+    $(document).ready(function () {
+        var coupan = sessionStorage.getItem("coupandiscount");
+        $(".DISCOUNT").text(coupan);
+        var carttotal = sessionStorage.getItem("carttotal");
+        var total = sessionStorage.getItem("total");
+        $(".carttotal").text(carttotal);
+        $(".Total").text(total);
+    });
+    ///--------------to get the value of order --------//
+    $(document).ready(function () {
+
+        $(".shopping-box").click(function () {
+            var para = document.querySelectorAll('aside');
+            var order = [];
+            for (var i = 0; i < para.length; ++i) {
+                order.push(para[i].textContent);
+            };
+
+            var total = parseInt(sessionStorage.getItem("total"));
+            var rewardpoint = sessionStorage.getItem("applypoint");
+            var Addresstype = document.getElementsByName("AddressType");
+            for (i = 0; i < Addresstype.length; i++) {
+                if (Addresstype[i].checked == true) {
+                    var address = Addresstype[i].value;
+                }
+            };
+            var Payment = document.getElementsByName("paymentMethod");
+            for (i = 0; i < Payment.length; i++) {
+                if (Payment[i].checked == true) {
+                    var paymentmode = Payment[i].value;
+                }
+            };
+            var ordercode = order.toString();
+            //if (paymentmode != null) {
+            //    $.post("SavePaymentMode/Buyer", { 'paymentmode': paymentmode, 'ordercode': ordercode });
+            
+            if (address != null && paymentmode != null) {
+                //$.post("/Buyer/SaveDeleveryAddress", { 'address': address }, function (data) {
+
+                //    if (data.status == "Save") {
+                        $.post("SavePaymentMode/Buyer", { 'paymentmode': paymentmode, 'ordercode': ordercode }, function (data) {
+
+                            if (data.status == "Save") {
+                                $.post("/Buyer/PlaceOrder", { 'ordercode': ordercode, 'address': address }, function (data) {
+                                    if (data.status == "true") {
+                                        swal({
+                                            
+                                            title: data.msg,
+                                            icon: "success",
+                                            button: "Ok",
+                                        }).then(function () {
+                                            $.post("/Buyer/AddCoupon", { 'ordercode': order, 'Totals': total, 'applypoints': rewardpoint });
+                                            window.location.href = "/Buyer/Index";
+                                        });
+                                    };
+                                });
+                            };
+                        });
+                //    }
+                //});
+            };
+
+        });
+    });
+</script>
+<!-- Start All Title Box -->
+@*<div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Checkout</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Checkout</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<!-- End All Title Box -->
+<!-- Start Cart  -->
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="cart-box-main">
+        <div class="container">
+            <div class="row new-account-login">
+                @*<div class="col-sm-6 col-lg-6 mb-3">
+                        <div class="title-left">
+                            <h3>Account Login</h3>
+                        </div>
+                        <h5><a data-toggle="collapse" href="#formLogin" role="button" aria-expanded="false">Click here to Login</a></h5>
+                        <form class="mt-3 collapse review-form-box" id="formLogin">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="InputEmail" class="mb-0">Email Address</label>
+                                    <input type="email" class="form-control" id="InputEmail" placeholder="Enter Email">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="InputPassword" class="mb-0">Password</label>
+                                    <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn hvr-hover">Login</button>
+                        </form>
+                    </div>*@
+                @*<div class="col-sm-6 col-lg-6 mb-3">
+                        <div class="title-left">
+                            <h3>Create New Account</h3>
+                        </div>
+                        <h5><a data-toggle="collapse" href="#formRegister" role="button" aria-expanded="false">Click here to Register</a></h5>
+                        <form class="mt-3 collapse review-form-box" id="formRegister">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="InputName" class="mb-0">First Name</label>
+                                    <input type="text" class="form-control" id="InputName" placeholder="First Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="InputLastname" class="mb-0">Last Name</label>
+                                    <input type="text" class="form-control" id="InputLastname" placeholder="Last Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="InputEmail1" class="mb-0">Email Address</label>
+                                    <input type="email" class="form-control" id="InputEmail1" placeholder="Enter Email">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="InputPassword1" class="mb-0">Password</label>
+                                    <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn hvr-hover">Register</button>
+                        </form>
+                    </div>*@
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="checkout-address">
+                        <div class="title-left">
+                            <h3>Billing address</h3>
+                        </div>
+                        <div>
+                            <input type="hidden" name="hidden" id="hidden" />
+                        </div>
+
+
+                        <form class="needs-validation" novalidate>
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="firstName">Full Name *</label>
+                                    <input type="text" class="form-control" id="firstName" src="" placeholder="" value="@ViewBag.BuyerFullName" readonly required>
+                                    <div class="invalid-feedback"> Valid full name is required. </div>
+                                </div>
+                                @*<div class="col-md-6 mb-3">
+                                        <label for="lastName">Last name *</label>
+                                        <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                                        <div class="invalid-feedback"> Valid last name is required. </div>
+                                    </div>*@
+                            </div>
+                            @*<div class="mb-3">
+                                    <label for="username">Username *</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="username" placeholder="" required>
+                                        <div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
+                                    </div>
+                                </div>*@
+                            <div class="mb-3">
+                                <label for="email">Mobile No *</label>
+                                <input type="email" class="form-control" id="email" placeholder="" value="@ViewBag.mobile" readonly required>
+                                <div class="invalid-feedback"> Please enter a valid email address for shipping updates. </div>
+                            </div>
+                            <fieldset>
+                                @if (ViewBag.HOME != "" && ViewBag.OFFICE != "" && ViewBag.OTHER != "")
+                                {<div>
+                                        <div class="mb-3">
+                                            @if (ViewBag.HOME != "")
+                                            {
+                                                <div id="div1">
+                                                    <input type="radio" name="AddressType" value="Home" required />Home
+                                                    @*@Html.RadioButtonFor(Model => Model.AddressType, "Home")Home
+                                                        <label for="address2">Home*</label>*@
+                                                    <div style="width:500px;height:40px">
+                                                        <div style="width:430px; float: left"><input type="text" class="form-control" id="address" placeholder="" value="@ViewBag.HOME" required readonly> </div>
+                                                        <div style="width:50px;float:right"> @Html.ActionLink("Edit", "UpdateAddress", new { id = 1 }, htmlAttributes: new { @class = "btn btn-info" })</div>
+
+                                                        <div class="invalid-feedback"> Please enter your shipping address. </div>
+                                                    </div>
+                                                </div>
+                                                @*<button class="com-md-2" onclick="location.href=' @Url.Action("UpdateAddress","Buyer", new { id =1})'">Edit</button>*@
+                                                @*<a href="@Url.Action("UpdateAddress","Buyer",new { id = 1 })"> Edit</a>*@
+
+                                            }
+
+                                        </div>
+                                        <div class="mb-3">
+
+                                            @if (ViewBag.OFFICE != "")
+
+                                            {
+                                                <div id="div1">
+                                                    <input type="radio" name="AddressType" value="Office" required />Office
+                                                    @*  @Html.RadioButtonFor(Model => Model.AddressType, "Office")Office
+
+                                                        <label for="address2">Office*</label>*@
+                                                    <div style="width:500px;height:40px">
+                                                        <div style="width: 430px; float: left"><input type="text" class="form-control" id="address" placeholder="" value="@ViewBag.OFFICE" required readonly> </div>
+                                                        <div style="width:50px;float:right"> @Html.ActionLink("Edit", "UpdateAddress", new { id = 2 }, htmlAttributes: new { @class = "btn btn-info" })</div>
+
+                                                        <div class="invalid-feedback"> Please enter your shipping address. </div>
+                                                    </div>
+                                                </div>
+
+                                            }
+
+
+                                        </div>
+                                        <div class="mb-3">
+                                            @if (ViewBag.OTHER != "")
+                                            {
+                                                <div id="div1 ">
+
+                                                    <input type="radio" name="AddressType" value="Other" required />Other
+                                                    @*@Html.RadioButtonFor(Model => Model.AddressType, "Other")Other
+
+                                                        <label for="address2">Other*</label>*@
+                                                    <div style="width:500px;height:40px">
+                                                        <div style="width:430px ;float:left"><input type="text" class="form-control" id="address" placeholder="" value="@ViewBag.OTHER" required readonly> </div>
+                                                        <div style="width: 50px; float: right"> @Html.ActionLink("Edit", "UpdateAddress", new { id = 3 }, htmlAttributes: new { @class = "btn btn-info" })</div>
+
+                                                        <div class="invalid-feedback"> Please enter your shipping address. </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {<div>
+                                        <div class="mb-3">
+                                            @if (ViewBag.HOME != "")
+                                            {
+                                                <div id="div1">
+                                                    <input type="radio" name="AddressType" value="Home" required />Home
+                                                    @*@Html.RadioButtonFor(Model => Model.AddressType, "Home")Home
+                                                        <label for="address2">Home*</label>*@
+                                                    <div style="width:500px;height:40px">
+                                                        <div style="width:430px; float: left"><input type="text" class="form-control" id="address" placeholder="" value="@ViewBag.HOME" required readonly> </div>
+                                                        <div style="width:50px;float:right"> @Html.ActionLink("Edit", "UpdateAddress", new { id = 1 }, htmlAttributes: new { @class = "btn btn-info" })</div>
+
+                                                        <div class="invalid-feedback"> Please enter your shipping address. </div>
+                                                    </div>
+                                                </div>
+                                                @*<button class="com-md-2" onclick="location.href=' @Url.Action("UpdateAddress","Buyer", new { id =1})'">Edit</button>*@
+                                                @*<a href="@Url.Action("UpdateAddress","Buyer",new { id = 1 })"> Edit</a>*@
+
+                                            }
+                                        </div>
+                                        <div class="mb-3">
+
+                                            @if (ViewBag.OFFICE != "")
+
+                                            {
+                                                <div id="div1">
+                                                    <input type="radio" name="AddressType" value="Office" required />Office
+                                                    @*@Html.RadioButtonFor(Model => Model.AddressType, "Office")Office
+
+                                                        <label for="address2">Office*</label>*@
+                                                    <div style="width:500px;height:40px">
+                                                        <div style="width: 430px; float: left"><input type="text" class="form-control" id="address" placeholder="" value="@ViewBag.OFFICE" required readonly> </div>
+                                                        <div style="width:50px;float:right"> @Html.ActionLink("Edit", "UpdateAddress", new { id = 2 }, htmlAttributes: new { @class = "btn btn-info" })</div>
+
+                                                        <div class="invalid-feedback"> Please enter your shipping address. </div>
+                                                    </div>
+                                                </div>
+
+                                            }
+
+
+                                        </div>
+
+
+
+                                        <div class="mb-3">
+                                            @if (ViewBag.OTHER != "")
+                                            {
+                                                <div id="div1 ">
+                                                    <input type="radio" name="AddressType" value="Other" required />Other
+                                                    @*@Html.RadioButtonFor(Model => Model.AddressType, "Other")Other
+
+                                                        <label for="address2">Other*</label>*@
+                                                    <div style="width:500px;height:40px">
+                                                        <div style="width:430px ;float:left"><input type="text" class="form-control" id="address" placeholder="" value="@ViewBag.OTHER" required readonly> </div>
+                                                        <div style="width: 50px; float: right"> @Html.ActionLink("Edit", "UpdateAddress", new { id = 3 }, htmlAttributes: new { @class = "btn btn-info" })</div>
+
+                                                        <div class="invalid-feedback"> Please enter your shipping address. </div>
+                                                    </div>
+
+                                                </div>
+
+                                            }
+                                        </div>
+
+                                        <div>
+                                            <a href="@Url.Action("AddAddress", "Buyer")">Add New  Address</a>
+                                            @*@Html.ActionLink("Edit", "UpdateAddress", new { id = 1 })*@
+                                        </div>
+
+                                    </div>
+                                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </fieldset>
+
+                            @*<div class="col-xs-offset-11">
+                                    <a class="nav-link lang" key="Home" href="@Url.Action("AddNewAddress","Buyer")">Add New Address</a>
+                                </div>*@
+
+                            @*<div id="div1"><input class="rd" type="radio" name="radio-set" id="radio-1" value="@item.Home" checked= /><input type="text" class="tb" name="tb1" value="" placeholder="Option 1" /></div><br>
+                                    <div id="div1"><input class="rd" type="radio" name="radio-set" id="radio-1" value="@item.Office" checked= /><input type="text" class="tb" name="tb1" value="" placeholder="Option 2" /></div><br>
+                                    <div id="div1"><input class="rd" type="radio" name="radio-set" id="radio-1" value="@item.Other" checked= /><input type="text" class="tb" name="tb1" value="" placeholder="Option 3" /></div><br>
+                                    <div id="div1"><input class="rd" type="radio" name="radio-set" id="radio-1" value="Normal Radio" checked= /><input type="text" class="tb" name="tb1" value="" placeholder="Option 4" /></div>
+                                </fieldset>*@
+
+
+
+
+                            @*<div class="row">
+                                    <div class="col-md-5 mb-3">
+                                        <label for="country">Country *</label>
+                                        <select class="wide w-100" id="country">
+                                            <option value="Choose..." data-display="Select">Choose...</option>
+                                            <option value="United States">United States</option>
+                                        </select>
+                                        <div class="invalid-feedback"> Please select a valid country. </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="state">State *</label>
+                                        <select class="wide w-100" id="state">
+                                            <option data-display="Select">Choose...</option>
+                                            <option>California</option>
+                                        </select>
+                                        <div class="invalid-feedback"> Please provide a valid state. </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="zip">Zip *</label>
+                                        <input type="text" class="form-control" id="zip" placeholder="" required>
+                                        <div class="invalid-feedback"> Zip code required. </div>
+                                    </div>
+                                </div>*@
+                            @*<hr class="mb-4">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="same-address">
+                                    <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="save-info">
+                                    <label class="custom-control-label" for="save-info">Save this information for next time</label>
+                                </div>*@
+                            <hr class="mb-4">
+                            <div class="title"> <span>Payment</span> </div>
+                            <div class="d-block my-3">
+                                <div class="custom-control">
+                                    @*<input type="radio" name="paymentMethod" value="Credit card" required />*@
+                                    <input id="credit" name="paymentMethod" type="radio" value="Credit card" required>
+                                    <label for="credit">Credit card</label>
+                                </div>
+                                <div class="custom-control">
+                                    @*<input type="radio" name="paymentMethod" value="Debit card" required />*@
+                                    <input id="debit" name="paymentMethod" type="radio" value="Debit card" required>
+                                    <label for="debit">Debit card</label>
+                                </div>
+                                <div class="custom-control">
+                                    @*<input type="radio" name="paymentMethod" value="COD" required />*@
+                                    <input id="COD" name="paymentMethod" type="radio" value="COD" required>
+                                    <label for="paypal">COD</label>
+                                </div>
+                                <div class="custom-control">
+                                    @*<input type="radio" name="paymentMethod" value="COD" required />*@
+                                    <input id="COD" name="paymentMethod" type="radio" value="Paypal" required>
+                                    <label for="paypal">Paypal</label>
+                                </div>
+                            </div>
+                            @* <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="cc-name">Name on card</label>
+                                        <input type="text" class="form-control" id="cc-name" placeholder="" required> <small class="text-muted">Full name as displayed on card</small>
+                                        <div class="invalid-feedback"> Name on card is required </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="cc-number">Credit card number</label>
+                                        <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                                        <div class="invalid-feedback"> Credit card number is required </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3 mb-3">
+                                        <label for="cc-expiration">Expiration</label>
+                                        <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                                        <div class="invalid-feedback"> Expiration date required </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label for="cc-expiration">CVV</label>
+                                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                                        <div class="invalid-feedback"> Security code required </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="payment-icon">
+                                            <ul>
+                                                <li><img class="img-fluid" src="images/payment-icon/1.png" alt=""></li>
+                                                <li><img class="img-fluid" src="images/payment-icon/2.png" alt=""></li>
+                                                <li><img class="img-fluid" src="images/payment-icon/3.png" alt=""></li>
+                                                <li><img class="img-fluid" src="images/payment-icon/5.png" alt=""></li>
+                                                <li><img class="img-fluid" src="images/payment-icon/7.png" alt=""></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mb-1">*@
+                        </form>
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    <div class="row">
+                        @*<div class="col-md-12 col-lg-12">
+                                <div class="shipping-method-box">
+                                    <div class="title-left">
+                                        <h3>Shipping Method</h3>
+                                    </div>
+                                    <div class="mb-4">
+                                        <div class="custom-control custom-radio">
+                                            <input id="shippingOption1" name="shipping-option" class="custom-control-input" checked="checked" type="radio">
+                                            <label class="custom-control-label" for="shippingOption1">Standard Delivery</label> <span class="float-right font-weight-bold">FREE</span>
+                                        </div>
+                                        <div class="ml-4 mb-2 small">(3-7 business days)</div>
+                                        <div class="custom-control custom-radio">
+                                            <input id="shippingOption2" name="shipping-option" class="custom-control-input" type="radio">
+                                            <label class="custom-control-label" for="shippingOption2">Express Delivery</label> <span class="float-right font-weight-bold">$10.00</span>
+                                        </div>
+                                        <div class="ml-4 mb-2 small">(2-4 business days)</div>
+                                        <div class="custom-control custom-radio">
+                                            <input id="shippingOption3" name="shipping-option" class="custom-control-input" type="radio">
+                                            <label class="custom-control-label" for="shippingOption3">Next Business day</label> <span class="float-right font-weight-bold">$20.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>*@
+
+                        <div class="col-md-12 col-lg-12">
+                            <div class="odr-box">
+                                <div class="title-left">
+                                    <h3>Shopping cart</h3>
+                                </div>
+                                @foreach (var item in Model.lstbuyer)
+                                {
+                                    <div class="rounded p-2 bg-light">
+                                        <div class="media mb-2 border-bottom">
+                                            <div class="media-body">
+                                                <div class="media-body">
+                                                    <a href="">@item.ProductName</a>
+                                                    <aside style="display:none" id="para">@item.OrderCode</aside>
+                                                    <span><img class="img-fluid" style="width:100px; height:100px" src="~/Content/Images/Product/@item.MainImage" alt="Image"></span>
+                                                </div>
+                                                <div style="font-size:larger">
+                                                    @if (@item.Discount > 0)
+                                                    {
+                                                        <p>@item.Discount %off</p>
+
+                                                        <div class="small text-muted">
+                                                            Price: @item.MRP<span class="mx-2">|</span> Qty: @item.ProductQuantity <span> <span class="mx-2">|</span></span>  Subtotal:<del> @item.SubTotal</del>&nbsp;&nbsp;&nbsp;&nbsp; @item.discountprice
+                                                            <div class="button-container">
+                                                                @*<div class="form-group" id="quantity1">
+                                                                        @Html.LabelFor(model => model.ProductQuantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                                        <div class="col-md-10">
+                                                                            @Html.DropDownListFor(model => model.ProductQuantity, new SelectList(ViewBag.quantity, "Value", "Text "), new { @class = "control-label col-md-2" })
+                                                                            @Html.ValidationMessageFor(model => model.ProductQuantity, "", new { @class = "text-danger" })
+                                                                        </div>
+                                                                    </div>
+                                                                    |*@
+
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    { <p></p>
+                                                        <div class="small text-muted">
+                                                            Price: @item.MRP<span class="mx-2">|</span> Qty: @item.ProductQuantity <span class="mx-2">
+                                                                |
+                                                            </span> Subtotal: @item.SubTotal
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        @*<div class="media mb-2 border-bottom">
+                                                <div class="media-body">
+                                                    <a href="detail.html"> Lorem ipsum dolor sit amet</a>
+                                                    <div class="small text-muted">Price: $60.00 <span class="mx-2">|</span> Qty: 1 <span class="mx-2">|</span> Subtotal: $60.00</div>
+                                                </div>
+                                            </div>
+                                            <div class="media mb-2">
+                                                <div class="media-body">
+                                                    <a href="detail.html"> Lorem ipsum dolor sit amet</a>
+                                                    <div class="small text-muted">Price: $40.00 <span class="mx-2">|</span> Qty: 1 <span class="mx-2">|</span> Subtotal: $40.00</div>
+                                                </div>
+                                            </div>*@
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-12">
+                            <div class="order-box">
+                                <div class="title-left">
+                                    <h3>Your order</h3>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="font-weight-bold">Product</div>
+                                    <div class="ml-auto font-weight-bold">Total</div>
+                                </div>
+                                <hr class="my-1">
+                                <div class="d-flex">
+                                    <h4>Sub Total</h4>
+                                    <div class="ml-auto font-weight-bold carttotal"> @ViewBag.totalprice </div>
+                                </div>
+                                <div class="d-flex">
+                                    <h4>Discount</h4>
+                                    <div class="ml-auto font-weight-bold DISCOUNT">@ViewBag.totaldiscount </div>
+                                </div>
+                                <hr class="my-1">
+                                @*<div class="d-flex">
+                                        <h4>Coupon Discount</h4>
+                                        <div class="ml-auto font-weight-bold">  </div>
+                                        <div class="input-group input-group-sm">
+                                            <input  style="width:150px;height:40px" placeholder="Enter your coupon code" aria-label="Coupon code" type="text" id="CoupanText">
+                                            <div class="input-group-append">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                <button id="Coupan" style=" width: 100px; height: 40px" type="button">Apply Coupon</button>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                @*<div class="d-flex">
+                                        <h4>Tax</h4>
+                                        <div class="ml-auto font-weight-bold"> $ 0 </div>
+                                    </div>*@
+                                <div class="d-flex">
+                                    <h4>Shipping Cost</h4>
+                                    <div class="ml-auto font-weight-bold"> Free </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex gr-total">
+                                    <h5>Grand Total</h5>
+                                    <div class="ml-auto h5 Total">  @ViewBag.subtotal</div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="col-12 d-flex shopping-box">
+                            @*<a href="checkout.html" class="ml-auto btn hvr-hover">Place Order</a>*@
+                            <input type="button" class="ml-auto btn hvr-hover placeorder" value="Place Order" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+<!-- End Cart -->

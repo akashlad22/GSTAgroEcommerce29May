@@ -1,0 +1,170 @@
+﻿@model AgroEcommerceLibrary.Seller.Seller
+
+@{
+    ViewBag.Title = "GetAllProduct";
+    Layout = "~/Views/Shared/Seller_Layout.cshtml";
+}
+
+<style>
+    #MyTable_filter{
+        float:right;
+    }
+   /* th, td {
+        width: 30px;
+    }
+    lable{
+        
+        float:right;
+    }*/
+</style>
+<script src="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css"></script>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<body style="background:white;">
+    
+    <div class="right_col">
+        <div class="main_container">
+            <table class="table table-bordered table-hover table-striped" id="MyTable">
+                <thead>
+                    <tr>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.MainImage)
+
+                        </th>
+
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductName)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.CurrentStock)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductWeight)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.MRP)
+                        </th>
+
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.ManufacturerName)
+                        </th>
+
+
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Product)
+                    {
+                        <tr>
+                            <td>
+                                @*@Html.DisplayFor(modelItem => item.MainImage)*@
+                                <img src="~/Content/Images/Product/@item.MainImage" style="width:50px;height:50px" />
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CurrentStock)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductWeight)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MRP)
+                            </td>
+
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ManufacturerName)
+                            </td>
+
+
+
+                            <td>
+
+                                @*@Html.ActionLink("Details", "DetailProduct", new { ProductCode = item.ProductCode })*@
+                                <a class="details" href="javascript:;" data-id="@item.ProductCode" style="font-size:30px;color:green">&#128065;</a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+<script>
+
+    $(document).ready(function ($) {
+
+        $("#MyTable").dataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>
+<div id="partialModal" class="modal" tabindex="-1" role="dialog" style="position:center">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-header" style="background-image:linear-gradient(#662D8C,#ED1E79)">
+                <h3  class="modal-title" style="color:lightgreen;margin-left:300px">Product Details</h3>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".details").click(function () {
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id')
+            sessionStorage.setItem("ProductGrid", "GetAllProduct")  ;
+            /* var id = $(this).closest("tr").find("td").eq(0).html();*/
+            $.ajax({
+                type: "GET",
+                url: "/Seller/DetailProduct",
+                data: { ProductCode: id },
+                contentType: "application/json; charset=utf-8",
+                dataType: "html",
+                success: function (response) {
+                    $("#partialModal").find(".modal-body").html(response);
+                    $("#partialModal").modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+</script>

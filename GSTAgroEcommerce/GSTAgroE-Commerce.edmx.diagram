@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5db2946a46a346e5b535b5f60d690e02" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.tblGSTAddress" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTAdmin" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTBankDetail" Width="1.5" PointX="3" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTBuyer" Width="1.5" PointX="3.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTBuyerPayment" Width="1.5" PointX="6" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTCategory" Width="1.5" PointX="3" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTCity" Width="1.5" PointX="1.5" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTCountry" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTCouponSetting" Width="1.5" PointX="3" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTGst" Width="1.5" PointX="5.25" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTOffer" Width="1.5" PointX="3" PointY="32.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTOrder" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTProduct" Width="1.5" PointX="3" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTProductOffer" Width="1.5" PointX="5.25" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTRatingandFeedback" Width="1.5" PointX="6" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTRewardSetting" Width="1.5" PointX="7.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTSeller" Width="1.5" PointX="8" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTState" Width="1.5" PointX="1.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTStatu" Width="1.5" PointX="0.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTSubCategory1" Width="1.5" PointX="8.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTSubCategory2" Width="1.5" PointX="8.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTSubCategory3" Width="1.5" PointX="9.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTWallet" Width="1.5" PointX="6" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTPolicy" Width="1.5" PointX="5.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTProductImage" Width="1.5" PointX="7.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTSellerDocument" Width="1.5" PointX="10.25" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTSellerPayment" Width="1.5" PointX="10.25" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.tblGSTShare" Width="1.5" PointX="9.75" PointY="10.125" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_tblGSTAddress_tblGSTStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTAdmin_tblGSTStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTBankDetails_tblGSTStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTBuyer_tblGSTCity" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTBuyerPayment_tblGSTBuyer" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTRatingandFeedback_tblGSTBuyer" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTWallet_tblGSTBuyer" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTBuyerPayment_tblGSTStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTCategory_tblGSTStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTGst_tblGSTCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTCity_tblGSTState" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTSeller_tblGSTCity" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTState_tblGSTCountry" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTCouponSetting_tblGSTStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTOffer_tblGSTStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTProductOffer_tblGSTOffer" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTProduct_tblGSTStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTProductOffer_tblGSTStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTSeller_tblGSTStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTSellerDocument_tblGSTSeller" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTSellerPayment_tblGSTSeller" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTSellerPayment_tblGSTStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_tblGSTWallet_tblGSTStatus" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
